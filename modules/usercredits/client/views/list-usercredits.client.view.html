@@ -1,0 +1,50 @@
+<div class="wrap-content container" id="container">
+  <!-- start: PAGE TITLE -->
+  <section id="page-title">
+    <div class="row">
+      <div class="col-sm-8">
+        <h1 class="mainTitle">لیست اعتبارات</h1>
+        <span class="mainDescription">              فیش های ثبت شده کاربران برای اختصاص یافتن باید تایید شود
+</span>
+      </div>
+    </div>
+  </section>
+  <div class="container-fluid container-fullw bg-white">
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered table-hover" id="sample-table-2">
+          <thead>
+          <tr>
+            <th>تصویر</th>
+            <th>کاربر</th>
+            <th>تاریخ</th>
+            <th class="hidden-xs">شماره فیش</th>
+            <th class="hidden-xs">مبلغ فیش</th>
+            <th>وضعیت تایید</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="usercredit in vm.usercredits">
+            <td class="center">
+              <img ng-show="usercredit.user.profilePicUrl" src="{{usercredit.user.profilePicUrl}}" class="img-rounded" alt="image"/>
+              <img ng-show="!usercredit.user.profilePicUrl" class="img-circle" style="width: 32px" ng-src="/modules/users/client/img/profile/default.png" src="/modules/users/client/img/profile/default.png">
+            </td>
+            <td>{{usercredit.user.displayName}}</td>
+            <td class="hidden-xs"><span ng-bind="usercredit.created | jDate"></span></td>
+            <td class="hidden-xs">{{usercredit.fishNumber}}</td>
+            <td class="hidden-xs">{{usercredit.fishPrice | currency: 'تومان' : 0}}</td>
+
+            <td><span class="label-danger label" ng-show="usercredit.status==false">در حال بررسی</span>
+              <span class="label-success label" ng-show="usercredit.status==true">تایید شده</span>
+            </td>
+
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  </section>
+</div>
+

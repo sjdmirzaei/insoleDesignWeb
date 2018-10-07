@@ -1,0 +1,183 @@
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle">سفارش کفی</h1>
+            <span class="mainDescription">جهت ارسال سفارش به طراح در این صفحه طراح و نوع طراحی را انتخاب و ثبت نمایید</span>
+        </div>
+    </div>
+</section>
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-6">
+
+
+            <form name="vm.form.orderForm" class="form-horizontal" ng-submit="vm.save(vm.form.orderForm.$valid)"
+                  novalidate>
+
+                <fieldset>
+                    <legend>
+                        فرم ارسال سفارش به طراح
+                    </legend>
+                    <div class="form-group">
+                        <label for="patient">بیمار</label>
+                        <select id="patient" class="form-control" ng-disabled="vm.patientId" ng-model="vm.order.patient">
+                            <option selected value="-1">Choose...</option>
+                            <option ng-repeat="patient in vm.patients" value="{{patient._id}}">
+                                {{patient.FirstName}} {{patient.LastName}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                    <div class=" inline-block">
+
+                        <div class="checkbox clip-check check-info checkbox-inline">
+                            <input class="" type="checkbox" name="radioList" ng-model="vm.order.sendTome" id="sendtome" />
+                            <label for="sendtome">
+                               ارسال به نرم افزار طراحی خودم
+                            </label>
+                        </div>
+                        <!--<h4 class="list-group-item-heading pull-right">-->
+                        <!--{{priceplan.name}}-->
+                        <!--</h4>-->
+
+                    </div>
+                    </div>
+                    <div class="form-group" ng-show="!vm.order.sendTome">
+                        <div class=" inline-block">
+
+                            <div class="checkbox clip-check check-info checkbox-inline">
+                                <input class="" type="checkbox" name="radiododesign" ng-model="vm.order.doDesign" id="dodesign" />
+                                <label for="dodesign">
+                                   نیاز به طراحی دارد
+                                </label>
+                            </div>
+                            <!--<h4 class="list-group-item-heading pull-right">-->
+                            <!--{{priceplan.name}}-->
+                            <!--</h4>-->
+
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="!vm.order.sendTome">
+                        <label for="season">طراح</label>
+                        <select id="season" class="form-control" ng-change="vm.fillPricePlans()"
+                                ng-model="vm.order.cncUser">
+                            <option selected value="-1">انتخاب کنید...</option>
+                            <option ng-repeat="cncUser in vm.cncUsers" value="{{cncUser._id}}">
+                                {{cncUser.displayName}} - {{cncUser.coName}}
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group list-group" ng-show="!vm.order.sendTome">
+                        <label for="season">پلن سفارش</label>
+                        <div ng-repeat="priceplan in vm.pricePlans track by $index"
+
+                             class="list-group-item">
+                            <!--<small class="list-group-item-text">-->
+                            <!--Posted on-->
+                            <!--<span ng-bind="priceplan.created | jDate"></span>-->
+                            <!--by-->
+                            <!--<span ng-if="priceplan.user" ng-bind="priceplan.user.displayName"></span>-->
+                            <!--<span ng-if="!priceplan.user">Deleted User</span>-->
+                            <!--</small>-->
+                            <div class=" inline-block">
+
+                                <div class="radio clip-radio radio-primary radio-inline">
+                                    <input class="" type="radio" name="radioList" id="radioList{{$index}}"
+                                           ng-model="vm.order.pricePlan" value="{{priceplan._id}}"/>
+                                    <label for="radioList{{$index}}">
+                                        {{priceplan.name}}
+                                    </label>
+                                </div>
+                                <!--<h4 class="list-group-item-heading pull-right">-->
+                                <!--{{priceplan.name}}-->
+                                <!--</h4>-->
+
+                            </div>
+                            <br>
+                            <div class="inline-block" ng-show="!vm.order.doDesign">
+
+                                <span class="label label-primary pull-right"> {{priceplan.price| currency: 'تومان' : 0}}</span>
+
+                            </div>
+                            <div class="inline-block" ng-show="vm.order.doDesign">
+                                <span class="label label-success pull-right"> {{priceplan.purePrice| currency: 'تومان' : 0}}</span>
+                            </div>
+                            <br>
+                            <div class="inline-block">
+                                <p style="white-space: pre-line">
+                                    توضیحات:
+                                    {{priceplan.desc}}
+                                </p>
+                            </div>
+                            <br>
+
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label class="control-label" for="desc">توضیحات</label>
+                        <textarea name="name" type="text" ng-model="vm.order.desc" id="desc" class="form-control" placeholder="توضیحات" />
+
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default">{{vm.order._id ? 'بروزرسانی' : 'ارسال سفارش'}}
+                        </button>
+                    </div>
+                    <div ng-show="vm.error" class="text-danger">
+                        <strong ng-bind="vm.error"></strong>
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <fieldset>
+                <legend>
+                    کدام پرونده ها ارسال شود؟
+                </legend>
+
+            <div class="form-group list-group">
+                <div ng-repeat="record in vm.records track by $index"
+
+                     class="list-group-item">
+
+                    <div class="inline-block">
+
+                        <div class="checkbox clip-check check-success checkbox-inline">
+                            <input class="" type="checkbox" name="checkList"
+                                   ng-checked="(vm.order.records.indexOf(record._id)!=-1)"
+                                   ng-click="vm.toggleChecked(record._id)" id="checkList{{$index}}"
+                                   value="{{record._id}}"/>
+                            <label for="checkList{{$index}}">
+                                نام آزمایش: {{record.ExamProfile.ExamName}}<br/>
+                                نوع آزمایش: {{record.ExamProfile.DetailType}}-{{record.ExamProfile.ExamType}}<br/>
+
+                            </label>
+                        </div>
+                        <br/>
+
+                        <button id="popover-{{$index}}" title="" data-toggle="popover" data-placement="top" data-trigger="hover" data-title="توضیحات" data-content="{{record.ExamProfile.Memo}} ." class="btn btn-primary btn-sm">
+                            توضیحات
+                        </button>
+
+                        <script>
+                            jQuery(document).ready(function() {
+                                $('[data-toggle="popover"]').popover();
+                            })
+
+                        </script>
+
+
+
+
+
+                    </div>
+                    <span class="label label-inverse pull-left" >{{record.ExamProfile.Date | jDate }}</span>
+                </div>
+            </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Creditplans</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="creditplan in vm.creditplans"
+       ui-sref="creditplans.view({ creditplanId: creditplan._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="creditplan.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="creditplan.user" ng-bind="creditplan.user.displayName"></span>
+        <span ng-if="!creditplan.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="creditplan.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.creditplans.$resolved && !vm.creditplans.length">
+    No Creditplans yet, why don't you <a ui-sref="creditplans.create">create one</a>?
+  </div>
+</section>

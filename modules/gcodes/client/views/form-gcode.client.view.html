@@ -1,0 +1,39 @@
+<section id="page-title">
+  <div class="row">
+    <div class="col-sm-8">
+      <h1 class="mainTitle">ارسال سفارش</h1>
+      <span class="mainDescription">جهت ارسال سفارش به طراح در این صفحه نام بیمار و طراح و نوع طراحی را انتخاب و ثبت نمایید</span>
+    </div>
+  </div>
+</section>
+<div class="container-fluid container-fullw bg-white">
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-6">
+
+
+      <form name="vm.form.gcodeForm" class="form-horizontal" ng-submit="vm.save(vm.form.gcodeForm.$valid)"
+            novalidate>
+        <fieldset>
+          <legend>
+فرم درخواست Gcode جدید
+          </legend>
+          <div class="form-group" >
+            <label class="control-label" for="desc">توضیحات</label>
+            <textarea name="name" type="text" ng-model="vm.gcode.desc" id="desc" class="form-control" placeholder="توضیحات" />
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-default">{{vm.order._id ? 'بروزرسانی' : 'ارسال سفارش'}}
+            </button>
+          </div>
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+        </fieldset>
+      </form>
+
+    </div>
+
+  </div>
+</div>
+

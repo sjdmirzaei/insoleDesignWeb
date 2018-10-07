@@ -1,0 +1,75 @@
+<div class="wrap-content container" id="container">
+    <!-- start: PAGE TITLE -->
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+
+                <h1 class="mainTitle">لیست تعرفه ها</h1>
+                <span class="mainDescription">
+          ثبت و تغییر تعرفه ی خدمات
+</span>
+            </div>
+
+        </div>
+    </section>
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-warning text-center" ng-if="vm.priceplans.$resolved && !vm.priceplans.length">
+                    هنوز تعرفه ای ایجاد نشده است <a ui-sref="priceplans.create">یکی ایجاد کنید</a>؟
+                </div>
+                <div class="list-group">
+                    <div ng-repeat="priceplan in vm.priceplans"
+
+                         class="list-group-item">
+                        <!--<small class="list-group-item-text">-->
+                        <!--Posted on-->
+                        <!--<span ng-bind="priceplan.created | jDate"></span>-->
+                        <!--by-->
+                        <!--<span ng-if="priceplan.user" ng-bind="priceplan.user.displayName"></span>-->
+                        <!--<span ng-if="!priceplan.user">Deleted User</span>-->
+                        <!--</small>-->
+                        <div class="inline-block">
+                            <h4 class="list-group-item-heading pull-right">
+                                {{priceplan.name}}
+                            </h4>
+
+                        </div>
+                        <br>
+                        <div class="inline-block">
+
+                            <span class="label label-primary pull-right"> قیمت با طراحی:{{priceplan.price| currency: 'تومان' : 0}}</span>
+
+                        </div>
+                        <div class="inline-block">
+                            <span class="label label-success pull-right"> بدون طراحی:{{priceplan.purePrice| currency: 'تومان' : 0}}</span>
+                        </div>
+                        <br>
+                        <div class="inline-block">
+                            <p style="white-space: pre-line">
+                                توضیحات:
+                                {{priceplan.desc}}
+                            </p>
+                        </div>
+                        <br>
+                        <div class="inline-block">
+                            <div class="pull-right">
+                                <a class="btn btn-sm btn-default"
+                                   ui-sref="priceplans.edit({ priceplanId: priceplan._id })">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                                <a class="btn btn-sm btn-default" ng-click="vm.remove(priceplan)">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                                <!--<a class="btn btn-sm btn-default" ui-sref="priceplans.view({ priceplanId: priceplan._id })">-->
+                                <!--<i class="glyphicon glyphicon-eye-open"></i>-->
+                                <!--</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+</div>

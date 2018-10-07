@@ -1,0 +1,120 @@
+<div class="wrap-content container" id="container">
+  <!-- start: PAGE TITLE -->
+  <section id="page-title">
+    <div class="row">
+      <div class="col-sm-8">
+        <h1 class="mainTitle">لیست تراکنش ها</h1>
+        <span class="mainDescription">        اطلاعات تراکنش های پرداختی و واریز شده به حساب
+</span>
+      </div>
+
+    </div>
+  </section>
+  <div class="container-fluid container-fullw bg-white">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="panel panel-white">
+          <div class="panel-heading">
+            <h5 class="panel-title">جستجو کنید</h5>
+          </div>
+          <div class="panel-body">
+
+            <form role="form" class="form-inline">
+              <div class="form-group">
+                <label>
+                  کد سفارش
+                </label>
+                <span class="input-icon">
+                                <input type="text" ng-model="vm.filter.sid" placeholder="کد سفارش"
+                                       class="form-control">
+                              <i class="ti-shopping-cart"></i> </span>
+              </div>
+              <div class="form-group">
+                <label>
+                  از تاریح
+                </label>
+                <span class="input-icon">
+                                <input id="fromDatePlayed" name="fromDate"
+                                       class="form-control" type="text"
+                                       datepicker-config="vm.datepickerConfig"
+                                       ng-model="vm.filter.fromDate"
+                                       ng-jalaali-flat-datepicker>
+                                <i class="ti-calendar"></i> </span>
+              </div>
+              <div class="form-group">
+                <label>
+                  تا تاریح
+                </label>
+                <span class="input-icon">
+                                <input id="toDatePlayed" name="toDate" class="form-control" type="text"
+                                       datepicker-config="vm.datepickerConfig"
+                                       ng-model="vm.filter.toDate" ng-jalaali-flat-datepicker>
+                                <i class="ti-calendar"></i> </span>
+              </div>
+
+
+
+              <button class="btn btn-primary btn-squared" type="submit"
+                      ng-click="vm.pageChange(vm.filter.page)">
+                جستجو
+                <span class="fa fa-search"></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <table class="table table-bordered table-hover" id="sample-table-2">
+          <thead>
+          <tr>
+            <th>ردیف</th>
+            <th>جزئیات</th>
+            <th>واریز به حساب</th>
+            <th>برداشت از حساب</th>
+            <th>تاریخ ثبت</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="transaction in vm.transactions track by $index" >
+            <td>{{$index+1}}</td>
+            <td>{{transaction.detail}}</td>
+            <td>
+                <span style="color:#5cb85c">+{{transaction.withdraw | currency: '' : 0}}</span>
+            </td>
+            <td>
+                <span style="color:#d9534f">-{{transaction.deposit | currency: '' : 0}}</span>
+            </td>
+
+            <td class="hidden-xs">{{transaction.created |date:'mediumDate'}}</td>
+
+
+
+          </tr>
+
+          </tbody>
+        </table>
+        <ul class="pagination margin-bottom-10">
+          <li>
+            <a href="#" ng-click="vm.nextPage(-1)">
+              <i class="ti-arrow-right"></i>
+              صفجه قبل
+            </a>
+          </li>
+          <li ng-repeat="item in [].constructor(vm.pages) track by $index" ng-click="vm.pageChange($index)">
+            <a href="#">
+              {{$index+1}}
+            </a>
+          </li>
+          <li>
+            <a href="#" ng-click="vm.nextPage(1)">
+              صفحه بعد
+              <i class="ti-arrow-left"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </section>
+</div>

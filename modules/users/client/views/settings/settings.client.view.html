@@ -1,0 +1,40 @@
+<div class="wrap-content container" id="container">
+    <!-- start: PAGE TITLE -->
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle">تنظیمات</h1>
+                <span class="mainDescription">اطلاعات حساب کاربری خود را اینجا ویرایش کنید</span>
+            </div>
+
+        </div>
+    </section>
+
+
+        <div class="container-fluid container-fullw bg-white">
+            <div class="row">
+                <nav class="col-sm-3 col-md-3">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li ui-sref-active="active">
+                            <a ui-sref="settings.profile">ویرایش حساب</a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="settings.picture">تغییر عکس پروفایل</a>
+                        </li>
+                        <li ui-sref-active="active" ng-show="vm.user.provider === 'local'">
+                            <a ui-sref="settings.password">تغییر رمز عبور</a>
+                        </li>
+                        <!--<li ui-sref-active="active">-->
+                            <!--<a ui-sref="settings.accounts">مدیریت حساب های مرتبط</a>-->
+                        <!--</li>-->
+                    </ul>
+                </nav>
+                    <div class="col-sm-9 col-md-8 settings-view">
+                        <div ui-view></div>
+                    </div>
+
+            </div>
+
+    </div>
+</div>
+

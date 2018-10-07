@@ -1,0 +1,26 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.softwareupdate.name"></h1>
+  </div>
+  <div class="pull-right"
+       ng-show="vm.softwareupdate.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       ui-sref="softwareupdates.edit({ softwareupdateId: vm.softwareupdate._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.softwareupdate.created | jDate"></span>
+      by
+      <span ng-if="vm.softwareupdate.user"
+            ng-bind="vm.softwareupdate.user.displayName"></span>
+      <span ng-if="!vm.softwareupdate.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.softwareupdate.content"></p>
+</section>

@@ -1,0 +1,50 @@
+<div class="wrap-content container" id="container">
+    <!-- start: PAGE TITLE -->
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle">لیست بروزرسانی ها</h1>
+                <span class="mainDescription">
+                    اطلاعات ورژنهای جدید نرم افزار
+</span>
+            </div>
+        </div>
+    </section>
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-hover" id="sample-table-2">
+                    <thead>
+                    <tr>
+                        <th>نام نسخه</th>
+                        <th>تاریخ</th>
+                        <th>ورژن</th>
+                        <th class="hidden-xs">دانلود</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="softwareupdate in vm.softwareupdates" >
+
+                        <td>{{softwareupdate.name}}</td>
+                        <td class="hidden-xs"><span ng-bind="softwareupdate.created | jDate"></span></td>
+                        <td class="hidden-xs">{{softwareupdate.version}}</td>
+                        <td class="hidden-xs">
+                            <a target="_blank" class="btn btn-sm btn-dark-yellow"
+                                                 href="api/softwareupdates/{{softwareupdate._id}}">
+                            <span class="fa fa-download"></span>
+                            </a>
+                            <button ng-click="vm.remove(softwareupdate)" class="btn btn-sm btn-danger">
+
+                                <span ><i class="fa fa-remove"></i></span>
+                            </button>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </section>
+</div>
+

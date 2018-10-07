@@ -1,0 +1,111 @@
+
+  <div class="wrap-content container" id="container">
+    <!-- start: PAGE TITLE -->
+    <section id="page-title">
+      <div class="row">
+        <div class="col-sm-8">
+          <h1 class="mainTitle">لیست بیماران</h1>
+          <span class="mainDescription">              لیست تمام بیماران ثبت شده در سیستم توسط کاربری شما
+</span>
+        </div>
+
+      </div>
+    </section>
+      <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="alert alert-warning text-center" ng-if="vm.patients.$resolved && !vm.patients.length">
+              No Patients yet, why don't you <a ui-sref="patients.create">create one</a>?
+            </div>
+
+            <table class="table table-bordered table-hover" id="sample-table-2">
+              <thead>
+              <tr>
+                <th>ردیف</th>
+                <th class="center">تصویر</th>
+                <th>نام بیمار</th>
+                <th>از بیمار</th>
+                <th class="hidden-xs">کد بیمار</th>
+                <th class="hidden-xs">نرم افزار ثبت شده</th>
+                <th class="hidden-xs">ایمیل</th>
+                <th class="hidden-xs">تلفن</th>
+                <th>عملیات</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="patient in vm.patients track by $index"
+                  >
+                <td>{{$index+1}}</td>
+                <td class="center">
+                  <img ng-show="patient.profilePicUrl" src="{{patient.profilePicUrl}}" class="img-rounded" alt="image"/>
+                  <img ng-show="!patient.profilePicUrl" class="img-circle" style="width: 32px" ng-src="/modules/users/client/img/profile/default.png" src="/modules/users/client/img/profile/default.png">
+                </td>
+                <td>{{patient.FirstName}} {{patient.LastName}}</td>
+                <td>{{patient.parentPatient.FirstName}} {{patient.parentPatient.LastName}}</td>
+          <td class="hidden-xs">{{patient.PatientCode}}</td>
+                <td class="hidden-xs">{{patient.software}}</td>
+                <td class="hidden-xs">
+                  <a href="#" rel="nofollow" target="_blank">
+                    {{patient.Email}}
+                  </a></td>
+                <td class="hidden-xs">{{patient.Phone}}</td>
+                <td class="center">
+                  <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                    <button class="btn btn-sm btn-default" ui-sref="patients.edit({ patientId: patient._id })"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-sm btn-dark-green" ui-sref="orders.create({patientId:patient._id})"><i class="fa fa-cart-plus"></i>سفارش</button>
+                    <!--<a href="#" class="btn btn-transparent btn-sm tooltips" tooltip-placement="top" tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>-->
+                  </div>
+                  <div class="visible-xs visible-sm hidden-md hidden-lg">
+                    <div class="btn-group" dropdown>
+                      <button type="button" class="btn btn-primary btn-sm dropdown-toggle" dropdown-toggle>
+                        <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                        <li>
+                          <a href="#">
+                            ویرایش
+                          </a>
+                        </li>
+                        <li>
+                          <a ui-sref="orders.create({patientId:patient._id})">
+                            سفارش
+                          </a>
+                        </li>
+                        <!--<li>-->
+                          <!--<a href="#">-->
+                            <!--Remove-->
+                          <!--</a>-->
+                        <!--</li>-->
+                      </ul>
+                    </div>
+                  </div></td>
+              </tr>
+
+              </tbody>
+            </table>
+            <ul class="pagination margin-bottom-10">
+              <li>
+                <a href="#" ng-click="vm.nextPage(-1)">
+                  <i class="ti-arrow-right"></i>
+                  صفجه قبل
+                </a>
+              </li>
+              <li ng-repeat="item in [].constructor(vm.pages) track by $index" ng-click="vm.pageChange($index)">
+                <a href="#">
+                  {{$index+1}}
+                </a>
+              </li>
+              <li>
+                <a href="#" ng-click="vm.nextPage(1)">
+                  صفحه بعد
+                  <i class="ti-arrow-left"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+

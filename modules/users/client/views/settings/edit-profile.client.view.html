@@ -1,0 +1,61 @@
+<section class="row">
+  <div class="col-md-12">
+    <form name="vm.userForm" ng-submit="vm.updateUserProfile(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="firstName">نام</label>
+          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="نام" required autofocus>
+          <div ng-messages="vm.userForm.firstName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">نام الزامیست.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="lastName">نام خانوادگی</label>
+          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="نام خانوادگی" required>
+          <div ng-messages="vm.userForm.lastName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">نام خانوادگی الزامیست.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="coName">نام مطب / شرکت</label>
+          <input type="text" id="coName" name="coName" class="form-control" ng-model="vm.user.coName" placeholder="نام شرکت">
+
+        </div>
+        <div class="form-group">
+          <label for="city">نام شهر</label>
+          <input type="text" id="city" name="city" class="form-control" ng-model="vm.user.city" placeholder="نام شهر">
+
+        </div>
+        <div class="form-group">
+          <label for="phone">تلفن</label>
+          <input type="text" id="phone" name="phone" class="form-control" ng-model="vm.user.phone" placeholder="+985130000000">
+
+        </div>
+        <div class="form-group">
+          <label for="bankid">شماره حساب، کارت، شبا</label>
+          <input type="text" id="bankid" name="bankid" class="form-control" ng-model="vm.user.bankid" placeholder="+985130000000">
+
+        </div>
+
+        <div class="form-group" show-errors>
+          <label for="email">ای-میل</label>
+          <input type="email" id="email" name="email" class="form-control" ng-model="vm.user.email" placeholder="ای-میل" lowercase required>
+          <div ng-messages="vm.userForm.email.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">ای-میل الزامیست.</p>
+            <p class="help-block error-text" ng-message="email">ای-میل معتبر نیست.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="username">نام کاربری</label>
+          <input type="text" id="username" name="username" class="form-control" ng-model="vm.user.username" placeholder="Username" lowercase required>
+          <div ng-messages="vm.userForm.username.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">نام کاربری الزامیست.</p>
+          </div>
+        </div>
+        <div class="text-center form-group">
+          <button type="submit" class="btn btn-primary">ویرایش اطلاعات</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

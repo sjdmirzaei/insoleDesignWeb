@@ -1,0 +1,121 @@
+<section id="page-title">
+  <div class="row">
+    <div class="col-sm-8">
+      <h1 class="mainTitle">{{vm.usercredit._id ? 'ویرایش فیش بانکی' : 'ثبت فیش بانکی'}}</h1>
+      <span class="mainDescription">ثبت فیش بانکی جهت افزایش اعتبار</span>
+    </div>
+  </div>
+</section>
+<div class="container-fluid container-fullw bg-white">
+  <div class="row">
+    <div class="col-md-12" >
+      <h5 class="over-title margin-bottom-15">انتخاب  <span class="text-bold">بسته</span></h5>
+      <p>
+
+      </p>
+      <div class="pricing-table pricing-blue" ng-repeat="plan in vm.creditplans" >
+        <div class="col-lg-3 col-md-3 col-xs-6">
+          <ul class="plan plan1" ng-class="plan.featured?'featured':''">
+            <li class="plan-name">
+              {{plan.name}}
+            </li>
+            <li class="plan-price">
+              <h3> {{plan.price}} تومان </h3>
+            </li>
+            <li>فضای اطلاعات
+              <strong>{{plan.host}}GB</strong>
+            </li>
+            <li>تعداد سفارش
+              <strong>{{plan.totalorder}}</strong>
+            </li>
+            <li>مدت اعتبار
+              <strong>{{plan.expire}} ماه</strong>
+            </li>
+            <li class="plan-action">
+              <a href="#" class="btn btn-blue btn-lg" ng-click="vm.PaymentRequest(plan)">
+                خرید بسته
+                <span class="fa fa-cart"></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fullw bg-white">
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-6">
+
+      <!--ng-submit="vm.save(vm.form.usercreditForm.$valid)" novalidate-->
+      <form name="vm.form.usercreditForm" class="form-horizontal" action="/PaymentRequest" method="POST" >
+        <fieldset>
+          <legend>
+            پرداخت آنلاین
+          </legend>
+
+          <div class="form-group" show-errors>
+            <label class="control-label" for="fishPrice">مبلغ واریزی</label>
+            <div class="input-group">
+              <input name="fishPrice" type="number" ng-model="vm.usercredit.fishPrice" id="fishPrice" class="form-control" placeholder="مبلغ" required>
+              <span class="input-group-addon">تومان</span>
+            </div>
+
+            <div ng-messages="vm.form.usercreditForm.fishPrice.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">اضافه کردن مبلغ الزامیست.</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-success">{{vm.usercredit._id ? 'ویرایش' : 'پرداخت'}}</button>
+          </div>
+
+        </fieldset>
+      </form>
+
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+
+      <!--ng-submit="vm.save(vm.form.usercreditForm.$valid)" novalidate-->
+      <form name="vm.form.usercreditForm" class="form-horizontal" ng-submit="vm.save(vm.form.usercreditForm.$valid)" novalidate >
+        <fieldset>
+          <legend>
+            ثبت فیش بانکی
+          </legend>
+          <div class="form-group" show-errors>
+            <label class="control-label" for="fishNumber">شماره فیش</label>
+            <input name="name" type="text" ng-model="vm.usercredit.fishNumber" id="fishNumber" class="form-control" placeholder="شماره فیش" required>
+            <div ng-messages="vm.form.usercreditForm.fishNumber.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">وارد کردن شماره فیش الزامیست.</p>
+            </div>
+          </div>
+
+          <div class="form-group" show-errors>
+            <label class="control-label" for="fishPrice">مبلغ واریزی</label>
+            <div class="input-group">
+              <input name="fishPrice" type="text" ng-model="vm.usercredit.fishPrice" id="fishPrice" class="form-control" placeholder="مبلغ" required>
+              <span class="input-group-addon">تومان</span>
+            </div>
+
+            <div ng-messages="vm.form.usercreditForm.fishPrice.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">اضافه کردن مبلغ الزامیست.</p>
+            </div>
+          </div>
+          <div class="form-group" show-errors>
+            <label class="control-label" for="desc">توضیحات</label>
+            <textarea name="desc" type="text" ng-model="vm.usercredit.desc" id="desc" class="form-control" placeholder="توضیحات" required/>
+            <div ng-messages="vm.form.usercreditForm.fishNumber.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">وارد کردن شماره فیش الزامیست.</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">{{vm.usercredit._id ? 'ویرایش' : 'ثبت'}}</button>
+          </div>
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+        </fieldset>
+      </form>
+
+    </div>
+  </div>
+</div>
