@@ -1,0 +1,46 @@
+<section id="page-title">
+  <div class="row">
+    <div class="col-sm-8">
+      <h1 class="mainTitle">{{vm.usercredit._id ? 'ویرایش فیش بانکی' : 'ثبت فیش بانکی'}}</h1>
+      <span class="mainDescription">ثبت فیش بانکی جهت افزایش اعتبار</span>
+    </div>
+  </div>
+</section>
+<div class="container-fluid container-fullw bg-white">
+  <div class="row">
+    <div class="col-md-12" >
+      <h5 class="over-title margin-bottom-15">انتخاب  <span class="text-bold">بسته</span></h5>
+      <p>
+
+      </p>
+      <div class="pricing-table pricing-blue" ng-repeat="plan in vm.creditplans" >
+        <div class="col-lg-3 col-md-3 col-xs-6">
+          <ul class="plan plan1" ng-class="plan.featured?'featured':''">
+            <li class="plan-name">
+              {{plan.name}}
+            </li>
+            <li class="plan-price">
+              <h3> {{plan.price}} تومان </h3>
+            </li>
+            <li>فضای اطلاعات
+              <strong>{{plan.host}}GB</strong>
+            </li>
+            <li>تعداد سفارش
+              <strong>{{plan.totalorder}}</strong>
+            </li>
+            <li>مدت اعتبار
+              <strong>{{plan.expire}} ماه</strong>
+            </li>
+            <li class="plan-action">
+              <a href="#" class="btn btn-blue btn-lg" ng-click="vm.PaymentRequest(plan)">
+                خرید بسته
+                <span class="fa fa-cart"></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
