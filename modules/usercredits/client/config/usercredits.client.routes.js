@@ -23,6 +23,29 @@
           pageTitle: 'Usercredits List'
         }
       })
+      // .state('usercredits.list', {
+      //   url: '',
+      //   templateUrl: '/modules/usercredits/client/views/list-usercredits.client.view.html',
+      //   controller: 'UsercreditsListController',
+      //   controllerAs: 'vm',
+      //   data: {
+      //     pageTitle: 'Usercredits List'
+      //   }
+      // })
+      .state('usercredits.package', {
+        url: '/package',
+        templateUrl: '/modules/usercredits/client/views/package-usercredit.client.view.html',
+        controller: 'UsercreditsController',
+        controllerAs: 'vm',
+        resolve: {
+          usercreditResolve: newUsercredit,
+          creditPlansResolver:getCreditPlans
+        },
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'Usercredits Create'
+        }
+      })
       .state('usercredits.create', {
         url: '/create',
         templateUrl: '/modules/usercredits/client/views/form-usercredit.client.view.html',

@@ -30,5 +30,12 @@
             state: 'usercredits.create',
             roles: ['cnc', 'admin','doctor']
         });
+
+      // Add the dropdown create item
+      menuService.addSubMenuItem('topbar', 'usercredits', {
+        title: 'خرید بسته',
+        state: 'usercredits.package',
+        roles: ['cnc', 'admin']
+      });
     }
 }());
