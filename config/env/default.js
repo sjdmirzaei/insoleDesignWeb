@@ -10,11 +10,11 @@ module.exports = {
     db: {
         promise: global.Promise
     },
-    port: process.env.PORT || 49152,
+    port: process.env.PORT || 49153,
     host: process.env.HOST || '0.0.0.0',
     // DOMAIN config should be set to the fully qualified application accessible
     // URL. For example: https://www.myapp.com (including port if required).
-    domain: "http://payatekonline.ir:49152",
+    domain: "http://payatekonline.ir:49153",
     // Session Cookie settings
     sessionCookie: {
         // session expiration is set by default to 24 hours
