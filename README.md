@@ -22,5 +22,11 @@ To push your changes, after commiting
 ```bash
 $ git push -u origin master
 ```
+
+To clone and sync with git
+```bash
+$ git clone https://gitlab.com/MNR85/payatek-insole.git
+$ git pull origin
+```
 ## License
 [The MIT License](LICENSE.md)
