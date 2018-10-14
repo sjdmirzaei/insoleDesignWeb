@@ -35,7 +35,13 @@
         vm.cncUsers = cncUsers;
         vm.pay=pay;
         vm.order.records=[];
-
+        // console.log('MNR');
+      //   console.log(vm.authentication.software);
+      if(vm.authentication.software == 'PT-SCANSUIT'){
+        vm.order.doDesign = true;
+      }else if(vm.authentication.software == 'PT-InsoleDesign'){
+        vm.order.doDesign = false;
+      }
         // Remove existing Order
         vm.toggleChecked=function (recordId) {
 
@@ -99,8 +105,21 @@
 
         // Save Order
         function save(isValid) {
-            console.log(vm.order);
-            if (vm.order.cncUser==-1 && !vm.order.sendTome){
+
+          console.log(vm.order);
+          //   console.log(vm.authentication.software);
+          // console.log(vm.authentication.user);
+          // if(vm.authentication.user.creditPlan == null ||vm.authentication.user.creditPlan === undefined){
+          //     console.log('No plan found!!');
+          //   Notification.error({message: "پلن اعتباری یافت نشد"});
+          //   return false;
+          // }else{
+          //   console.log(vm.authentication.user.creditPlan);
+          //
+          // }
+          // // console.log(vm.user.creditPlan);
+
+          if (vm.order.cncUser==-1 && !vm.order.sendTome){
                 Notification.error({message: "هیچ طراحی انتخاب نشده است"});
                 return false;
             }

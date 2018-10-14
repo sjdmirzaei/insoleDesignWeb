@@ -21,7 +21,7 @@ module.exports = function (app) {
     app.route('/UnverifiedTransactions').get(transactions.UnverifiedTransactions);
     app.route('/PaymentVerification/:amount/:token').get(transactions.PaymentVerification);
     app.route('/PaymentRequest').post(transactions.PaymentRequest);
-    app.route('/PaymentCallback').get(transactions.PaymentCallback);
+    app.route('/paymentCallback').get(transactions.PaymentCallback);
 
 
     // Finish by binding the Transaction middleware

@@ -99,7 +99,12 @@
 
         // Save Order
         function save(isValid) {
-            console.log(vm.order);
+          console.log('Save MNR۱');
+
+          console.log(vm.order);
+          // console.log(vm.software);
+          // console.log(vm.user);
+          // console.log(vm.user.creditPlan);
 
             vm.order.patient=$stateParams.patientId;
             if ((!vm.order.sendTome || vm.order.sendTome==false) && !vm.order.cncUser){

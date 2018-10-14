@@ -39,7 +39,9 @@
         controllerAs: 'vm',
         resolve: {
           usercreditResolve: newUsercredit,
-          creditPlansResolver:getCreditPlans
+          creditPlansResolver:getCreditPlans,
+          gcodePlansResolver:getGcodePlans
+
         },
         data: {
           roles: ['user', 'admin'],
@@ -53,7 +55,9 @@
         controllerAs: 'vm',
         resolve: {
           usercreditResolve: newUsercredit,
-            creditPlansResolver:getCreditPlans
+            creditPlansResolver:getCreditPlans,
+          gcodePlansResolver:getGcodePlans
+
         },
         data: {
           roles: ['user', 'admin'],
@@ -91,6 +95,12 @@
     function getCreditPlans($stateParams, CreditplansService) {
         return CreditplansService.query().$promise;
     }
+
+  getGcodePlans.$inject = ['$stateParams', 'GcodeplansService'];
+
+  function getGcodePlans($stateParams,GcodeplansService) {
+    return GcodeplansService.query().$promise;
+  }
   getUsercredit.$inject = ['$stateParams', 'UsercreditsService'];
 
   function getUsercredit($stateParams, UsercreditsService) {

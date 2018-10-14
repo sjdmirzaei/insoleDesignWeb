@@ -15,6 +15,39 @@ var path = require('path'),
 /**
  * Create a Usercredit
  */
+//
+// export.addCredit = function(req, res){
+//  var plan = req.body.plan;
+//   console.log("In MNR!!");
+//   //Transaction.findOneAndUpdate({authority: req.session.authority}, {$set: {RefID: response.RefID}}, function (err, doc) {
+//
+//   var creditPlan = {
+//     expire: plan.expire,
+//     host: plan.host,
+//     totalorder: plan.totalorder,
+//     price: plan.price
+//   };
+//
+//   User.findOneAndUpdate({_id: vm.user._id}, {
+//     //$inc: {credit: req.session.amount},
+//     $set: {
+//       creditPlan: creditPlan,
+//       expireCreditDate: moment(moment(), "DD-MM-YYYY").add(vm.session.expire, 'days')
+//     }
+//
+//   }, function (err, doc) {
+//     User.findOne({_id: vm.user._id}, function (err, doc) {
+//       res.render('modules/core/server/views/index', {
+//         response: JSON.stringify(response),
+//         user: JSON.stringify(doc),
+//         software: req.session.software,
+//         sharedConfig: JSON.stringify(config.shared)
+//       });
+//     });
+//   })
+//   //})
+// };
+
 exports.create = function (req, res) {
     var usercredit = new Usercredit(req.body);
     usercredit.user = req.user;

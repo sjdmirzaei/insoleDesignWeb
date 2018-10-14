@@ -13,5 +13,9 @@ $ npm install -g bower
 $ npm install
 ```
 
+To push your changes, after commiting
+```bash
+$ git push -u origin master
+```
 ## License
 [The MIT License](LICENSE.md)

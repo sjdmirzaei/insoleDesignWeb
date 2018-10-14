@@ -49,11 +49,10 @@ exports.create = function (req, res) {
                         message: errorHandler.getErrorMessage("پلن خرید انتخاب نشده است")
                     });
                 }
-
                 if (order.doDesign)
-                    order.orderPrice = doc.purePrice;
-                else
                     order.orderPrice = doc.price;
+                else
+                    order.orderPrice = doc.purePrice;
                 order.pricePlanName=doc.name;
                 //order.orderPrice = doc.price;
                 order.save(function (err) {
@@ -215,9 +214,16 @@ exports.pay = function (req, res) {
                         }
 
                         if (order.doDesign){
-                            var newCreditPlan=doc.creditPlan;
-                            newCreditPlan.totalorder=newCreditPlan.totalorder-1;
-                            inc['$set']={creditPlan:newCreditPlan};
+                          if(doc.creditPlan) {
+                            var newCreditPlan = doc.creditPlan;
+                            newCreditPlan.totalorder = newCreditPlan.totalorder - 1;
+                            inc['$set'] = {creditPlan: newCreditPlan};
+                          }else{
+                            return res.status(200).send({
+                              msgtype: "error",
+                              message: "بسته طراحی به پایان رسیده است"
+                            });
+                          }
                         }
 
                         if (minusPrice) {

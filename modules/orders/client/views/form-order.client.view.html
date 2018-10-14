@@ -97,13 +97,15 @@
 
                             </div>
                             <br>
-                            <div class="inline-block" ng-show="!vm.order.doDesign">
+                            <!--<div class="inline-block" ng-show="vm.order.doDesign">-->
+                            <div class="inline-block" ng-show="vm.authentication.software=='PT-SCANSUIT'">
 
-                                <span class="label label-primary pull-right"> {{priceplan.price| currency: 'تومان' : 0}}</span>
+                                <span class="label label-primary pull-right"> {{vm.authentication.software}}{{priceplan.price| currency: 'تومان' : 0}}</span>
 
                             </div>
-                            <div class="inline-block" ng-show="vm.order.doDesign">
-                                <span class="label label-success pull-right"> {{priceplan.purePrice| currency: 'تومان' : 0}}</span>
+                            <!--<div class="inline-block" ng-show="!vm.order.doDesign">-->
+                            <div class="inline-block" ng-show="vm.authentication.software=='PT-InsoleDesign'">
+                                <span class="label label-success pull-right"> {{vm.authentication.software}}{{priceplan.purePrice| currency: 'تومان' : 0}}</span>
                             </div>
                             <br>
                             <div class="inline-block">

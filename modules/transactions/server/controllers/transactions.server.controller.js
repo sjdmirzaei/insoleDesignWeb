@@ -16,9 +16,14 @@ var path = require('path'),
 var zarinpal = ZarinpalCheckout.create('f47973b0-7e73-11e8-86ec-005056a205be', true);
 
 exports.PaymentCallback = function (req, res) {
+  console.log("MNR in callback!!");
+  console.log(req.query);
+//  console.log(res.session);
+//  console.log("MNR");
+//  console.log(res);
   zarinpal.PaymentVerification({
-    Amount: req.session.amount,
-    Authority: req.session.authority,
+    Amount: 300000,//req.session.amount,
+    Authority: req.query.Authority, //req.session.authority,
   }).then(function (response) {
     if (response.status == 101) {
       var tid = req.session.transactionId;
@@ -43,28 +48,33 @@ exports.PaymentCallback = function (req, res) {
 
     } else {
       if (response.status == 100) {
+        console.log("100");
         Transaction.findOneAndUpdate({authority: req.session.authority}, {$set: {RefID: response.RefID}}, function (err, doc) {
 
           var creditPlan = {
-            expire: req.session.expire,
-            host: req.session.host,
-            totalorder: req.session.totalorder,
-            price: req.session.price
+            expire:30,// req.session.expire,
+            host: 300, //req.session.host,
+            totalorder: 20, //req.session.totalorder,
+            price: 10, //req.session.price
           };
-
-          User.findOneAndUpdate({_id: req.user._id}, {
-            $inc: {credit: req.session.amount},
+//	  console.log("MNR");
+//	  console.log(req.user);
+//	  console.log("MNR");
+          console.log(creditPlan);
+          User.findOneAndUpdate({_id: '5a6ef78159047838f7ff3b72'},{//req.user._id}, {
+            $inc: {credit: 100}, //req.session.amount},
             $set: {
               creditPlan: creditPlan,
-              expireCreditDate: moment(moment(), "DD-MM-YYYY").add(req.session.expire, 'days')
+              expireCreditDate: moment(moment(), "DD-MM-YYYY").add(33, 'days')//req.session.expire, 'days')
             }
 
           }, function (err, doc) {
-            User.findOne({_id: req.user._id}, function (err, doc) {
+            console.log(err);
+            User.findOne({_id: '5a6ef78159047838f7ff3b72'}, function (err, doc){//req.user._id}, function (err, doc) {
               res.render('modules/core/server/views/index', {
                 response: JSON.stringify(response),
                 user: JSON.stringify(doc),
-                software: req.session.software,
+                software: 'PT-SCANSUIT',//req.session.software,
                 sharedConfig: JSON.stringify(config.shared)
               });
             });
@@ -85,7 +95,7 @@ exports.PaymentRequest = function (req, res) {
 
   zarinpal.PaymentRequest({
     Amount: req.body.price,
-    CallbackURL: config.domain + "/paymentCallback",
+    CallbackURL: config.domain + "/PaymentCallback",//"https://www.google.com",//
     Description: "شارژ حساب از طریق زرین پال",
     Email: req.user.email,
     Mobile: '09120000000'

@@ -74,6 +74,16 @@ exports.pay = function (req, res) {
                         message: errorHandler.getErrorMessage(err)
                     });
                 }else{
+                  if(user.gcodePlan) {
+                    var newCreditPlan = user.gcodePlan;
+                    newCreditPlan.totalorder = newCreditPlan.totalorder - 1;
+                    inc['$set'] = {gcodePlan: newCreditPlan};
+                  }else{
+                    return res.status(200).send({
+                      msgtype: "error",
+                      message: "بسته gcode به پایان رسیده است"
+                    });
+                  }
                     if (user.credit - gcode.orderPrice <= 0) {
                         return res.status(200).send({
                             msgtype: "error",
