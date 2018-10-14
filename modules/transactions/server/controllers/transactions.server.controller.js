@@ -52,16 +52,16 @@ exports.PaymentCallback = function (req, res) {
         Transaction.findOneAndUpdate({authority: req.session.authority}, {$set: {RefID: response.RefID}}, function (err, doc) {
 
           var creditPlan = {
-            expire:30,// req.session.expire,
-            host: 300, //req.session.host,
-            totalorder: 20, //req.session.totalorder,
+            expire:2,// req.session.expire,
+            host: 10, //req.session.host,
+            totalorder: 5, //req.session.totalorder,
             price: 10, //req.session.price
             created:new Date()
           };
           var gcodePlan = {
             //expire:30,// req.session.expire,
             //host: 300, //req.session.host,
-            totalorder: 20, //req.session.totalorder,
+            totalorder: 4, //req.session.totalorder,
             price: 10, //req.session.price
           };
 //	  console.log("MNR");
