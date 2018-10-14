@@ -56,7 +56,7 @@ exports.PaymentCallback = function (req, res) {
             host: 300, //req.session.host,
             totalorder: 20, //req.session.totalorder,
             price: 10, //req.session.price
-            created:moment().add(30, 'days')
+            created:new Date()
           };
           var gcodePlan = {
             //expire:30,// req.session.expire,

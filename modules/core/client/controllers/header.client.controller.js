@@ -4,7 +4,7 @@
   angular
     .module('core')
     .controller('HeaderController', HeaderController);
-  app.constant("moment", moment);
+  //app.constant("moment", moment);
 
   HeaderController.$inject = ['$scope', '$state', 'Authentication', 'menuService'];
 
@@ -14,7 +14,7 @@
     vm.accountMenu = menuService.getMenu('account').items[0];
     vm.authentication = Authentication;
     if(vm.authentication.user.creditPlan)
-    vm.remainingDate = vm.authentication.user.creditPlan.created.startOf(moment()).fromNow();
+    vm.remainingDate = Math.floor((vm.authentication.user.creditPlan.created-new Date())/(1000*60*60*24));//vm.authentication.user.creditPlan.created.startOf(moment()).fromNow();
     vm.isCollapsed = false;
     vm.menu = menuService.getMenu('topbar');
 
