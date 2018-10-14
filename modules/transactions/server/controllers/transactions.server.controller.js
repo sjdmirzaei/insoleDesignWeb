@@ -57,6 +57,12 @@ exports.PaymentCallback = function (req, res) {
             totalorder: 20, //req.session.totalorder,
             price: 10, //req.session.price
           };
+          var gcodePlan = {
+            //expire:30,// req.session.expire,
+            //host: 300, //req.session.host,
+            totalorder: 20, //req.session.totalorder,
+            price: 10, //req.session.price
+          };
 //	  console.log("MNR");
 //	  console.log(req.user);
 //	  console.log("MNR");
@@ -64,6 +70,7 @@ exports.PaymentCallback = function (req, res) {
           User.findOneAndUpdate({_id: '5a6ef78159047838f7ff3b72'},{//req.user._id}, {
             $inc: {credit: 100}, //req.session.amount},
             $set: {
+              gcodePlan: gcodePlan,
               creditPlan: creditPlan,
               expireCreditDate: moment(moment(), "DD-MM-YYYY").add(33, 'days')//req.session.expire, 'days')
             }
@@ -95,7 +102,7 @@ exports.PaymentRequest = function (req, res) {
 
   zarinpal.PaymentRequest({
     Amount: req.body.price,
-    CallbackURL: config.domain + "/PaymentCallback",//"https://www.google.com",//
+    CallbackURL: config.domain + "/paymentCallback",//"https://www.google.com",//
     Description: "شارژ حساب از طریق زرین پال",
     Email: req.user.email,
     Mobile: '09120000000'
