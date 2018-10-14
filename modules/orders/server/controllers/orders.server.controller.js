@@ -175,7 +175,8 @@ exports.pay = function (req, res) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
-        } else {
+        }
+        else {
 
             if (order) {
 
@@ -214,15 +215,23 @@ exports.pay = function (req, res) {
                         }
 
                         if (order.doDesign){
-                          if(doc.creditPlan) {
-                            var newCreditPlan = doc.creditPlan;
-                            newCreditPlan.totalorder = newCreditPlan.totalorder - 1;
-                            inc['$set'] = {creditPlan: newCreditPlan};
-                          }else{
+                          if(req.user._doc.creditPlan.created-new Date()<0){
                             return res.status(200).send({
                               msgtype: "error",
-                              message: "بسته طراحی به پایان رسیده است"
+                              message: "مدت اعتبار بسته طراحی به پایان رسیده است"
                             });
+                          }
+                          else {
+                            if (doc.creditPlan) {
+                              var newCreditPlan = doc.creditPlan;
+                              newCreditPlan.totalorder = newCreditPlan.totalorder - 1;
+                              inc['$set'] = {creditPlan: newCreditPlan};
+                            } else {
+                              return res.status(200).send({
+                                msgtype: "error",
+                                message: "بسته طراحی به پایان رسیده است"
+                              });
+                            }
                           }
                         }
 
