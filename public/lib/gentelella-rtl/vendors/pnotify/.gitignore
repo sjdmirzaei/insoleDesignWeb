@@ -1,0 +1,9 @@
+bower_components
+node_modules
+libtests/browserify/node_modules
+<<<<<<< HEAD
+libtests/browserify/bundle.js
+/vendor/
+=======
+libtests/browserify/bundle.js
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27

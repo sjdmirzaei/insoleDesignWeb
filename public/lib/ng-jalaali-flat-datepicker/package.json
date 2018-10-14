@@ -1,0 +1,120 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "ng-jalaali-flat-datepicker",
+        "scope": null,
+        "escapedName": "ng-jalaali-flat-datepicker",
+        "name": "ng-jalaali-flat-datepicker",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "D:\\Projects\\payainsole"
+    ]
+  ],
+  "_from": "ng-jalaali-flat-datepicker@latest",
+  "_id": "ng-jalaali-flat-datepicker@1.0.2",
+  "_inCache": true,
+  "_location": "/ng-jalaali-flat-datepicker",
+  "_nodeVersion": "5.9.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/ng-jalaali-flat-datepicker-1.0.2.tgz_1464453679378_0.04916035593487322"
+  },
+  "_npmUser": {
+    "name": "thg303",
+    "email": "ghanavatian.ali@gmail.com"
+  },
+  "_npmVersion": "3.8.2",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "ng-jalaali-flat-datepicker",
+    "scope": null,
+    "escapedName": "ng-jalaali-flat-datepicker",
+    "name": "ng-jalaali-flat-datepicker",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/ng-jalaali-flat-datepicker/-/ng-jalaali-flat-datepicker-1.0.2.tgz",
+  "_shasum": "2dac65384b5842fa09da064c9b85cd932723d3bc",
+  "_shrinkwrap": null,
+  "_spec": "ng-jalaali-flat-datepicker",
+  "_where": "D:\\Projects\\payainsole",
+  "author": {
+    "name": "Ali Ghanavatian"
+  },
+  "bugs": {
+    "url": "https://github.com/thg303/ng-jalaali-flat-datepicker/issues"
+  },
+  "dependencies": {
+    "angular": "^1.5.5",
+    "moment": "^2.13.0",
+    "moment-jalaali": "^0.4.0"
+  },
+  "description": "Angular.js Datepicker built with Moment.js for Jalaali Calendar",
+  "devDependencies": {
+    "event-stream": "^3.3.2",
+    "gulp": "^3.9.0",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-angular-templatecache": "^1.7.0",
+    "gulp-autoprefixer": "^3.0.1",
+    "gulp-batch": "^1.0.5",
+    "gulp-concat": "^2.6.0",
+    "gulp-csso": "^1.0.0",
+    "gulp-jshint": "^2.0.1",
+    "gulp-load-plugins": "^0.10.0",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.0.4",
+    "gulp-uglify": "^1.4.0",
+    "gulp-watch": "^4.3.5",
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.2.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "2dac65384b5842fa09da064c9b85cd932723d3bc",
+    "tarball": "https://registry.npmjs.org/ng-jalaali-flat-datepicker/-/ng-jalaali-flat-datepicker-1.0.2.tgz"
+  },
+  "gitHead": "d1640196b4f4d9c0a47375c7ac19dbfc5c6aa0e1",
+  "homepage": "https://github.com/thg303/ng-jalaali-flat-datepicker#readme",
+  "keywords": [
+    "angular.js",
+    "angular",
+    "datepicker",
+    "jalaali",
+    "hijri",
+    "جلالی",
+    "تقویم شمسی",
+    "moment.js",
+    "moment",
+    "flat"
+  ],
+  "license": "MIT",
+  "main": "dist/ng-jalaali-flat-datepicker.min.js",
+  "maintainers": [
+    {
+      "name": "thg303",
+      "email": "ghanavatian.ali@gmail.com"
+    }
+  ],
+  "name": "ng-jalaali-flat-datepicker",
+  "optionalDependencies": {},
+  "readme": "ng-flat-jalaali-datepicker\n===\n\nیک دایرکتیو دیت پیکر جلالی ساده برای انگولار که از مومنت.جی اس استفاده می‌کند\n\n![ng-flat-jalaali-datepicker screenshot](http://s7.picofile.com/file/8252672284/taghvim.png)\n\n## پیش‌نمایش\n\n[پیش‌نمایشی ببینید](http://thg303.github.io/jalaali-datepicker-demo/)\n\n## امکانات\n* فرمت تاریخ قابل سفارشی سازی خروجی به صورت متن یا ابجکت تاریخ جاوا اسکریپت\n* قابلیت محدود کردن کمترین تاریخ قابل انتخاب و بیشترین تاریخ قابل انتخاب\n* امکان فعال/غیرفعال کردن تاریخی در آینده\n* انتخاب سریع ماه و سال\n* قابلیت ارائه تاریخ انتخاب شده بر مبنای میلادی و جلالی بصورت همزمان\n\n## پیش‌نیازها\n* Angularjs >=1.2\n* Moment.js\n* Moment-jalaali.js >=0.4.0\n\n## نصب\n\n1. `npm install --save ng-flat-jalaali-datepicker`\n2. متصل کردن فایل `/dist/ng-flat-jalaali-datepicker.js` و `/dist/ng-flat-jalaali-datepicker.css`\n3. اضافه کردن ماجول `'ngFlatjalaaliDatepicker'` بعنوان دپندنسی به ماجول انگولار مورد نظر\n\n\n## نحوه استفاده\n\nاین دایرکتیو فقط به صورت اتریبیوت قابل استفاده است\n\n```html\n<input type=\"text\" ng-model=\"date\" ng-flat-jalaali-datepicker>\n```\n\n```html\n<button ng-model=\"date\" ng-flat-jalaali-datepicker>Pick a date</button>\n```\n\n## آپشن‌ها\n\n### اتریبیوت‌ها:\n* `datepicker-config`: **Object** - ابجکت پیکربندی\n* `gregorian-formatted-picked-date`: **String** - تاریخ انتخاب شده به مبنای میلادی\n* `gregorian-picked-date`: **Object** - تاریخ انتخاب شده به صورت یک شی moment.js\n```html\n<input type=\"text\" ng-model=\"date\" datepicker-config=\"yourCustomConf\" gregorian-formatted-picked-date=\"gfdate\" gregorian-picked-date=\"gdate\"  ng-flat-jalaali-datepicker>Pick a date</button>\npicked date is {{gfdate}}\n```\n\n### خصوصیات قابل تعریف در شئ پیکربندی\n\n* `dateFormat`: **String** - فرمت moment-jalaali.js تاریخی که در `ng-model`. اگر فرمتی تعریف نشود فرمت پیش فرض تاریخ جاوا اسکریپت در نظر گرفته می‌شود:\nEg:`'jDD/jMM/jYYYY'`\n\n* `gregorianDateFormat`: **String** - فرمت نمایش تاریخ میلادی. اگر تعریف نشده باشد معادل همان `dateFormat` در نظر گرفته می‌شود\n* `minDate`: **Object** - مشخص کننده کمترین تاریخ قابل انتخاب توسط کاربر. حتمن می‌بایست یک شئ moment.js باشد\n* `dropDownYears`: **Number** - تعداد سال‌هایی که در لیست پایین افتادنی می‌بایست ظاهر شوند. مقدار پیش فرض ۱۰ عدد است\n* `maxDate`: **Object** - مشخص کننده بیشترین تاریخ قابل انتخاب توسط کاربر. حتمن می‌بایست یک شئ moment.js باشد\n* `allowFuture`: **Boolean** - اجازه انتخاب روزهای آینده (بعد از فردا) را ممکن می‌کند\n\n\n## مشارکت\nبرای مشارکت در بهبود این کد پیش‌نیازهای لازم را نصب نموده و سپس دستور زیر را وارد نمایید.\n\n`gulp watch`\n\n## تقدیر و سپاس\n* «رمی چاناود» بخاطر کد پروژه اصلی:\n[RemiAWE](https://github.com/RemiAWE/ng-flat-datepicker)\n* «بهرنگ نوروزی نیا» بخاطر پروژه تقویم جلالی بر مبنای مومنت:\n[behrang](https://github.com/jalaali/moment-jalaali)\n",
+  "readmeFilename": "README.fa.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thg303/ng-jalaali-flat-datepicker.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.2"
+}

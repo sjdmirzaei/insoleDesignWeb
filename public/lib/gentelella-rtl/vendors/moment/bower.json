@@ -1,0 +1,32 @@
+{
+  "name": "moment",
+<<<<<<< HEAD
+  "license": "MIT",
+=======
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+  "main": "moment.js",
+  "ignore": [
+    "**/.*",
+    "benchmarks",
+    "bower_components",
+    "meteor",
+    "node_modules",
+    "scripts",
+    "tasks",
+    "test",
+    "component.json",
+    "composer.json",
+    "CONTRIBUTING.md",
+    "ender.js",
+    "Gruntfile.js",
+    "Moment.js.nuspec",
+    "package.js",
+<<<<<<< HEAD
+    "package.json",
+    "ISSUE_TEMPLATE.md",
+    "typing-tests"
+=======
+    "package.json"
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+  ]
+}
