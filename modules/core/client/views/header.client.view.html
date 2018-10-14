@@ -21,8 +21,10 @@
   <li>
     <a href >
       <i class="ti-calendar"></i>
-      روز
-      {{vm.authentication.user.creditPlan.expire }}
+      اتمام اعتبار
+      <!--{{vm.authentication.user.creditPlan.expire }}-->
+      {{vm.remainingDate}}
+      <!--{{moment(moment(), "DD-MM-YYYY") - vm.authentication.user.creditPlan.created }}-->
 
     </a>
 
@@ -40,7 +42,6 @@
       <i class="ti-harddrive"></i>
       gcode
       {{vm.authentication.user.gcodePlan.totalorder}}
-      GB
     </a>
 
   </li>

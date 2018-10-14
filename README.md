@@ -7,6 +7,7 @@ https://github.com/SweetInk/openssl-lib
 $ npm install -g bower
 $ bower install --allow-root
 ```
+## Server setting
 Add firewall exception
 ```bash
 $ iptables -I INPUT 4 -m state --state NEW -m tcp -p tcp --dport 49153 -j ACCEPT
@@ -18,12 +19,22 @@ $ service iptables save
 $ npm install
 ```
 
-To push your changes, after commiting
+## Start
+
+```bash
+$ npm start
+OR
+$ node server.js
+OR
+$ forever start server.js
+```
+## Git
+To push your changes to git, after commiting
 ```bash
 $ git push -u origin master
 ```
 
-To clone and sync with git
+To clone and pull git changes
 ```bash
 $ git clone https://gitlab.com/MNR85/payatek-insole.git
 $ git pull origin

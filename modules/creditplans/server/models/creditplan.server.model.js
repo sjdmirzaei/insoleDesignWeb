@@ -40,7 +40,6 @@ var CreditplanSchema = new Schema({
         default:false,
         type:Boolean
     },
-
     created: {
         type: Date,
         default: Date.now
