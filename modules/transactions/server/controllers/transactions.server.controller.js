@@ -22,7 +22,7 @@ exports.PaymentCallback = function (req, res) {
 //  console.log("MNR");
 //  console.log(res);
   zarinpal.PaymentVerification({
-    Amount: 300000,//req.session.amount,
+    Amount: 1000000,//req.session.amount,
     Authority: req.query.Authority, //req.session.authority,
   }).then(function (response) {
     if (response.status == 101) {

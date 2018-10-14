@@ -20,7 +20,7 @@
     vm.remove = remove;
     vm.save = save;
     vm.PaymentRequest=PaymentRequest;
-    vm.addCredit = addCredit;
+    //vm.addCredit = addCredit;
 
     vm.creditplans=creditPlansResolver;
     vm.gcodeplans=gcodePlansResolver;

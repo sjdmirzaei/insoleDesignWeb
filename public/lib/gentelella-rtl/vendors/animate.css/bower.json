@@ -1,0 +1,15 @@
+{
+  "name": "animate.css",
+  "main": "./animate.css",
+  "ignore": [
+    ".*",
+<<<<<<< HEAD
+=======
+    "source",
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+    "*.yml",
+    "Gemfile",
+    "Gemfile.lock",
+    "*.md"
+  ]
+}

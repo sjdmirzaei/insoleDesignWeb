@@ -1,0 +1,20 @@
+{
+	"name": "google-code-prettify",
+<<<<<<< HEAD
+	"version": "1.0.5",
+=======
+	"version": "1.0.1",
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+	"main": [
+		"./bin/prettify.min.css",
+		"./bin/prettify.min.js"
+	],
+	"dependencies": {},
+	"ignore": [
+		"closure-compiler",
+		"js-modules",
+		"tests",
+		"yui-compressor",
+		"Makefile"
+	]
+}

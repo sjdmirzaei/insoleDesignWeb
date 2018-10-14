@@ -1,0 +1,29 @@
+{
+<<<<<<< HEAD
+  "name": "bootstrap-colorpicker",
+=======
+  "name": "mjolnic-bootstrap-colorpicker",
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+  "main": [
+    "dist/css/bootstrap-colorpicker.css",
+    "dist/js/bootstrap-colorpicker.js"
+  ],
+  "dependencies": {
+<<<<<<< HEAD
+    "jquery": ">=1.10"
+=======
+    "jquery": ">=1.10",
+    "bootstrap": ">=2"
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+  },
+  "ignore": [
+    "\\.*",
+    "/index.html",
+    "/package.json",
+    "/composer.json",
+    "/Gruntfile.js",
+    "/.travis.yml",
+    "/travis.sh",
+    "/server.js"
+  ]
+}

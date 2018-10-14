@@ -1,0 +1,52 @@
+{
+<<<<<<< HEAD
+  "name": "bootstrap-colorpicker",
+=======
+  "name": "mjolnic-bootstrap-colorpicker",
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+  "main": [
+    "dist/css/bootstrap-colorpicker.css",
+    "dist/js/bootstrap-colorpicker.js"
+  ],
+  "dependencies": {
+<<<<<<< HEAD
+    "jquery": ">=1.10"
+=======
+    "jquery": ">=1.10",
+    "bootstrap": ">=2"
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+  },
+  "ignore": [
+    "\\.*",
+    "/index.html",
+    "/package.json",
+    "/composer.json",
+    "/Gruntfile.js",
+    "/.travis.yml",
+    "/travis.sh",
+    "/server.js"
+  ],
+<<<<<<< HEAD
+  "homepage": "https://github.com/itsjavi/bootstrap-colorpicker",
+  "version": "2.5.1",
+  "_release": "2.5.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.5.1",
+    "commit": "db978b4d8c3436cdaed6e3a1a065f9f47bb686b1"
+  },
+  "_source": "https://github.com/itsjavi/bootstrap-colorpicker.git",
+=======
+  "homepage": "https://github.com/mjolnic/bootstrap-colorpicker",
+  "version": "2.3.3",
+  "_release": "2.3.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.3.3",
+    "commit": "59f06437c86b7c0e074aee8a699819fd1c07a173"
+  },
+  "_source": "https://github.com/mjolnic/bootstrap-colorpicker.git",
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+  "_target": "^2.3.3",
+  "_originalSource": "bootstrap-colorpicker"
+}
