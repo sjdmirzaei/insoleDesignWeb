@@ -1,0 +1,64 @@
+define(function(require) {
+
+    'use strict';
+
+    var zrUtil = require('zrender/core/util');
+    var ChartView = require('../../view/Chart');
+    var graphic = require('../../util/graphic');
+    var whiskerBoxCommon = require('../helper/whiskerBoxCommon');
+
+    var CandlestickView = ChartView.extend({
+
+        type: 'candlestick',
+
+        getStyleUpdater: function () {
+            return updateStyle;
+<<<<<<< HEAD
+        },
+
+        dispose: zrUtil.noop
+=======
+        }
+
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+    });
+
+    zrUtil.mixin(CandlestickView, whiskerBoxCommon.viewMixin, true);
+
+    // Update common properties
+    var normalStyleAccessPath = ['itemStyle', 'normal'];
+    var emphasisStyleAccessPath = ['itemStyle', 'emphasis'];
+
+    function updateStyle(itemGroup, data, idx) {
+        var itemModel = data.getItemModel(idx);
+        var normalItemStyleModel = itemModel.getModel(normalStyleAccessPath);
+        var color = data.getItemVisual(idx, 'color');
+<<<<<<< HEAD
+        var borderColor = data.getItemVisual(idx, 'borderColor') || color;
+=======
+        var borderColor = data.getItemVisual(idx, 'borderColor');
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+
+        // Color must be excluded.
+        // Because symbol provide setColor individually to set fill and stroke
+        var itemStyle = normalItemStyleModel.getItemStyle(
+            ['color', 'color0', 'borderColor', 'borderColor0']
+        );
+
+        var whiskerEl = itemGroup.childAt(itemGroup.whiskerIndex);
+        whiskerEl.useStyle(itemStyle);
+        whiskerEl.style.stroke = borderColor;
+
+        var bodyEl = itemGroup.childAt(itemGroup.bodyIndex);
+        bodyEl.useStyle(itemStyle);
+        bodyEl.style.fill = color;
+        bodyEl.style.stroke = borderColor;
+
+        var hoverStyle = itemModel.getModel(emphasisStyleAccessPath).getItemStyle();
+        graphic.setHoverStyle(itemGroup, hoverStyle);
+    }
+
+
+    return CandlestickView;
+
+});

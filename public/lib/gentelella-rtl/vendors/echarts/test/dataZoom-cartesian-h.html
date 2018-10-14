@@ -1,0 +1,247 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="esl.js"></script>
+        <script src="config.js"></script>
+    </head>
+    <body>
+        <style>
+<<<<<<< HEAD
+            html, body{
+                padding: 0;
+                margin: 0;
+            }
+            #main {
+                height: 500px;
+=======
+            html, body, #main {
+                width: 100%;
+                height: 100%;
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+            }
+            body {
+                margin: 0;
+            }
+<<<<<<< HEAD
+            h3 {
+                text-align: center;
+                background: #eee;
+                line-height: 30px;
+            }
+        </style>
+        <h3>
+            Check the highlighted label while data zooming.<br>
+            Check the minSpan and maxSpan (both in slider and inside and toolbox zoom).
+        </h3>
+=======
+        </style>
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+        <div id="main"></div>
+        <script>
+
+            require([
+                'echarts',
+                'echarts/chart/bar',
+<<<<<<< HEAD
+                'echarts/chart/line',
+=======
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+                'echarts/component/legend',
+                'echarts/component/grid',
+                'echarts/component/axis',
+                'echarts/component/dataZoom',
+                'echarts/component/tooltip',
+<<<<<<< HEAD
+                'echarts/component/toolbox',
+=======
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+                'echarts/component/markPoint',
+                'echarts/component/markLine'
+            ], function (echarts) {
+
+                chart = echarts.init(document.getElementById('main'), null, {
+                    renderer: 'canvas'
+                });
+
+                var xAxisData = [];
+                var data1 = [];
+                var data2 = [];
+                var data3 = [];
+
+                for (var i = 0; i < 200; i++) {
+<<<<<<< HEAD
+                    var data1Val;
+                    var data2Val;
+                    var data3Val;
+
+                    if (Math.random() < 0.03) {
+                        data1Val = '-';
+                        data2Val = '-';
+                        data3Val = '-';
+                    }
+                    else {
+                        data1Val = (Math.random() + 0.1).toFixed(2);
+                        data2Val = (Math.random() + 1).toFixed(2);
+                        data3Val = Math.random().toFixed(2);
+                    }
+
+                    if (i === 10 || i === 16) {
+                        xAxisData.push({
+                            value: '类目' + i,
+                            textStyle: {
+                                fontSize: 14,
+                                color: 'red',
+                                fontWeight: 'bold'
+                            }
+                        });
+                        data1.push({
+                            value: data1Val,
+                            itemStyle: {
+                                normal: {
+                                    color: 'yellow'
+                                }
+                            }
+                        });
+                        data2.push(data2Val);
+                        data3.push(data3Val);
+                    }
+                    else {
+                        xAxisData.push(i);
+                        data1.push(data1Val);
+                        data2.push(data2Val);
+                        data3.push(data3Val);
+=======
+                    xAxisData.push('类目' + i);
+                    if (Math.random() < 0.03) {
+                        data1.push('-');
+                        data2.push('-');
+                        data3.push('-');
+                    }
+                    else {
+                        data1.push((Math.random() + 0.1).toFixed(2));
+                        data2.push(Math.random().toFixed(2));
+                        data3.push(Math.random().toFixed(2));
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+                    }
+                }
+
+                chart.setOption({
+                    legend: {
+<<<<<<< HEAD
+                        data: ['bar', 'line', 'bar3']
+=======
+                        data: ['bar', 'bar2', 'bar3']
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+<<<<<<< HEAD
+                    toolbox: {
+                        feature: {
+                            dataZoom: {
+                                show: true,
+                                xAxisIndex: false
+                            },
+                            saveAsImage: {},
+                            restore: {show: true}
+                        }
+                    },
+                    yAxis: {
+                        data: xAxisData,
+                        // inverse: true,
+=======
+                    yAxis: {
+                        // data: ['类目1', '类目2', '类目3', '类目4', '类目5',]
+                        data: xAxisData,
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+                        boundaryGap: false
+                    },
+                    xAxis: {
+                        // inverse: true,
+                        // scale: true
+                    },
+                    series: [
+                        {
+<<<<<<< HEAD
+                            name: 'line',
+                            type: 'line',
+                            // stack: 'all',
+=======
+                            name: 'bar2',
+                            type: 'bar',
+                            stack: 'all',
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+                            data: data2,
+                            smooth: true
+                        },
+                        {
+                            name: 'bar3',
+                            type: 'bar',
+                            stack: 'all',
+                            data: data3,
+                            smooth: 0.1
+                        },
+                        {
+                            name: 'bar',
+                            type: 'bar',
+                            data: data1,
+                            smooth: true,
+                            stack: 'all',
+                            itemStyle: {
+                                normal: {
+                                    areaStyle: {}
+                                }
+                            },
+                            markPoint: {
+                                data: [{
+                                    type: 'max'
+                                }]
+                            },
+                            markLine: {
+                                data: [
+                                    [{
+                                        type: 'average'
+                                    }, {
+                                        type: 'max'
+                                    }]
+                                ]
+                            }
+                        }
+                    ],
+<<<<<<< HEAD
+                    dataZoom: [
+                        {
+                            show: true,
+                            startValue: 2,
+                            end: 30,
+                            borderColor: 'rgba(0,0,0,0.15)',
+                            backgroundColor: 'rgba(200,200,200,0)',
+                            yAxisIndex: 0,
+                            minValueSpan: 5,
+                            maxValueSpan: 80
+                        },
+                        {
+                            type: 'inside',
+                            startValue: 2,
+                            end: 30,
+                            yAxisIndex: 0,
+                            minSpan: 5,
+                            maxSpan: 80
+                        }
+                    ]
+=======
+                    dataZoom: {
+                        show: true,
+                        end: 30,
+                        borderColor: 'rgba(0,0,0,0.15)',
+                        backgroundColor: 'rgba(200,200,200,0)',
+                        yAxisIndex: 0
+                    }
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+                });
+            })
+
+        </script>
+    </body>
+</html>

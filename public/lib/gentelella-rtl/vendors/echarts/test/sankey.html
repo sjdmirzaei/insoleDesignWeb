@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="esl.js"></script>
+        <script src="config.js"></script>
+        <script src="config.js"></script>
+        <script src="lib/jquery.min.js"></script>
+    </head>
+    <body>
+        <style>
+            html, body, #main {
+                width: 100%;
+                height: 90%;
+                /*border: 1px solid #000;*/
+            }
+        </style>
+        <div id="main"><div>
+        <script>
+            require([
+                'echarts',
+                'echarts/chart/sankey',
+                'echarts/component/tooltip'
+                ], function (echarts) {
+
+                    var chart = echarts.init(document.getElementById('main'), null, {
+                        renderer: 'canvas'
+                    });
+
+                    window.onresize = function () {
+                        chart.resize();
+<<<<<<< HEAD
+                    };
+=======
+                    }
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+
+                    chart.on('click', function (params) {
+                        console.log(params, params.data);
+                    });
+
+
+                    $.getJSON('./data/energy.json')
+                    .done(function(data) {
+<<<<<<< HEAD
+
+                        data.nodes[0].itemStyle = {
+                            normal: {
+                                color: 'red'
+                            }
+                        };
+=======
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+                        chart.setOption({
+                            tooltip: {
+                                trigger: 'item',
+                                triggerOn: 'mousemove'
+                            },
+<<<<<<< HEAD
+                            animation: false,
+=======
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+                            series: [
+                                {
+                                    type: 'sankey',
+                                    layout:'none',
+                                    data: data.nodes,
+                                    links: data.links,
+                                    lineStyle: {
+                                        normal: {
+<<<<<<< HEAD
+                                            color: 'source',
+=======
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+                                            curveness: 0.5
+                                        }
+                                    }
+                                }
+                            ]
+                        });
+                    });
+                });
+        </script>
+    </body>
+</html>

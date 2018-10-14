@@ -1,0 +1,18 @@
+/build
+/test
+/map/tool
+<<<<<<< HEAD
+/map/raw
+=======
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+/theme/tool
+/theme/thumb
+todo
+npm-debug.log
+<<<<<<< HEAD
+/benchmark
+echarts.d.ts
+=======
+
+
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27

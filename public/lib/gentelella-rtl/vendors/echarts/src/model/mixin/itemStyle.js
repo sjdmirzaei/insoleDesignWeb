@@ -1,0 +1,46 @@
+define(function (require) {
+<<<<<<< HEAD
+    var getItemStyle = require('./makeStyleMapper')(
+        [
+            ['fill', 'color'],
+            ['stroke', 'borderColor'],
+            ['lineWidth', 'borderWidth'],
+            ['opacity'],
+            ['shadowBlur'],
+            ['shadowOffsetX'],
+            ['shadowOffsetY'],
+            ['shadowColor'],
+            ['textPosition'],
+            ['textAlign']
+        ]
+    );
+    return {
+        getItemStyle: function (excludes, includes) {
+            var style = getItemStyle.call(this, excludes, includes);
+            var lineDash = this.getBorderLineDash();
+            lineDash && (style.lineDash = lineDash);
+            return style;
+        },
+
+        getBorderLineDash: function () {
+            var lineType = this.get('borderType');
+            return (lineType === 'solid' || lineType == null) ? null
+                : (lineType === 'dashed' ? [5, 5] : [1, 1]);
+        }
+=======
+    return {
+        getItemStyle: require('./makeStyleMapper')(
+            [
+                ['fill', 'color'],
+                ['stroke', 'borderColor'],
+                ['lineWidth', 'borderWidth'],
+                ['opacity'],
+                ['shadowBlur'],
+                ['shadowOffsetX'],
+                ['shadowOffsetY'],
+                ['shadowColor']
+            ]
+        )
+>>>>>>> d08bd309b7fc163faaed9d8eef992bf9d90f0a27
+    };
+});
