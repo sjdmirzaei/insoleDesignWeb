@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Gcodeplans</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="gcodeplan in vm.gcodeplans"
+       ui-sref="gcodeplans.view({ gcodeplanId: gcodeplan._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="gcodeplan.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="gcodeplan.user" ng-bind="gcodeplan.user.displayName"></span>
+        <span ng-if="!gcodeplan.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="gcodeplan.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.gcodeplans.$resolved && !vm.gcodeplans.length">
+    No Gcodeplans yet, why don't you <a ui-sref="gcodeplans.create">create one</a>?
+  </div>
+</section>

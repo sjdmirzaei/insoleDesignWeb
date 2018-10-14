@@ -1,0 +1,75 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.gcodeplan._id ? 'Edit Gcodeplan' : 'New Gcodeplan'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.gcodeplanForm" class="form-horizontal" ng-submit="vm.save(vm.form.gcodeplanForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Name</label>
+          <input name="name" type="text" ng-model="vm.gcodeplan.name" id="name" class="form-control" placeholder="Name" required>
+          <div ng-messages="vm.form.gcodeplanForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Gcodeplan name is required.</p>
+          </div>
+        </div>
+        <!--<div class="form-group" show-errors>-->
+          <!--<label class="control-label" for="expire">expire</label>-->
+          <!--<input name="expire" type="number" ng-model="vm.gcodeplan.expire" id="expire" class="form-control" placeholder="expire" required>-->
+          <!--<div ng-messages="vm.form.gcodeplanForm.expire.$error" role="alert">-->
+            <!--<p class="help-block error-text" ng-message="required">Gcodeplan expire is required.</p>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group" show-errors>-->
+          <!--<label class="control-label" for="host">host</label>-->
+          <!--<input name="host" type="number" ng-model="vm.gcodeplan.host" id="host" class="form-control" placeholder="host" required>-->
+          <!--<div ng-messages="vm.form.gcodeplanForm.host.$error" role="alert">-->
+            <!--<p class="help-block error-text" ng-message="required">Gcodeplan host is required.</p>-->
+          <!--</div>-->
+        <!--</div>-->
+        <div class="form-group" show-errors>
+          <label class="control-label" for="totalorder">totalorder</label>
+          <input name="totalorder" type="number" ng-model="vm.gcodeplan.totalorder" id="totalorder" class="form-control" placeholder="totalorder" required>
+          <div ng-messages="vm.form.gcodeplanForm.totalorder.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Gcodeplan host is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="price">price</label>
+          <input name="price" type="number" ng-model="vm.gcodeplan.price" id="price" class="form-control" placeholder="price" required>
+          <div ng-messages="vm.form.gcodeplanForm.price.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Gcodeplan price is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="price">discount</label>
+          <input name="discount" type="number" ng-model="vm.gcodeplan.discount" id="discount" class="form-control" placeholder="discount" required>
+          <div ng-messages="vm.form.gcodeplanForm.price.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Gcodeplan discount is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group" >
+          <div class=" inline-block">
+
+            <div class="checkbox clip-check check-info checkbox-inline">
+              <input class="" type="checkbox" name="featured" ng-model="vm.gcodeplan.featured" id="featured" />
+              <label for="featured">
+                پلن پیشنهادی
+              </label>
+            </div>
+            <!--<h4 class="list-group-item-heading pull-right">-->
+            <!--{{priceplan.name}}-->
+            <!--</h4>-->
+
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.gcodeplan._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
