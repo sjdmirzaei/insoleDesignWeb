@@ -13,7 +13,7 @@ var path = require('path'),
   ZarinpalCheckout = require('zarinpal-checkout'),
   _ = require('lodash');
 
-var zarinpal = ZarinpalCheckout.create('f47973b0-7e73-11e8-86ec-005056a205be', true);
+var zarinpal = ZarinpalCheckout.create('f47973b0-7e73-11e8-86ec-005056a205be', false);
 
 exports.PaymentCallback = function (req, res) {
   //console.log("MNR in callback!!");
