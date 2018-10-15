@@ -9,6 +9,7 @@
   HeaderController.$inject = ['$scope', '$state', 'Authentication', 'menuService'];
 
   function HeaderController($scope, $state, Authentication, menuService) {
+    $scope.Math = window.Math;
     var vm = this;
     //var moment = require('moment');
     vm.accountMenu = menuService.getMenu('account').items[0];

@@ -215,10 +215,15 @@ exports.pay = function (req, res) {
                         }
 
                         if (order.doDesign){
-                          if(req.user._doc.remainingDate>0){
+                          if(req.user._doc.remainingDate<=0){
                             return res.status(200).send({
                               msgtype: "error",
                               message: "مدت اعتبار بسته طراحی به پایان رسیده است"
+                            });
+                          }else if(req.user._doc.creditPlan.totalorder<=0){
+                            return res.status(200).send({
+                              msgtype: "error",
+                              message: "تعداد بسته طراحی به پایان رسیده است"
                             });
                           }
                           else {
@@ -229,7 +234,7 @@ exports.pay = function (req, res) {
                             } else {
                               return res.status(200).send({
                                 msgtype: "error",
-                                message: "بسته طراحی به پایان رسیده است"
+                                message: "بسته طراحی وجود ندارد"
                               });
                             }
                           }
