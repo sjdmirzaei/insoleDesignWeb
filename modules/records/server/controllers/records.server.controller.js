@@ -168,6 +168,8 @@ exports.import = function (req, res) {
                         var curdirname = "";
 
                         vals.forEach(function (entry) {
+                          //if(file)
+                            var file = "test";
                             console.log('extract DIR', entry.isDirectory, entry.name, file);
                             var desc = entry.isDirectory;
 

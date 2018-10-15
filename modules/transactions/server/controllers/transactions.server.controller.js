@@ -22,7 +22,7 @@ exports.PaymentCallback = function (req, res) {
 //  console.log("MNR");
 //  console.log(res);
   zarinpal.PaymentVerification({
-    Amount: 1000000,//req.session.amount,
+    Amount: 1000,//req.session.amount,
     Authority: req.query.Authority, //req.session.authority,
   }).then(function (response) {
     if (response.status == 101) {
@@ -64,16 +64,20 @@ exports.PaymentCallback = function (req, res) {
             totalorder: 4, //req.session.totalorder,
             price: 10, //req.session.price
           };
+
+          var creaditExpire = new Date().setDate(creditPlan.created.getDate()+creditPlan.expire);
 //	  console.log("MNR");
 //	  console.log(req.user);
 //	  console.log("MNR");
           console.log(creditPlan);
+          console.log(creaditExpire);
+
           User.findOneAndUpdate({_id: '5a6ef78159047838f7ff3b72'},{//req.user._id}, {
             $inc: {credit: 100}, //req.session.amount},
             $set: {
               gcodePlan: gcodePlan,
               creditPlan: creditPlan,
-              expireCreditDate: moment(moment(), "DD-MM-YYYY").add(33, 'days')//req.session.expire, 'days')
+              expireCreditDate: creaditExpire //moment(moment(), "DD-MM-YYYY").add(33, 'days')//req.session.expire, 'days')
             }
 
           }, function (err, doc) {

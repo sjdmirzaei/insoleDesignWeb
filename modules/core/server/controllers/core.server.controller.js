@@ -22,6 +22,7 @@ exports.renderIndex = function (req, res) {
             roles: req.user.roles,
             credit: req.user.credit,
             creditPlan: req.user.creditPlan,
+            remainingDate: req.user.creditPlan? 0:req.user.creditPlan.expireCreditDate-new Date(),
             profileImageURL: req.user.profileImageURL,
             email: validator.escape(req.user.email),
             lastName: validator.escape(req.user.lastName),
