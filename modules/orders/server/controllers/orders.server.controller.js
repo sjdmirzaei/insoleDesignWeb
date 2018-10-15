@@ -215,7 +215,7 @@ exports.pay = function (req, res) {
                         }
 
                         if (order.doDesign){
-                          if(req.user._doc.creditPlan.created-new Date()<0){
+                          if(req.user._doc.remainingDate>0){
                             return res.status(200).send({
                               msgtype: "error",
                               message: "مدت اعتبار بسته طراحی به پایان رسیده است"

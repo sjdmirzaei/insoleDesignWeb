@@ -23,7 +23,7 @@
       <i class="ti-calendar"></i>
       روز
       <!--{{vm.authentication.user.creditPlan.expire }}-->
-      {{vm.authentication.user.remainingDate}}
+      {{Math.ceil(vm.authentication.user.remainingDate)}}
       <!--{{moment(moment(), "DD-MM-YYYY") - vm.authentication.user.creditPlan.created }}-->
 
     </a>
