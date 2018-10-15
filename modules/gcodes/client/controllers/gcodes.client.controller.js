@@ -36,6 +36,7 @@
               } else {
                   Notification.success({message: "پرداخت با موفقیت انجام شد"});
                   Authentication.user.credit = data.newcredit;
+                  Authentication.user.gcodePlan.totalorder = data.newGcodeNumber;
                   $state.go('gcodes.list');
               }
           });

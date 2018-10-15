@@ -26,7 +26,7 @@ exports.create = function (req, res) {
 
     if (order.sendTome) {
         order.orderPrice = 0;
-        order.cncUser = order.orderer;
+        order.) = order.orderer;
         order.save(function (err) {
             if (err) {
                 return res.status(400).send({
@@ -179,9 +179,7 @@ exports.pay = function (req, res) {
         else {
 
             if (order) {
-
                 var mrecords = [];
-
                 mrecords = order.records;
                 console.log(order.records);
 
@@ -214,29 +212,25 @@ exports.pay = function (req, res) {
                             }
                         }
 
-                        if (order.doDesign){
-                          if(req.user._doc.remainingDate<=0){
+                        if (!order.doDesign){
+                          if(!(doc.creditPlan)){ //req.user._doc
+                            return res.status(200).send({
+                              msgtype: "error",
+                              message: "بسته طراحی وجود ندارد"
+                            });
+                          }
+                          else if(doc.remainingDate<=0){
                             return res.status(200).send({
                               msgtype: "error",
                               message: "مدت اعتبار بسته طراحی به پایان رسیده است"
                             });
-                          }else if(req.user._doc.creditPlan.totalorder<=0){
+                          }else if(doc.creditPlan.totalorder<=0){
                             return res.status(200).send({
                               msgtype: "error",
                               message: "تعداد بسته طراحی به پایان رسیده است"
                             });
-                          }
-                          else {
-                            if (doc.creditPlan) {
-                              var newCreditPlan = doc.creditPlan;
-                              newCreditPlan.totalorder = newCreditPlan.totalorder - 1;
-                              inc['$set'] = {creditPlan: newCreditPlan};
-                            } else {
-                              return res.status(200).send({
-                                msgtype: "error",
-                                message: "بسته طراحی وجود ندارد"
-                              });
-                            }
+                          }else{
+                            doc.creditPlan.totalorder = doc.creditPlan.totalorder-1;
                           }
                         }
 
@@ -256,7 +250,8 @@ exports.pay = function (req, res) {
                                                 return res.status(400).send({
                                                     message: errorHandler.getErrorMessage(err)
                                                 });
-                                            } else {
+                                            }
+                                            else {
 
                                                 Patient.findOne({_id: order.patient}, function (err, patient) {
                                                     if (err) {
@@ -323,7 +318,8 @@ exports.pay = function (req, res) {
                                                                 return res.status(400).send({
                                                                     message: errorHandler.getErrorMessage(err)
                                                                 });
-                                                            } else {
+                                                            }
+                                                            else {
 
                                                                 var newPatientId = saved._id;
                                                                 var transaction = new Transaction();
@@ -386,8 +382,20 @@ exports.pay = function (req, res) {
                                                                                         console.log("deleted:" + saved.lastupdate + "/" + record2.name);
                                                                                     });
                                                                                     saveAll(function () {
+                                                                                      User.findOneAndUpdate({_id: order.cncUser._id}, {
+                                                                                        $inc: {credit: order.orderPrice}, //req.session.amount},
+                                                                                      }, function (err, doc) {
+                                                                                        if(err){
+                                                                                          console.log(err);
+                                                                                          res.status(200).send({
+                                                                                            msgtype: "error",
+                                                                                            message: "ُخطا در انتقال وجه"
+                                                                                          });
+                                                                                        }
+                                                                                      });
                                                                                         console.log("All Saved!");
                                                                                         res.status(200).send({
+                                                                                            newcreditPlanTotalorder: doc.creditPlan.totalorder,
                                                                                             newcredit: usercredit - order.orderPrice,
                                                                                             msgtype: "success",
                                                                                             message: "ُسفارش شما با موفقیت انجام شد"

@@ -130,6 +130,8 @@
             }
 
             function successCallback(res) {
+              console.log("MNR callback order");
+              console.log(res);
                 $state.go('orders.view', {
                     orderId: res._id
                 });

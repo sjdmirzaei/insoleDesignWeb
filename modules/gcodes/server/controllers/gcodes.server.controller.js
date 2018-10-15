@@ -74,17 +74,21 @@ exports.pay = function (req, res) {
                         message: errorHandler.getErrorMessage(err)
                     });
                 }else{
-                  if(user.gcodePlan && user.gcodePlan.totalorder>0) {
-                    var newGcodePlan = user.gcodePlan;
-                    newGcodePlan.totalorder = newGcodePlan.totalorder - 1;
-                    inc['$set'] = {gcodePlan: newGcodePlan};
-                  }else{
+                  if(user.gcodePlan)
+                  {
+                    return res.status(200).send({
+                      msgtype: "error",
+                      message: "بسته gcode وجود ندارد"
+                    });
+                  }
+                  else if(user.gcodePlan.totalorder<=0)
+                  {
                     return res.status(200).send({
                       msgtype: "error",
                       message: "بسته gcode به پایان رسیده است"
                     });
                   }
-                    if (user.credit - gcode.orderPrice <= 0) {
+                   else if (user.credit - gcode.orderPrice <= 0) {
                         return res.status(200).send({
                             msgtype: "error",
                             message: "اعتبار کافی برای انجام این سفارش وجود ندارد"
@@ -96,7 +100,6 @@ exports.pay = function (req, res) {
                                     message: errorHandler.getErrorMessage(err)
                                 });
                             } else {
-
                                 var transaction = new Transaction();
                                 transaction.detail = "خرید Gcode";
                                 transaction.type = "GCODE";
@@ -109,9 +112,9 @@ exports.pay = function (req, res) {
                                             message: errorHandler.getErrorMessage(err)
                                         });
                                     } else {
-
                                         res.jsonp({
                                             newcredit: doc.credit - gcode.orderPrice,
+                                            newGcodeNumber: doc.gcodePlan.totalorder-1,
                                             msgtype: "success",
                                             message: "ُسفارش شما با موفقیت انجام شد"
                                         });

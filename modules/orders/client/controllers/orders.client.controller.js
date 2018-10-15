@@ -63,10 +63,12 @@
 
                     if (data.msgtype == 'error') {
                         Notification.error({message: vm.error});
-                        $state.go('orders.list')
+                        $state.go('orders.list');
                     } else {
                         Notification.success({message: vm.error});
                         Authentication.user.credit = data.newcredit;
+                        if(Authentication.user.creditPlan)
+                        Authentication.user.creditPlan.totalorder = data.newcreditPlanTotalorder;
                         $state.go('orders.list');
                     }
                 });

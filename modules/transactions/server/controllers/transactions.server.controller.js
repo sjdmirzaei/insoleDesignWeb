@@ -16,14 +16,14 @@ var path = require('path'),
 var zarinpal = ZarinpalCheckout.create('f47973b0-7e73-11e8-86ec-005056a205be', true);
 
 exports.PaymentCallback = function (req, res) {
-  console.log("MNR in callback!!");
-  console.log(req.query);
-//  console.log(res.session);
-//  console.log("MNR");
-//  console.log(res);
+  //console.log("MNR in callback!!");
+  //console.log(req.query);
+  //console.log(res.session);
+  //console.log("MNR");
+  //console.log(res);
   zarinpal.PaymentVerification({
-    Amount: 1000,//req.session.amount,
-    Authority: req.query.Authority, //req.session.authority,
+    Amount: req.session.amount,
+    Authority: req.session.authority,
   }).then(function (response) {
     if (response.status == 101) {
       var tid = req.session.transactionId;
@@ -50,47 +50,70 @@ exports.PaymentCallback = function (req, res) {
       if (response.status == 100) {
         console.log("100");
         Transaction.findOneAndUpdate({authority: req.session.authority}, {$set: {RefID: response.RefID}}, function (err, doc) {
+          if (req.session.plantype == "creditplantype"){
+            var creditPlan = {
+              expire: req.session.expire,
+              host: req.session.host,
+              totalorder: req.session.totalorder,
+              price: req.session.price,
+              created:new Date()
+            };
+            console.log("------------------CREADITPLAN----------------");
+            console.log(creditPlan);
 
-          var creditPlan = {
-            expire:2,// req.session.expire,
-            host: 10, //req.session.host,
-            totalorder: 5, //req.session.totalorder,
-            price: 10, //req.session.price
-            created:new Date()
-          };
-          var gcodePlan = {
-            //expire:30,// req.session.expire,
-            //host: 300, //req.session.host,
-            totalorder: 4, //req.session.totalorder,
-            price: 10, //req.session.price
-          };
+            User.findOneAndUpdate({_id: req.user._id}, {
+              $inc: {credit: req.session.amount},
+              $set: {
+                creditPlan: creditPlan,
+                expireCreditDate: new Date().setDate(creditPlan.created.getDate()+creditPlan.expire)//moment(moment(), "DD-MM-YYYY").add(req.session.expire, 'days')
+              }
 
-          var creaditExpire = new Date().setDate(creditPlan.created.getDate()+creditPlan.expire);
-//	  console.log("MNR");
-//	  console.log(req.user);
-//	  console.log("MNR");
-          console.log(creditPlan);
-          console.log(creaditExpire);
-
-          User.findOneAndUpdate({_id: '5a6ef78159047838f7ff3b72'},{//req.user._id}, {
-            $inc: {credit: 100}, //req.session.amount},
-            $set: {
-              gcodePlan: gcodePlan,
-              creditPlan: creditPlan,
-              expireCreditDate: creaditExpire //moment(moment(), "DD-MM-YYYY").add(33, 'days')//req.session.expire, 'days')
-            }
-
-          }, function (err, doc) {
-            console.log(err);
-            User.findOne({_id: '5a6ef78159047838f7ff3b72'}, function (err, doc){//req.user._id}, function (err, doc) {
-              res.render('modules/core/server/views/index', {
-                response: JSON.stringify(response),
-                user: JSON.stringify(doc),
-                software: 'PT-SCANSUIT',//req.session.software,
-                sharedConfig: JSON.stringify(config.shared)
+            }, function (err, doc) {
+              console.log(err);
+              User.findOne({_id: req.user._id}, function (err, doc) {
+                res.render('modules/core/server/views/index', {
+                  response: JSON.stringify(response),
+                  user: JSON.stringify(doc),
+                  software: req.session.software,
+                  sharedConfig: JSON.stringify(config.shared)
+                });
               });
-            });
-          })
+            })
+
+          }
+          else{
+            var gcodePlan = {
+              //expire: req.session.expire,
+              //host: req.session.host,
+              totalorder: req.session.totalorder,
+              price: req.session.price
+            };
+
+            console.log("------------------GCODEPLAN----------------");
+            console.log(gcodePlan);
+
+            User.findOneAndUpdate({_id: req.user._id}, {
+              $inc: {credit: req.session.amount},
+              $set: {
+
+                gcodePlan: gcodePlan,
+                expireCreditDate: moment(moment(), "DD-MM-YYYY").add(req.session.expire, 'days')
+              }
+
+            }, function (err, doc) {
+              console.log(err);
+              User.findOne({_id: req.user._id}, function (err, doc) {
+                res.render('modules/core/server/views/index', {
+                  response: JSON.stringify(response),
+                  user: JSON.stringify(doc),
+                  software: req.session.software,
+                  sharedConfig: JSON.stringify(config.shared)
+                });
+              });
+            })
+
+          }
+
         })
       }
 
@@ -120,8 +143,22 @@ exports.PaymentRequest = function (req, res) {
       req.session.totalorder = req.body.totalorder;
       req.session.price = req.body.price;
       req.session.authority = response.authority;
+
       console.log(response);
 
+
+      if (typeof(req.body.expire) !== 'undefined'){
+        req.session.plantype = "creditplantype"
+      }
+      else
+      {
+        req.session.plantype = "gcodeplantype"
+      }
+
+      console.log("================plantype===============");
+
+      console.log(req.session.plantype);
+      console.log("================plantype===============");
       var transaction = new Transaction();
       transaction.creditPlan = req.body;
       transaction.user = req.user;
@@ -129,7 +166,6 @@ exports.PaymentRequest = function (req, res) {
 
       transaction.authority = response.authority;
       transaction.type = "PAYMENT";
-
       transaction.save(function (err) {
         if (err) {
           return res.status(400).send({
@@ -146,6 +182,7 @@ exports.PaymentRequest = function (req, res) {
     console.log(err);
   });
 };
+
 
 exports.PaymentVerification = function (req, res) {
   zarinpal.PaymentVerification({
