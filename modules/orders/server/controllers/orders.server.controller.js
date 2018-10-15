@@ -26,7 +26,7 @@ exports.create = function (req, res) {
 
     if (order.sendTome) {
         order.orderPrice = 0;
-        order.) = order.orderer;
+        order.cncUser = order.orderer;
         order.save(function (err) {
             if (err) {
                 return res.status(400).send({
