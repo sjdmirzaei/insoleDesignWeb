@@ -52,8 +52,9 @@ exports.generateKey = function (req, res) {
     //  if (!fs.existsSync(baseUploadPath+'/'+req.user._id+'_privatekey.pem')) {
     fs.writeFileSync(baseUploadPath + '/' + req.user._id + '_privatekey.pem', publicKey.exportKey("private"))
     // }
-    res.sendFile("/home/admin/paya/payainsole/certs/"+ req.user._id +"/"+ req.user._id + '_publickey.pub');
-    // res.sendFile("/home/admin/payainsole/certs/"+ req.user._id +"/"+ req.user._id + '_publickey.pub');
+    res.sendFile("./certs/"+ req.user._id +"/"+ req.user._id + '_publickey.pub');
+  // res.sendFile("/home/admin/paya/payainsole/certs/"+ req.user._id +"/"+ req.user._id + '_publickey.pub');
+  // res.sendFile("/home/admin/payainsole/certs/"+ req.user._id +"/"+ req.user._id + '_publickey.pub');
     //console.log(fs.readFileSync("D:\\Projects\\payainsole\\"+"/"+baseUploadPath + '/' + req.user._id + '_publickey.pub'));
     //res.sendFile("/home/admin/payainsole/certs/" + req.user._id + '_publickey.pub');
 

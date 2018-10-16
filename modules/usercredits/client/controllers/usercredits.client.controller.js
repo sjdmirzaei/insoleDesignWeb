@@ -69,9 +69,10 @@
     //
     function PaymentRequest(plan){
           paymentService.create(plan).$promise.then(function (response) {
-            alert(response.url);
-              $window.open(response.url,'_blank');
-              console.log(response);
+            // alert(response.url);
+            //   $window.open(response.url,'_blank');
+            $window.open(response.url,'_top');
+            console.log(response);
           })
       }
     // Save Usercredit

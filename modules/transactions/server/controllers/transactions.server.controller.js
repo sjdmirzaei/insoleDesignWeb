@@ -81,7 +81,7 @@ exports.PaymentCallback = function (req, res) {
             })
 
           }
-          else{
+          else if (req.session.plantype == "gcodeplantype"){
             var gcodePlan = {
               //expire: req.session.expire,
               //host: req.session.host,
@@ -113,7 +113,25 @@ exports.PaymentCallback = function (req, res) {
             })
 
           }
+          else {
+              console.log("------------------Creadit----------------");
+              console.log(req.session.amount);
 
+              User.findOneAndUpdate({_id: req.user._id}, {
+                $inc: {credit: req.session.amount},
+              }, function (err, doc) {
+                console.log(err);
+                User.findOne({_id: req.user._id}, function (err, doc) {
+                  res.render('modules/core/server/views/index', {
+                    response: JSON.stringify(response),
+                    user: JSON.stringify(doc),
+                    software: req.session.software,
+                    sharedConfig: JSON.stringify(config.shared)
+                  });
+                });
+              })
+          }
+        }
         })
       }
 
@@ -145,24 +163,25 @@ exports.PaymentRequest = function (req, res) {
       req.session.authority = response.authority;
 
       console.log(response);
-
-
+      var discription;
       if (typeof(req.body.expire) !== 'undefined'){
-        req.session.plantype = "creditplantype"
+        req.session.plantype = "creditplantype";
+        discription = "خرید بسته طراحی";
       }
-      else
+      else if (typeof(req.body.totalorder) !== 'undefined'){
       {
-        req.session.plantype = "gcodeplantype"
+        req.session.plantype = "gcodeplantype";
+        discription = "خرید بسته gcode";
+      }else{
+          req.session.plantype = "credittype";
+          discription = "افزایش اعتبار";
       }
-
       console.log("================plantype===============");
-
       console.log(req.session.plantype);
-      console.log("================plantype===============");
       var transaction = new Transaction();
       transaction.creditPlan = req.body;
       transaction.user = req.user;
-      transaction.detail = "شارژ حساب از طریق زرین پال";
+      transaction.detail = "از طریق زرین پال"+discription;
 
       transaction.authority = response.authority;
       transaction.type = "PAYMENT";

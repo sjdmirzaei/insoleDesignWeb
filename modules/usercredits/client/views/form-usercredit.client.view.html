@@ -50,7 +50,7 @@
     <div class="col-md-6 col-sm-6 col-xs-6">
 
       <!--ng-submit="vm.save(vm.form.usercreditForm.$valid)" novalidate-->
-      <form name="vm.form.usercreditForm" class="form-horizontal" action="/PaymentRequest" method="POST" >
+      <form name="vm.form.usercreditForm" class="form-horizontal" >
         <fieldset>
           <legend>
             پرداخت آنلاین
@@ -68,7 +68,14 @@
             </div>
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-success">{{vm.usercredit._id ? 'ویرایش' : 'پرداخت'}}</button>
+            <button type="submit" class="btn btn-success" ng-click="vm.PaymentRequest({'price':vm.usercredit.fishPrice})">پرداخت</button>
+
+            <!--<button class="btn btn-success" ng-click="vm.PaymentRequest({"price":123}) /button>-->
+            <!--<a href="#" class="btn btn-green btn-lg" ng-click="vm.PaymentRequest({"price":123})">-->
+              <!--پرداخت-->
+              <!--<span class="fa fa-cart"></span>-->
+            <!--</a>-->
+            <!--<button type="submit" class="btn btn-success">{{vm.usercredit._id ? 'ویرایش' : 'پرداخت'}}</button>-->
           </div>
 
         </fieldset>
