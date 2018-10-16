@@ -30,6 +30,8 @@ exports.renderIndex = function (req, res) {
       additionalProvidersData: req.user.additionalProvidersData
     };
   }
+  console.log("Refresh user");
+  console.log(safeUserObject);
   res.render('modules/core/server/views/index', {
     user: JSON.stringify(safeUserObject),
     software:req.session.software,
