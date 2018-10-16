@@ -113,25 +113,26 @@ exports.PaymentCallback = function (req, res) {
             })
 
           }
-          else {
-              console.log("------------------Creadit----------------");
-              console.log(req.session.amount);
+          else{
+            console.log("------------------CreadiPLAN----------------");
+            console.log(req.session.amount);
 
-              User.findOneAndUpdate({_id: req.user._id}, {
-                $inc: {credit: req.session.amount},
-              }, function (err, doc) {
-                console.log(err);
-                User.findOne({_id: req.user._id}, function (err, doc) {
-                  res.render('modules/core/server/views/index', {
-                    response: JSON.stringify(response),
-                    user: JSON.stringify(doc),
-                    software: req.session.software,
-                    sharedConfig: JSON.stringify(config.shared)
-                  });
+            User.findOneAndUpdate({_id: req.user._id}, {
+              $inc: {credit: req.session.amount},
+            }, function (err, doc) {
+              console.log(err);
+              User.findOne({_id: req.user._id}, function (err, doc) {
+                res.render('modules/core/server/views/index', {
+                  response: JSON.stringify(response),
+                  user: JSON.stringify(doc),
+                  software: req.session.software,
+                  sharedConfig: JSON.stringify(config.shared)
                 });
-              })
+              });
+            })
+
           }
-        }
+
         })
       }
 
@@ -169,7 +170,7 @@ exports.PaymentRequest = function (req, res) {
         discription = "خرید بسته طراحی";
       }
       else if (typeof(req.body.totalorder) !== 'undefined'){
-      {
+
         req.session.plantype = "gcodeplantype";
         discription = "خرید بسته gcode";
       }else{
