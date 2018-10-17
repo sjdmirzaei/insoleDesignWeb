@@ -68,9 +68,9 @@ exports.PaymentCallback = function (req, res) {
               if (err)
                 console.log(err);
               else {
-                console.log(doc.creditPlan);
+                //console.log(doc.creditPlan);
               User.findOne({_id: req.user._id}, function (err, doc) {
-                console.log(doc.creditPlan);
+                //console.log(doc.creditPlan);
                 res.render('modules/core/server/views/index', {
                   response: JSON.stringify(response),
                   user: JSON.stringify(doc),

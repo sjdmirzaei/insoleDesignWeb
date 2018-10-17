@@ -14,6 +14,8 @@
     //var moment = require('moment');
     vm.accountMenu = menuService.getMenu('account').items[0];
     vm.authentication = Authentication;
+    vm.remainingDate = isNaN((Authentication.user.expireCreditDate-new Date())/(1000*60*60*24))?0:((Authentication.user.expireCreditDate - new Date()) / (1000 * 60 * 60 * 24));
+    // console.log(vm.remainingDate);
     // if(vm.authentication.user)
     //   if(vm.authentication.user.creditPlan){
     //     var created = new Date(vm.authentication.user.creditPlan.created);

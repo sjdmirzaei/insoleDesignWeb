@@ -22,7 +22,7 @@
     <a href >
       <i class="ti-calendar"></i>
       روز
-      {{((req.user.expireCreditDate-Date())/(1000*60*60*24)?(req.user.expireCreditDate-Date())/(1000*60*60*24):0) | number:6}}
+      {{vm.remainingDate|number:6}}
       <!--{{vm.authentication.user.creditPlan.expire }}-->
       <!--{{Math.ceil(vm.authentication.user.remainingDate)}}-->
       <!--{{moment(moment(), "DD-MM-YYYY") - vm.authentication.user.creditPlan.created }}-->
