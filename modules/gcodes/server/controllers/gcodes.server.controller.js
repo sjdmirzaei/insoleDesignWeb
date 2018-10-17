@@ -55,99 +55,128 @@ exports.download = function (req, res) {
     })
 }
 exports.pay = function (req, res) {
-    var gcodeId = req.body.gcodeId;
-    if (!fs.existsSync("./attaches/gcodes")) fs.mkdirSync("./attaches/gcodes");
-    Gcode.findOneAndUpdate({
-        _id: gcodeId,
-        status: "NOTPAYED",
-        user: req.user._id
-    }, {status: "PAYED"}, function (err, gcode) {
-
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        } else {
-            var inc = {$inc: {credit: gcode.orderPrice * -1}};
-            User.findOne({_id: req.user._id},function (err,user) {
-                if (err) {
-                    return res.status(400).send({
-                        message: errorHandler.getErrorMessage(err)
-                    });
-                }else{
-                  // if(user.gcodePlan && user.gcodePlan.totalorder>0){
-                  //
-                  // }
-                  // else if(user.credit - gcode.orderPrice <= 0){
-                  //   return res.status(200).send({
-                  //     msgtype: "error",
-                  //     message: "اعتبار کافی برای انجام این سفارش وجود ندارد"
-                  //   });
-                  // }
-                  if(!(user.gcodePlan))
-                  {
+  var gcodeId = req.body.params.gcodeId;
+  var payFromPlan = req.body.params.payFromPlan;
+  // console.log(req.body.params);
+  if (!fs.existsSync("./attaches/gcodes")) fs.mkdirSync("./attaches/gcodes");
+  Gcode.findOne({
+    _id: gcodeId,
+    status: "NOTPAYED",
+    user: req.user._id
+  },function (err,gcode) {
+          User.findOne({_id: req.user._id},function (err,user) {
+              if (err) {
+                return res.status(400).send({
+                  message: errorHandler.getErrorMessage(err)
+                });
+              }
+              else{
+                if(payFromPlan) {
+                  if (user.gcodePlan) {
+                    if (user.gcodePlan.totalorder > 0) {   //pay from plan
+                      payFromPlan();
+                    }
+                    else {
+                      return res.status(200).send({
+                        msgtype: "error",
+                        message: "بسته gcode به پایان رسیده است"
+                      });
+                    }
+                  }else{
                     return res.status(200).send({
                       msgtype: "error",
                       message: "بسته gcode وجود ندارد"
                     });
                   }
-                  else if(user.gcodePlan.totalorder<=0)
-                  {
+                }
+                else {
+                  if (user.credit - gcode.orderPrice >= 0) {// pat from credit
+                    payFromCredit();
+                  }
+                  else{
                     return res.status(200).send({
                       msgtype: "error",
-                      message: "بسته gcode به پایان رسیده است"
+                      message: "اعتبار کافی برای انجام این سفارش وجود ندارد"
                     });
                   }
-                   else if (user.credit - gcode.orderPrice <= 0) {
-                        return res.status(200).send({
-                            msgtype: "error",
-                            message: "اعتبار کافی برای انجام این سفارش وجود ندارد"
-                        });
-                    }
-                  var newGcodePlan = user.gcodePlan;
-                  newGcodePlan.totalorder = newGcodePlan.totalorder-1;
-                  var inc = {$set: {gcodePlan: newGcodePlan}};
-                {
-                        User.findOneAndUpdate({_id: req.user._id}, inc, function (err, doc) {
-                            if (err) {
-                                return res.status(400).send({
-                                    message: errorHandler.getErrorMessage(err)
-                                });
-                            } else {
-                                var transaction = new Transaction();
-                                transaction.detail = "خرید Gcode";
-                                transaction.type = "GCODE";
-                                transaction.gcode = gcodeId;
-                                transaction.user = req.user._id;
-                                transaction.orderPrice = gcode.orderPrice;
-                                transaction.save(function (err) {
-                                    if (err) {
-                                        return res.status(400).send({
-                                            message: errorHandler.getErrorMessage(err)
-                                        });
-                                    } else {
-                                      console.log(chalk.blue("Success Gcode Order"));
-                                      console.log(doc.gcodePlan);
-                                      console.log(doc.credit);
-                                      console.log("All Saved!");
-                                        res.jsonp({
-                                            newcredit: doc.credit - gcode.orderPrice,
-                                            newGcodeNumber: doc.gcodePlan.totalorder-1,
-                                            msgtype: "success",
-                                            message: "ُسفارش شما با موفقیت انجام شد"
-                                        });
-                                    }
-                                })
-
-                            }
-
-                        });
-                    }
                 }
-            })
-
+              }
+          });
+  });
+  function payFromPlan(oldGcodePlan){
+    Gcode.findOneAndUpdate({
+      _id: gcodeId,
+      status: "NOTPAYED",
+      user: req.user._id
+    }, {status: "PAYED"}, function (err, gcode) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        var newGcodePlan = oldGcodePlan;
+        newGcodePlan.totalorder = newGcodePlan.totalorder-1;
+        var set = {$set: {gcodePlan: newGcodePlan}};
+        User.findOneAndUpdate({_id: req.user._id}, set, function (err, doc) {
+          if (err) {
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          }
+          else{
+            updateTransaction(gcode, doc.credit, newGcodePlan);
+          }
+        });
+      }
+    });
+  }
+  function payFromCredit(){
+    Gcode.findOneAndUpdate({
+      _id: gcodeId,
+      status: "NOTPAYED",
+      user: req.user._id
+    }, {status: "PAYED"}, function (err, gcode) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        var inc = {$inc: {credit: gcode.orderPrice * -1}};
+        User.findOneAndUpdate({_id: req.user._id}, inc, function (err, doc) {
+          if (err) {
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          }
+          else{
+            updateTransaction(gcode, doc.credit - gcode.orderPrice, doc.gcodePlan);
+          }
+        });
         }
-    })
+    });
+  }
+  function updateTransaction(gcode, newCredit, newGcodePlan){
+    var transaction = new Transaction();
+    transaction.detail = "خرید Gcode";
+    transaction.type = "GCODE";
+    transaction.gcode = gcodeId;
+    transaction.user = req.user._id;
+    transaction.orderPrice = gcode.orderPrice;
+    transaction.save(function (err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp({
+          newcredit: newCredit,
+          newGcodePlan: newGcodePlan,
+          msgtype: "success",
+          message: "ُسفارش شما با موفقیت انجام شد"
+        });
+      }
+    });
+  }
 }
 var fl=function(v){
     return parseFloat(Math.round(v* 100) / 100).toFixed(3)

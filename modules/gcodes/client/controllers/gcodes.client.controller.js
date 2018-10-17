@@ -26,17 +26,18 @@
     }
 
       function payGcode(gcodeId){
-
-          GcodesService.payGcode({gcodeId: vm.gcode._id}).$promise.then(function (data) {
-              vm.error = data.message;
+        // GcodesService.payGcode({gcodeId: vm.gcode._id, payFromPlan: payFromPlan}).$promise.then(function (data) {
+          GcodesService.payGcode({params: gcodeId}).$promise.then(function (data) {
+            vm.error = data.message;
 
               if (data.msgtype == 'error') {
                   Notification.error({message: vm.error});
-                  $state.go('gcodes.list')
+                  $state.go('gcodes.list');
               } else {
                   Notification.success({message: "پرداخت با موفقیت انجام شد"});
                   Authentication.user.credit = data.newcredit;
-                  Authentication.user.gcodePlan.totalorder = data.newGcodeNumber;
+                  if(data.newGcodePlan)
+                  Authentication.user.gcodePlan = data.newGcodePlan;
                   $state.go('gcodes.list');
               }
           });

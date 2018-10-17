@@ -111,8 +111,11 @@
             <a onclick="javascript:window.print();" class="btn btn-lg btn-primary hidden-print">
               چاپ <i class="fa fa-print"></i>
             </a>
-            <button ng-disabled="vm.gcode.status=='PAYED'" class="btn btn-lg btn-primary btn-o hidden-print" ng-click="vm.payGcode({gcodeId:vm.gcode._id})">
+            <button ng-disabled="vm.gcode.status=='PAYED'" class="btn btn-lg btn-primary btn-o hidden-print" ng-click="vm.payGcode({gcodeId:vm.gcode._id, payFromPlan:false})">
               پرداخت و کسر از اعتبار <i class="fa fa-check"></i>
+            </button>
+            <button ng-disabled="vm.gcode.status=='PAYED'" class="btn btn-lg btn-primary btn-o hidden-print" ng-click="vm.payGcode({gcodeId:vm.gcode._id, payFromPlan:true})">
+              پرداخت و کسر از بسته gcode <i class="fa fa-check"></i>
             </button>
           </div>
         </div>
