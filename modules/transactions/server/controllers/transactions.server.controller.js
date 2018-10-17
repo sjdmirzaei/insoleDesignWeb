@@ -24,24 +24,24 @@ exports.PaymentCallback = function (req, res) {
     if (response.status == 101) {
       console.log(chalk.blue("101 callback"));
       var tid = req.session.transactionId;
-      // console.log("=============");
-      // console.log(moment(moment(), "DD-MM-YYYY").add(req.session.expire, 'days'));
-      // console.log("=============");
-      // Transaction.findOneAndUpdate({authority: req.session.authority}, {
-      //   $set: {
-      //     expireCreditDate: moment(moment(), "DD-MM-YYYY").add(req.session.expire, 'days'),
-      //     RefID: response.RefID,
-      //     withdraw: req.session.amount
-      //   }
-      // }, function (err, doc) {
-      //   console.log("Verified! Ref ID: " + response.RefID);
+      console.log("=============");
+      console.log(moment(moment(), "DD-MM-YYYY").add(req.session.expire, 'days'));
+      console.log("=============");
+      Transaction.findOneAndUpdate({authority: req.session.authority}, {
+        $set: {
+          expireCreditDate: moment(moment(), "DD-MM-YYYY").add(req.session.expire, 'days'),
+          RefID: response.RefID,
+          withdraw: req.session.amount
+        }
+      }, function (err, doc) {
+        console.log("Verified! Ref ID: " + response.RefID);
         res.render('modules/core/server/views/index', {
           response: JSON.stringify(response),
           user: JSON.stringify(req.user),
           software: req.session.software,
           sharedConfig: JSON.stringify(config.shared)
         });
-      // })
+      })
     }
     else {
       if (response.status == 100) {

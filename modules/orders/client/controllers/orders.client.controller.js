@@ -24,7 +24,7 @@
         };
         vm.authentication = Authentication;
         vm.order = order;
-
+        vm.ShowCheckBox = false;
         console.log(vm.order);
         vm.error = null;
         vm.form = {};

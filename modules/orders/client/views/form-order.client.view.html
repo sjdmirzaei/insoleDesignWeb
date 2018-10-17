@@ -30,7 +30,7 @@
                     <div class="form-group">
                     <div class=" inline-block">
 
-                        <div class="checkbox clip-check check-info checkbox-inline">
+                        <div class="checkbox clip-check check-info checkbox-inline" ng-show="vm.ShowCheckBox">
                             <input class="" type="checkbox" name="radioList" ng-model="vm.order.sendTome" id="sendtome" />
                             <label for="sendtome">
                                ارسال به نرم افزار طراحی خودم
@@ -42,8 +42,10 @@
 
                     </div>
                     </div>
-                    <div class="form-group" ng-show="!vm.order.sendTome">
-                        <div class=" inline-block">
+                    <!--<div class="form-group" ng-show="!vm.order.sendTome">-->
+                      <div class="form-group" ng-show="vm.ShowCheckBox">
+
+                      <div class=" inline-block">
 
                             <div class="checkbox clip-check check-info checkbox-inline">
                                 <input class="" type="checkbox" name="radiododesign" ng-model="vm.order.doDesign" id="dodesign" />
