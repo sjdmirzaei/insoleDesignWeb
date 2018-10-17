@@ -75,7 +75,7 @@ exports.pay = function (req, res) {
                 if(payFromPlan) {
                   if (user.gcodePlan) {
                     if (user.gcodePlan.totalorder > 0) {   //pay from plan
-                      paymentFromPlan();
+                      paymentFromPlan(user.gcodePlan);
                     }
                     else {
                       return res.status(200).send({
