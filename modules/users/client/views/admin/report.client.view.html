@@ -31,6 +31,10 @@
           <td>{{user.user.displayName}}</td>
           <td>{{user.orders}}</td>
           <td>{{user.transactions}}</td>
+          <td>{{user.credit}}</td>
+          <td>{{user.creditPlan.totalorder}}</td>
+          <td>{{user.creditPlan.expire.toLocaleString()}}</td>
+          <td>{{user.gcodePlan.totalorder}}</td>
           <td class="center">
             <div class="visible-md visible-lg hidden-sm hidden-xs">
               <a href="#" ui-sref="admin.user-edit({userId: user.user._id})" class="btn btn-transparent btn-xs" tooltip-placement="top" tooltip="ویرایش"><i class="fa fa-pencil"></i></a>
