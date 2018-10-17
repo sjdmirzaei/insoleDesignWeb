@@ -57,6 +57,7 @@ exports.download = function (req, res) {
 exports.pay = function (req, res) {
   var gcodeId = req.body.params.gcodeId;
   var payFromPlan = req.body.params.payFromPlan;
+  //console.log("Gcode Payment");
   // console.log(req.body.params);
   if (!fs.existsSync("./attaches/gcodes")) fs.mkdirSync("./attaches/gcodes");
   Gcode.findOne({
