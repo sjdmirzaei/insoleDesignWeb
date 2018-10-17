@@ -68,22 +68,22 @@ exports.pay = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            var inc;// = {$inc: {credit: gcode.orderPrice * -1}};
+            var inc = {$inc: {credit: gcode.orderPrice * -1}};
             User.findOne({_id: req.user._id},function (err,user) {
                 if (err) {
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)
                     });
                 }else{
-                  if(user.gcodePlan && user.gcodePlan.totalorder>0){
-
-                  }
-                  else if(user.credit - gcode.orderPrice <= 0){
-                    return res.status(200).send({
-                      msgtype: "error",
-                      message: "اعتبار کافی برای انجام این سفارش وجود ندارد"
-                    });
-                  }
+                  // if(user.gcodePlan && user.gcodePlan.totalorder>0){
+                  //
+                  // }
+                  // else if(user.credit - gcode.orderPrice <= 0){
+                  //   return res.status(200).send({
+                  //     msgtype: "error",
+                  //     message: "اعتبار کافی برای انجام این سفارش وجود ندارد"
+                  //   });
+                  // }
                   if(!(user.gcodePlan))
                   {
                     return res.status(200).send({
@@ -106,7 +106,7 @@ exports.pay = function (req, res) {
                     }
                   var newGcodePlan = user.gcodePlan;
                   newGcodePlan.totalorder = newGcodePlan.totalorder-1;
-                  var inc = {$inc: {gcodePlan.totalorder:-1}};// newGcodePlan}};
+                  var inc = {$set: {gcodePlan: newGcodePlan}};
                 {
                         User.findOneAndUpdate({_id: req.user._id}, inc, function (err, doc) {
                             if (err) {
