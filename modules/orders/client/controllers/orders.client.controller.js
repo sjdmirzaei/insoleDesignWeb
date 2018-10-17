@@ -67,8 +67,7 @@
                     } else {
                         Notification.success({message: vm.error});
                         Authentication.user.credit = data.newcredit;
-                        if(Authentication.user.creditPlan)
-                        Authentication.user.creditPlan.totalorder = data.newcreditPlanTotalorder;
+                        Authentication.user.creditPlan = data.newcreditPlan;
                         $state.go('orders.list');
                     }
                 });

@@ -61,6 +61,7 @@
                     } else {
                         Notification.success({message: vm.error});
                         Authentication.user.credit = data.newcredit;
+                        Authentication.user.creditPlan = data.newcreditPlan;
                         $state.go('orders.list');
                     }
                 });

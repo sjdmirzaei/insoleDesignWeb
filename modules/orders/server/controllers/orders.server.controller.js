@@ -11,6 +11,7 @@ var path = require('path'),
     Record = mongoose.model('Record'),
     Transaction = mongoose.model('Transaction'),
     fs = require('fs'),
+    chalk = require('chalk'),
     efs = require('fs-extra'),
     Priceplan = mongoose.model('Priceplan'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
@@ -189,29 +190,6 @@ exports.pay = function (req, res) {
                             message: errorHandler.getErrorMessage(err)
                         });
                     } else {
-
-                        var inc = {$inc: {credit: order.orderPrice * -1}};
-
-                        // var software = "PT-InsoleDesign";
-                        var minusPrice = false;
-
-                        if (order.sendTome) {
-                            order.cncUser = order.orderer
-                            order.orderPrice = {}
-                        }
-                        if (order.cncUser.equals(order.orderer)) {
-                            inc = {$inc: {credit: 0}};
-                            // software = "PT-SCANSUIT";
-
-                            minusPrice = true;
-                        } else {
-                            if (doc.credit - order.orderPrice >= 0) {
-                                minusPrice = true;
-                            } else {
-                                minusPrice = false;
-                            }
-                        }
-
                         if (!order.doDesign){
                           if(!(doc.creditPlan)){ //req.user._doc
                             return res.status(200).send({
@@ -234,6 +212,33 @@ exports.pay = function (req, res) {
                           }
                         }
 
+                      var inc = {
+                          $inc: {credit: order.orderPrice * -1},
+                          $set: {creditPlan: doc.creditPlan}
+                      };
+
+                      // var software = "PT-InsoleDesign";
+                      var minusPrice = false;
+
+                      if (order.sendTome) {
+                        order.cncUser = order.orderer
+                        order.orderPrice = {}
+                      }
+                      if (order.cncUser.equals(order.orderer)) {
+                        inc = {
+                          $inc: {credit: 0},
+                          $set: {creditPlan: doc.creditPlan}
+                        };
+                        // software = "PT-SCANSUIT";
+
+                        minusPrice = true;
+                      } else {
+                        if (doc.credit - order.orderPrice >= 0) {
+                          minusPrice = true;
+                        } else {
+                          minusPrice = false;
+                        }
+                      }
                         if (minusPrice) {
                             User.findOneAndUpdate({_id: order.orderer}, inc, function (err, doc) {
                                 if (err) {
@@ -392,10 +397,15 @@ exports.pay = function (req, res) {
                                                                                             message: "ُخطا در انتقال وجه"
                                                                                           });
                                                                                         }
+                                                                                        console.log(chalk.red("CNC user credit:"));
+                                                                                        console.log(doc.creditPlan);
                                                                                       });
+                                                                                        console.log(chalk.red("Success Insole Order"));
+                                                                                        console.log(doc.creditPlan);
+                                                                                        console.log(doc.creadit);
                                                                                         console.log("All Saved!");
                                                                                         res.status(200).send({
-                                                                                            newcreditPlanTotalorder: doc.creditPlan.totalorder,
+                                                                                            newcreditPlan: doc.creditPlan,
                                                                                             newcredit: usercredit - order.orderPrice,
                                                                                             msgtype: "success",
                                                                                             message: "ُسفارش شما با موفقیت انجام شد"

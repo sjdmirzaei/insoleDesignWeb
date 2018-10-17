@@ -112,6 +112,10 @@ exports.pay = function (req, res) {
                                             message: errorHandler.getErrorMessage(err)
                                         });
                                     } else {
+                                      console.log(chalk.red("Success Gcode Order"));
+                                      console.log(doc.gcodePlan);
+                                      console.log(doc.creadit);
+                                      console.log("All Saved!");
                                         res.jsonp({
                                             newcredit: doc.credit - gcode.orderPrice,
                                             newGcodeNumber: doc.gcodePlan.totalorder-1,
