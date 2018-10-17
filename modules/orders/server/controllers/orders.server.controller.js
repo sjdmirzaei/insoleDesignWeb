@@ -397,10 +397,10 @@ exports.pay = function (req, res) {
                                                                                             message: "ُخطا در انتقال وجه"
                                                                                           });
                                                                                         }
-                                                                                        console.log(chalk.red("CNC user credit:"));
+                                                                                        console.log(chalk.red("=====CNC user credit:"));
                                                                                         console.log(doc.creditPlan);
                                                                                       });
-                                                                                        console.log(chalk.red("Success Insole Order"));
+                                                                                        console.log(chalk.red("=====Success Insole Order"));
                                                                                         console.log(doc.creditPlan);
                                                                                         console.log(doc.creadit);
                                                                                         console.log("All Saved!");
