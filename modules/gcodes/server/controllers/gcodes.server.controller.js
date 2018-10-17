@@ -10,6 +10,7 @@ var path = require('path'),
     Transaction = mongoose.model('Transaction'),
     path=require('path'),
     fs = require('fs'),
+    chalk = require('chalk'),
     config = require(path.resolve('./config/config')),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
     _ = require('lodash');
@@ -112,9 +113,9 @@ exports.pay = function (req, res) {
                                             message: errorHandler.getErrorMessage(err)
                                         });
                                     } else {
-                                      console.log(chalk.red("Success Gcode Order"));
+                                      console.log(chalk.blue("Success Gcode Order"));
                                       console.log(doc.gcodePlan);
-                                      console.log(doc.creadit);
+                                      console.log(doc.credit);
                                       console.log("All Saved!");
                                         res.jsonp({
                                             newcredit: doc.credit - gcode.orderPrice,

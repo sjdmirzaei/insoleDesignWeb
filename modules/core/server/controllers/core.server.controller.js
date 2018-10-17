@@ -2,6 +2,7 @@
 
 var validator = require('validator'),
   path = require('path'),
+  chalk = require('chalk'),
   config = require(path.resolve('./config/config'));
 
 /**
@@ -30,7 +31,7 @@ exports.renderIndex = function (req, res) {
       additionalProvidersData: req.user.additionalProvidersData
     };
   }
-  console.log("Refresh user");
+  console.log(chalk.green("Refresh user"));
   console.log(safeUserObject);
   res.render('modules/core/server/views/index', {
     user: JSON.stringify(safeUserObject),
