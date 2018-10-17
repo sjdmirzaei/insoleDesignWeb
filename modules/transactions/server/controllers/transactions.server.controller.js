@@ -9,6 +9,7 @@ var path = require('path'),
   Transaction = mongoose.model('Transaction'),
   User = mongoose.model('User'),
   config = require(path.resolve('./config/config')),
+  chalk = require('chalk'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   ZarinpalCheckout = require('zarinpal-checkout'),
   _ = require('lodash');
@@ -16,11 +17,6 @@ var path = require('path'),
 var zarinpal = ZarinpalCheckout.create('f47973b0-7e73-11e8-86ec-005056a205be', false);
 
 exports.PaymentCallback = function (req, res) {
-  //console.log("MNR in callback!!");
-  //console.log(req.query);
-  //console.log(res.session);
-  //console.log("MNR");
-  //console.log(res);
   zarinpal.PaymentVerification({
     Amount: req.session.amount,
     Authority: req.session.authority,
@@ -46,11 +42,13 @@ exports.PaymentCallback = function (req, res) {
         });
       })
 
-    } else {
+    }
+    else {
       if (response.status == 100) {
-        console.log("100");
+        console.log(chalk.green("Verfy callback"));
+        console.log(req.session.plantype);
         Transaction.findOneAndUpdate({authority: req.session.authority}, {$set: {RefID: response.RefID}}, function (err, doc) {
-          if (req.session.plantype == "creditplantype"){
+          if (req.session.plantype == "credit plan"){
             var creditPlan = {
               expire: req.session.expire,
               host: req.session.host,
@@ -58,18 +56,19 @@ exports.PaymentCallback = function (req, res) {
               price: req.session.price,
               created:new Date()
             };
-            console.log("------------------CREADITPLAN----------------");
             console.log(creditPlan);
-
             User.findOneAndUpdate({_id: req.user._id}, {
-              $inc: {credit: req.session.amount},
+              // $inc: {credit: req.session.amount},
               $set: {
                 creditPlan: creditPlan,
                 expireCreditDate: new Date().setDate(creditPlan.created.getDate()+creditPlan.expire)//moment(moment(), "DD-MM-YYYY").add(req.session.expire, 'days')
               }
 
             }, function (err, doc) {
-              console.log(err);
+              if (err)
+                console.log(err);
+              else {
+                console.log(doc.creditPlan);
               User.findOne({_id: req.user._id}, function (err, doc) {
                 res.render('modules/core/server/views/index', {
                   response: JSON.stringify(response),
@@ -78,64 +77,62 @@ exports.PaymentCallback = function (req, res) {
                   sharedConfig: JSON.stringify(config.shared)
                 });
               });
+            }
             })
 
           }
-          else if (req.session.plantype == "gcodeplantype"){
+          else if (req.session.plantype == "gcode plan"){
             var gcodePlan = {
-              //expire: req.session.expire,
-              //host: req.session.host,
               totalorder: req.session.totalorder,
               price: req.session.price
             };
-
-            console.log("------------------GCODEPLAN----------------");
             console.log(gcodePlan);
 
             User.findOneAndUpdate({_id: req.user._id}, {
-              $inc: {credit: req.session.amount},
+              // $inc: {credit: req.session.amount},
               $set: {
-
-                gcodePlan: gcodePlan,
-                expireCreditDate: moment(moment(), "DD-MM-YYYY").add(req.session.expire, 'days')
+                gcodePlan: gcodePlan
               }
 
             }, function (err, doc) {
-              console.log(err);
-              User.findOne({_id: req.user._id}, function (err, doc) {
-                res.render('modules/core/server/views/index', {
-                  response: JSON.stringify(response),
-                  user: JSON.stringify(doc),
-                  software: req.session.software,
-                  sharedConfig: JSON.stringify(config.shared)
+              if (err)
+                console.log(err);
+              else{
+                console.log(doc.gcodePlan);
+                User.findOne({_id: req.user._id}, function (err, doc) {
+                  res.render('modules/core/server/views/index', {
+                    response: JSON.stringify(response),
+                    user: JSON.stringify(doc),
+                    software: req.session.software,
+                    sharedConfig: JSON.stringify(config.shared)
+                  });
                 });
-              });
+            }
             })
-
           }
           else{
-            console.log("------------------CreadiPLAN----------------");
             console.log(req.session.amount);
-
             User.findOneAndUpdate({_id: req.user._id}, {
               $inc: {credit: req.session.amount},
             }, function (err, doc) {
-              console.log(err);
-              User.findOne({_id: req.user._id}, function (err, doc) {
-                res.render('modules/core/server/views/index', {
-                  response: JSON.stringify(response),
-                  user: JSON.stringify(doc),
-                  software: req.session.software,
-                  sharedConfig: JSON.stringify(config.shared)
+              if (err)
+                console.log(err);
+              else{
+                console.log(doc.credit);
+                User.findOne({_id: req.user._id}, function (err, doc) {
+                  res.render('modules/core/server/views/index', {
+                    response: JSON.stringify(response),
+                    user: JSON.stringify(doc),
+                    software: req.session.software,
+                    sharedConfig: JSON.stringify(config.shared)
+                  });
                 });
-              });
+            }
             })
 
           }
-
         })
       }
-
     }
 
   }).catch(function (err) {
@@ -166,24 +163,23 @@ exports.PaymentRequest = function (req, res) {
       console.log(response);
       var discription;
       if (typeof(req.body.expire) !== 'undefined'){
-        req.session.plantype = "creditplantype";
+        req.session.plantype = "credit plan";
         discription = "خرید بسته طراحی";
       }
       else if (typeof(req.body.totalorder) !== 'undefined'){
 
-        req.session.plantype = "gcodeplantype";
+        req.session.plantype = "gcode plan";
         discription = "خرید بسته gcode";
       }else{
-          req.session.plantype = "credittype";
+          req.session.plantype = "credit";
           discription = "افزایش اعتبار";
       }
-      console.log("================plantype===============");
+      console.log(chalk.blue("plan type:"));
       console.log(req.session.plantype);
       var transaction = new Transaction();
       transaction.creditPlan = req.body;
       transaction.user = req.user;
       transaction.detail = "از طریق زرین پال"+discription;
-
       transaction.authority = response.authority;
       transaction.type = "PAYMENT";
       transaction.save(function (err) {

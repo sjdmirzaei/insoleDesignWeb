@@ -191,13 +191,15 @@ exports.pay = function (req, res) {
                         });
                     } else {
                         if (!order.doDesign){
+                          // console.log(chalk.green("Check design package:"));
+                          // console.log(doc);
                           if(!(doc.creditPlan)){ //req.user._doc
                             return res.status(200).send({
                               msgtype: "error",
                               message: "بسته طراحی وجود ندارد"
                             });
                           }
-                          else if(doc.remainingDate<=0){
+                          else if(doc.expireCreditDate-new Date()<=0){
                             return res.status(200).send({
                               msgtype: "error",
                               message: "مدت اعتبار بسته طراحی به پایان رسیده است"
@@ -263,7 +265,8 @@ exports.pay = function (req, res) {
                                                         return res.status(400).send({
                                                             message: errorHandler.getErrorMessage(err)
                                                         });
-                                                    } else {
+                                                    }
+                                                    else {
                                                         //  var newP = Object.assign({}, patient);
 
                                                         var pathArray = patient.lastupdate.split('/');
@@ -387,7 +390,17 @@ exports.pay = function (req, res) {
                                                                                         console.log("deleted:" + saved.lastupdate + "/" + record2.name);
                                                                                     });
                                                                                     saveAll(function () {
-                                                                                      User.findOneAndUpdate({_id: order.cncUser._id}, {
+                                                                                      console.log(chalk.blue("CNC user credit:"));
+                                                                                      User.findOne({_id: order.cncUser}, function (err, doc) {
+                                                                                        if (err) {
+                                                                                          return res.status(400).send({
+                                                                                            message: errorHandler.getErrorMessage(err)
+                                                                                          });
+                                                                                        }
+                                                                                        else
+                                                                                        console.log(doc.credit);
+                                                                                      })
+                                                                                      User.findOneAndUpdate({_id: order.cncUser}, {
                                                                                         $inc: {credit: order.orderPrice}, //req.session.amount},
                                                                                       }, function (err, doc) {
                                                                                         if(err){
@@ -397,7 +410,6 @@ exports.pay = function (req, res) {
                                                                                             message: "ُخطا در انتقال وجه"
                                                                                           });
                                                                                         }
-                                                                                        console.log(chalk.blue("CNC user credit:"));
                                                                                         console.log(doc.credit);
                                                                                       });
                                                                                         console.log(chalk.blue("Success Insole Order"));
