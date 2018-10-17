@@ -74,7 +74,7 @@ exports.pay = function (req, res) {
                 if(payFromPlan) {
                   if (user.gcodePlan) {
                     if (user.gcodePlan.totalorder > 0) {   //pay from plan
-                      payFromPlan();
+                      paymentFromPlan();
                     }
                     else {
                       return res.status(200).send({
@@ -91,7 +91,7 @@ exports.pay = function (req, res) {
                 }
                 else {
                   if (user.credit - gcode.orderPrice >= 0) {// pat from credit
-                    payFromCredit();
+                    paymentFromCredit();
                   }
                   else{
                     return res.status(200).send({
@@ -103,7 +103,7 @@ exports.pay = function (req, res) {
               }
           });
   });
-  function payFromPlan(oldGcodePlan){
+  function paymentFromPlan(oldGcodePlan){
     Gcode.findOneAndUpdate({
       _id: gcodeId,
       status: "NOTPAYED",
@@ -130,7 +130,7 @@ exports.pay = function (req, res) {
       }
     });
   }
-  function payFromCredit(){
+  function paymentFromCredit(){
     Gcode.findOneAndUpdate({
       _id: gcodeId,
       status: "NOTPAYED",
