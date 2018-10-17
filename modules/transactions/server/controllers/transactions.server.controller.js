@@ -22,7 +22,7 @@ exports.PaymentCallback = function (req, res) {
     Authority: req.session.authority,
   }).then(function (response) {
     if (response.status == 101) {
-      console.log(chalk.green("101 callback"));
+      console.log(chalk.blue("101 callback"));
       var tid = req.session.transactionId;
       // console.log("=============");
       // console.log(moment(moment(), "DD-MM-YYYY").add(req.session.expire, 'days'));
@@ -45,7 +45,7 @@ exports.PaymentCallback = function (req, res) {
     }
     else {
       if (response.status == 100) {
-        console.log(chalk.green("Verfy callback"));
+        console.log(chalk.blue("Verfy callback"));
         console.log(req.session.plantype);
         Transaction.findOneAndUpdate({authority: req.session.authority}, {$set: {RefID: response.RefID}}, function (err, doc) {
           if (req.session.plantype == "credit plan"){
@@ -70,6 +70,7 @@ exports.PaymentCallback = function (req, res) {
               else {
                 console.log(doc.creditPlan);
               User.findOne({_id: req.user._id}, function (err, doc) {
+                console.log(doc.creditPlan);
                 res.render('modules/core/server/views/index', {
                   response: JSON.stringify(response),
                   user: JSON.stringify(doc),
@@ -93,7 +94,6 @@ exports.PaymentCallback = function (req, res) {
               $set: {
                 gcodePlan: gcodePlan
               }
-
             }, function (err, doc) {
               if (err)
                 console.log(err);

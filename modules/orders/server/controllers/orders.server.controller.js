@@ -191,7 +191,7 @@ exports.pay = function (req, res) {
                         });
                     } else {
                         if (!order.doDesign){
-                          // console.log(chalk.green("Check design package:"));
+                          // console.log(chalk.blue("Check design package:"));
                           // console.log(doc);
                           if(!(doc.creditPlan)){ //req.user._doc
                             return res.status(200).send({
