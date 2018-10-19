@@ -205,7 +205,7 @@ exports.PaymentRequest = function (req, res) {
       onlinePayment.totalorder = req.session.totalorder;
       onlinePayment.price = req.session.price;
       onlinePayment.plantype = req.session.plantype;
-      onlinePayment.user = req.user;
+      onlinePayment.user_id = req.user._id;
       console.log(chalk.blue(onlinePayment));
       onlinePayment.save(function (err) {
         if (err) {

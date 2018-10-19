@@ -93,9 +93,9 @@ var OnlinePaymentSchema = new Schema({
     type: String,
     default: ''
   },
-  user: {
-  type: Schema.ObjectId,
-    ref: 'User'
+  user_id: {
+    type: String,
+    default: ''
 }
 });
 
