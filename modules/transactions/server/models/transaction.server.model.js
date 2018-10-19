@@ -93,6 +93,10 @@ var OnlinePaymentSchema = new Schema({
     type: String,
     default: ''
   },
+  user: {
+  type: Schema.ObjectId,
+    ref: 'User'
+}
 });
 
 mongoose.model('OnlinePayment', OnlinePaymentSchema);
