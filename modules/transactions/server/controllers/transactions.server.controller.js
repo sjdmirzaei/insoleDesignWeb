@@ -18,146 +18,145 @@ var path = require('path'),
 var zarinpal = ZarinpalCheckout.create('f47973b0-7e73-11e8-86ec-005056a205be', false);
 
 exports.PaymentCallback = function (req, res) {
-  console.log(chalk.yellow('In callback'));
-  console.log(req.query.Authority);
   OnlinePayment.findOneAndRemove({authority: req.query.Authority}, {
-  }, function (err, doc) {
+  }, function (err, docPayment) {
     if(err){
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     }else{
-      req.session.amount = doc.amount;
-      req.session.authority = doc.authority;
-      req.session.expire = doc.expire;
-      req.session.software = doc.software;
-      req.session.host = doc.host;
-      req.session.totalorder = doc.totalorder;
-      req.session.price = doc.price;
-      req.session.plantype = doc.plantype;
-    }
-  });
-  zarinpal.PaymentVerification({
-    Amount: req.session.amount,
-    Authority: req.session.authority,
-  }).then(function (response) {
-    if (response.status == 101) {
-      console.log(chalk.blue("101 callback"));
-      var tid = req.session.transactionId;
-      console.log("=============");
-      console.log(moment(moment(), "DD-MM-YYYY").add(req.session.expire, 'days'));
-      console.log("=============");
-      Transaction.findOneAndUpdate({authority: req.session.authority}, {
-        $set: {
-          expireCreditDate: moment(moment(), "DD-MM-YYYY").add(req.session.expire, 'days'),
-          RefID: response.RefID,
-          withdraw: req.session.amount
+      console.log(chalk.yellow(docPayment));
+      // req.session.amount = doc.amount;
+      // req.session.authority = doc.authority;
+      // req.session.expire = doc.expire;
+      // req.session.software = doc.software;
+      // req.session.host = doc.host;
+      // req.session.totalorder = doc.totalorder;
+      // req.session.price = doc.price;
+      // req.session.plantype = doc.plantype;
+      zarinpal.PaymentVerification({
+        Amount: docPayment.amount,
+        Authority: docPayment.authority,
+      }).then(function (response) {
+        if (response.status == 101) {
+          console.log(chalk.blue("101 callback"));
+          //var tid = docPayment.transactionId;
+          console.log("=============");
+          console.log(moment(moment(), "DD-MM-YYYY").add(docPayment.expire, 'days'));
+          console.log("=============");
+          Transaction.findOneAndUpdate({authority: docPayment.authority}, {
+            $set: {
+              expireCreditDate: moment(moment(), "DD-MM-YYYY").add(docPayment.expire, 'days'),
+              RefID: response.RefID,
+              withdraw: docPayment.amount
+            }
+          }, function (err, doc) {
+            console.log("Verified! Ref ID: " + response.RefID);
+            res.render('modules/core/server/views/index', {
+              response: JSON.stringify(response),
+              user: JSON.stringify(req.user),
+              software: docPayment.software,
+              sharedConfig: JSON.stringify(config.shared)
+            });
+          })
         }
-      }, function (err, doc) {
-        console.log("Verified! Ref ID: " + response.RefID);
-        res.render('modules/core/server/views/index', {
-          response: JSON.stringify(response),
-          user: JSON.stringify(req.user),
-          software: req.session.software,
-          sharedConfig: JSON.stringify(config.shared)
-        });
-      })
-    }
-    else {
-      if (response.status == 100) {
-        console.log(chalk.blue("Verfy callback"));
-        console.log(req.session.plantype);
-        Transaction.findOneAndUpdate({authority: req.session.authority}, {$set: {RefID: response.RefID}}, function (err, doc) {
-          if (req.session.plantype == "credit plan"){
-            var creditPlan = {
-              expire: req.session.expire,
-              host: req.session.host,
-              totalorder: req.session.totalorder,
-              price: req.session.price,
-              created:new Date()
-            };
-            console.log(creditPlan);
-            User.findOneAndUpdate({_id: req.user._id}, {
-              // $inc: {credit: req.session.amount},
-              $set: {
-                creditPlan: creditPlan,
-                expireCreditDate: new Date().setDate(creditPlan.created.getDate()+creditPlan.expire)//moment(moment(), "DD-MM-YYYY").add(req.session.expire, 'days')
+        else {
+          if (response.status == 100) {
+            console.log(chalk.blue("Verfy callback"));
+            console.log(docPayment.plantype);
+            Transaction.findOneAndUpdate({authority: docPayment.authority}, {$set: {RefID: response.RefID}}, function (err, doc) {
+              if (docPayment.plantype == "credit plan"){
+                var creditPlan = {
+                  expire: docPayment.expire,
+                  host: docPayment.host,
+                  totalorder: docPayment.totalorder,
+                  price: docPayment.price,
+                  created:new Date()
+                };
+                console.log(creditPlan);
+                User.findOneAndUpdate({_id: req.user._id}, {
+                  // $inc: {credit: docPayment.amount},
+                  $set: {
+                    creditPlan: creditPlan,
+                    expireCreditDate: new Date().setDate(creditPlan.created.getDate()+creditPlan.expire)//moment(moment(), "DD-MM-YYYY").add(docPayment.expire, 'days')
+                  }
+
+                }, function (err, doc) {
+                  if (err)
+                    console.log(err);
+                  else {
+                    //console.log(doc.creditPlan);
+                    User.findOne({_id: req.user._id}, function (err, doc) {
+                      //console.log(doc.creditPlan);
+                      res.render('modules/core/server/views/index', {
+                        response: JSON.stringify(response),
+                        user: JSON.stringify(doc),
+                        software: docPayment.software,
+                        sharedConfig: JSON.stringify(config.shared)
+                      });
+                    });
+                  }
+                })
+
               }
+              else if (docPayment.plantype == "gcode plan"){
+                var gcodePlan = {
+                  totalorder: docPayment.totalorder,
+                  price: docPayment.price
+                };
+                console.log(gcodePlan);
 
-            }, function (err, doc) {
-              if (err)
-                console.log(err);
-              else {
-                //console.log(doc.creditPlan);
-              User.findOne({_id: req.user._id}, function (err, doc) {
-                //console.log(doc.creditPlan);
-                res.render('modules/core/server/views/index', {
-                  response: JSON.stringify(response),
-                  user: JSON.stringify(doc),
-                  software: req.session.software,
-                  sharedConfig: JSON.stringify(config.shared)
-                });
-              });
-            }
-            })
-
-          }
-          else if (req.session.plantype == "gcode plan"){
-            var gcodePlan = {
-              totalorder: req.session.totalorder,
-              price: req.session.price
-            };
-            console.log(gcodePlan);
-
-            User.findOneAndUpdate({_id: req.user._id}, {
-              // $inc: {credit: req.session.amount},
-              $set: {
-                gcodePlan: gcodePlan
+                User.findOneAndUpdate({_id: req.user._id}, {
+                  // $inc: {credit: docPayment.amount},
+                  $set: {
+                    gcodePlan: gcodePlan
+                  }
+                }, function (err, doc) {
+                  if (err)
+                    console.log(err);
+                  else{
+                    // console.log(doc.gcodePlan);
+                    User.findOne({_id: req.user._id}, function (err, doc) {
+                      // console.log(doc.gcodePlan);
+                      res.render('modules/core/server/views/index', {
+                        response: JSON.stringify(response),
+                        user: JSON.stringify(doc),
+                        software: docPayment.software,
+                        sharedConfig: JSON.stringify(config.shared)
+                      });
+                    });
+                  }
+                })
               }
-            }, function (err, doc) {
-              if (err)
-                console.log(err);
               else{
-                // console.log(doc.gcodePlan);
-                User.findOne({_id: req.user._id}, function (err, doc) {
-                  // console.log(doc.gcodePlan);
-                  res.render('modules/core/server/views/index', {
-                    response: JSON.stringify(response),
-                    user: JSON.stringify(doc),
-                    software: req.session.software,
-                    sharedConfig: JSON.stringify(config.shared)
-                  });
-                });
-            }
-            })
-          }
-          else{
-            console.log(req.session.amount);
-            User.findOneAndUpdate({_id: req.user._id}, {
-              $inc: {credit: req.session.amount},
-            }, function (err, doc) {
-              if (err)
-                console.log(err);
-              else{
-                console.log(doc.credit);
-                User.findOne({_id: req.user._id}, function (err, doc) {
-                  res.render('modules/core/server/views/index', {
-                    response: JSON.stringify(response),
-                    user: JSON.stringify(doc),
-                    software: req.session.software,
-                    sharedConfig: JSON.stringify(config.shared)
-                  });
-                });
-            }
-            })
+                console.log(docPayment.amount);
+                User.findOneAndUpdate({_id: req.user._id}, {
+                  $inc: {credit: docPayment.amount},
+                }, function (err, doc) {
+                  if (err)
+                    console.log(err);
+                  else{
+                    console.log(doc.credit);
+                    User.findOne({_id: req.user._id}, function (err, doc) {
+                      res.render('modules/core/server/views/index', {
+                        response: JSON.stringify(response),
+                        user: JSON.stringify(doc),
+                        software: docPayment.software,
+                        sharedConfig: JSON.stringify(config.shared)
+                      });
+                    });
+                  }
+                })
 
+              }
+            })
           }
-        })
-      }
+        }
+
+      }).catch(function (err) {
+        console.log(err);
+      });
     }
-
-  }).catch(function (err) {
-    console.log(err);
   });
 };
 /**
@@ -197,7 +196,7 @@ exports.PaymentRequest = function (req, res) {
       }
       console.log(chalk.blue("plan type:"));
       console.log(req.session.plantype);
-      var OnlinePaymentSchema = new OnlinePaymentSchema();
+      var OnlinePaymentSchema = new OnlinePayment();
       OnlinePaymentSchema.amount = req.session.amount;
       OnlinePaymentSchema.authority = req.session.authority;
       OnlinePaymentSchema.expire = req.session.expire;
