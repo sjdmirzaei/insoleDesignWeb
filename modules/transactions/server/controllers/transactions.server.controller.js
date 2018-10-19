@@ -195,16 +195,17 @@ exports.PaymentRequest = function (req, res) {
       }
       console.log(chalk.blue("plan type:"));
       console.log(req.session.plantype);
-      var OnlinePaymentSchema = new OnlinePayment();
-      OnlinePaymentSchema.amount = req.session.amount;
-      OnlinePaymentSchema.authority = req.session.authority;
-      OnlinePaymentSchema.expire = req.session.expire;
-      OnlinePaymentSchema.software = req.session.software;
-      OnlinePaymentSchema.host = req.session.host;
-      OnlinePaymentSchema.totalorder = req.session.totalorder;
-      OnlinePaymentSchema.price = req.session.price;
-      OnlinePaymentSchema.plantype = req.session.plantype;
-      OnlinePaymentSchema.save(function (err) {
+      var onlinePayment = new OnlinePayment();
+      onlinePayment.amount = req.session.amount;
+      onlinePayment.authority = req.session.authority;
+      onlinePayment.expire = req.session.expire;
+      onlinePayment.software = req.session.software;
+      onlinePayment.host = req.session.host;
+      onlinePayment.totalorder = req.session.totalorder;
+      onlinePayment.price = req.session.price;
+      onlinePayment.plantype = req.session.plantype;
+      onlinePayment.user = req.user;
+      onlinePayment.save(function (err) {
         if (err) {
           return res.status(400).send({
             message: errorHandler.getErrorMessage(err)
