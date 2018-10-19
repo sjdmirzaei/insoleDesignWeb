@@ -54,7 +54,7 @@ exports.PaymentCallback = function (req, res) {
             console.log("Verified! Ref ID: " + response.RefID);
             res.render('modules/core/server/views/index', {
               response: JSON.stringify(response),
-              user: JSON.stringify(req.user),
+              user: JSON.stringify(docPayment.user),
               software: docPayment.software,
               sharedConfig: JSON.stringify(config.shared)
             });
@@ -74,7 +74,7 @@ exports.PaymentCallback = function (req, res) {
                   created:new Date()
                 };
                 console.log(creditPlan);
-                User.findOneAndUpdate({_id: req.user._id}, {
+                User.findOneAndUpdate({_id: docPayment.user._id}, {
                   // $inc: {credit: docPayment.amount},
                   $set: {
                     creditPlan: creditPlan,
@@ -86,7 +86,7 @@ exports.PaymentCallback = function (req, res) {
                     console.log(err);
                   else {
                     //console.log(doc.creditPlan);
-                    User.findOne({_id: req.user._id}, function (err, doc) {
+                    User.findOne({_id: docPayment.user._id}, function (err, doc) {
                       //console.log(doc.creditPlan);
                       res.render('modules/core/server/views/index', {
                         response: JSON.stringify(response),
@@ -106,7 +106,7 @@ exports.PaymentCallback = function (req, res) {
                 };
                 console.log(gcodePlan);
 
-                User.findOneAndUpdate({_id: req.user._id}, {
+                User.findOneAndUpdate({_id: docPayment.user._id}, {
                   // $inc: {credit: docPayment.amount},
                   $set: {
                     gcodePlan: gcodePlan
@@ -116,7 +116,7 @@ exports.PaymentCallback = function (req, res) {
                     console.log(err);
                   else{
                     // console.log(doc.gcodePlan);
-                    User.findOne({_id: req.user._id}, function (err, doc) {
+                    User.findOne({_id: docPayment.user._id}, function (err, doc) {
                       // console.log(doc.gcodePlan);
                       res.render('modules/core/server/views/index', {
                         response: JSON.stringify(response),
@@ -130,14 +130,14 @@ exports.PaymentCallback = function (req, res) {
               }
               else{
                 console.log(docPayment.amount);
-                User.findOneAndUpdate({_id: req.user._id}, {
+                User.findOneAndUpdate({_id: docPayment.user._id}, {
                   $inc: {credit: docPayment.amount},
                 }, function (err, doc) {
                   if (err)
                     console.log(err);
                   else{
                     console.log(doc.credit);
-                    User.findOne({_id: req.user._id}, function (err, doc) {
+                    User.findOne({_id: docPayment.user._id}, function (err, doc) {
                       res.render('modules/core/server/views/index', {
                         response: JSON.stringify(response),
                         user: JSON.stringify(doc),
@@ -147,7 +147,6 @@ exports.PaymentCallback = function (req, res) {
                     });
                   }
                 })
-
               }
             })
           }
