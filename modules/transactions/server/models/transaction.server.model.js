@@ -61,3 +61,38 @@ var TransactionSchema = new Schema({
 });
 
 mongoose.model('Transaction', TransactionSchema);
+
+/**
+ * Transaction Schema
+ */
+var OnlinePaymentSchema = new Schema({
+  authority: {
+    type: String,
+    default: ''
+  },
+  amount: {
+    type: Number, default: 0
+  },
+  expire: {
+    type: Number, default: 0
+  },
+  software: {
+    type: String,
+    default: ''
+  },
+  host: {
+    type: Number, default: 0
+  },
+  totalorder: {
+    type: Number, default: 0
+  },
+  price: {
+    type: Number, default: 0
+  },
+  plantype: {
+    type: String,
+    default: ''
+  },
+});
+
+mongoose.model('OnlinePayment', OnlinePaymentSchema);

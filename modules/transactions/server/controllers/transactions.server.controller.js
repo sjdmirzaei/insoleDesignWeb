@@ -7,6 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   moment = require('moment'),
   Transaction = mongoose.model('Transaction'),
+  OnlinePayment = mongoose.model('OnlinePayment'),
   User = mongoose.model('User'),
   config = require(path.resolve('./config/config')),
   chalk = require('chalk'),
@@ -17,6 +18,25 @@ var path = require('path'),
 var zarinpal = ZarinpalCheckout.create('f47973b0-7e73-11e8-86ec-005056a205be', false);
 
 exports.PaymentCallback = function (req, res) {
+  console.log(chalk.yellow('In callback'));
+  console.log(req.query.Authority);
+  OnlinePayment.findOneAndRemove({authority: req.query.Authority}, {
+  }, function (err, doc) {
+    if(err){
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }else{
+      req.session.amount = doc.amount;
+      req.session.authority = doc.authority;
+      req.session.expire = doc.expire;
+      req.session.software = doc.software;
+      req.session.host = doc.host;
+      req.session.totalorder = doc.totalorder;
+      req.session.price = doc.price;
+      req.session.plantype = doc.plantype;
+    }
+  });
   zarinpal.PaymentVerification({
     Amount: req.session.amount,
     Authority: req.session.authority,
@@ -177,10 +197,26 @@ exports.PaymentRequest = function (req, res) {
       }
       console.log(chalk.blue("plan type:"));
       console.log(req.session.plantype);
+      var OnlinePaymentSchema = new OnlinePaymentSchema();
+      OnlinePaymentSchema.amount = req.session.amount;
+      OnlinePaymentSchema.authority = req.session.authority;
+      OnlinePaymentSchema.expire = req.session.expire;
+      OnlinePaymentSchema.software = req.session.software;
+      OnlinePaymentSchema.host = req.session.host;
+      OnlinePaymentSchema.totalorder = req.session.totalorder;
+      OnlinePaymentSchema.price = req.session.price;
+      OnlinePaymentSchema.plantype = req.session.plantype;
+      OnlinePaymentSchema.save(function (err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        }
+      });
       var transaction = new Transaction();
       transaction.creditPlan = req.body;
       transaction.user = req.user;
-      transaction.detail = "از طریق زرین پال"+discription;
+      transaction.detail = discription+" از طریق زرین پال";
       transaction.authority = response.authority;
       transaction.type = "PAYMENT";
       transaction.save(function (err) {
