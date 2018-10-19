@@ -25,6 +25,7 @@ exports.PaymentCallback = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     }else{
+      console.log(chalk.yellow('========='));
       console.log(chalk.yellow(docPayment));
       // req.session.amount = doc.amount;
       // req.session.authority = doc.authority;
@@ -205,6 +206,7 @@ exports.PaymentRequest = function (req, res) {
       onlinePayment.price = req.session.price;
       onlinePayment.plantype = req.session.plantype;
       onlinePayment.user = req.user;
+      console.log(chalk.blue(onlinePayment));
       onlinePayment.save(function (err) {
         if (err) {
           return res.status(400).send({
