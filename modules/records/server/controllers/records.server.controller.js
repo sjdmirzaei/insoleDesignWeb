@@ -89,7 +89,7 @@ exports.import = function (req, res) {
             });
             var originalName = req.file.originalname.split(".")[0];
             var isNew = true;
-            console.log(chalk.yellow(originalName));
+            // console.log(chalk.yellow(originalName));
             if (originalName.split("_")[0] == "Patient") {
                 isNew = true;
             }
