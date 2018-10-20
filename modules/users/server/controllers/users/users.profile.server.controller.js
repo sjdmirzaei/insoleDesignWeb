@@ -90,7 +90,7 @@ exports.getGcode = function (req, res) {
     decrypted = decipher.update(encryptdata, 'binary', 'utf8');
     decrypted += decipher.final('utf8');
 
-    var orderPrice = 10000;
+    var orderPrice = 50;  //For test only
     var gcode = new Gcode();
     gcode.orderPrice=orderPrice;
     gcode.user=req.user._id;
