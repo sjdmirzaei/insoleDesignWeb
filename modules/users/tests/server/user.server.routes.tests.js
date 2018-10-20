@@ -1003,7 +1003,7 @@ describe('User CRUD tests', function () {
 
         agent.post('/api/users/picture')
           .attach('newProfilePicture', './modules/users/client/img/profile/default.png')
-          .expect(200)
+          .expect(200|304)
           .end(function (userInfoErr, userInfoRes) {
             // Handle change profile picture error
             if (userInfoErr) {
