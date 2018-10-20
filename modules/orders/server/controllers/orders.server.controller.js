@@ -250,9 +250,11 @@ exports.pay = function (req, res) {
                                 } else {
                                     var usercredit = doc.credit;
                                     Order.findOneAndUpdate({_id: orderId, status: "NOTPAYED"}, {
-                                            status: "PAYED",
+                                      //Order.findOne({_id: orderId, status: "NOTPAYED"}
+                                      status: "PAYED",
                                             payedDate: Date.now()
-                                        }, function (err, order) {
+                                        }
+                                        , function (err, order) {
                                             if (err) {
                                                 return res.status(400).send({
                                                     message: errorHandler.getErrorMessage(err)
@@ -328,7 +330,6 @@ exports.pay = function (req, res) {
                                                                 });
                                                             }
                                                             else {
-
                                                                 var newPatientId = saved._id;
                                                                 var transaction = new Transaction();
                                                                 transaction.detail = "پرداخت هزینه سفارش";
@@ -390,16 +391,16 @@ exports.pay = function (req, res) {
                                                                                         console.log("deleted:" + saved.lastupdate + "/" + record2.name);
                                                                                     });
                                                                                     saveAll(function () {
-                                                                                      console.log(chalk.blue("CNC user credit:"));
-                                                                                      User.findOne({_id: order.cncUser}, function (err, doc) {
-                                                                                        if (err) {
-                                                                                          return res.status(400).send({
-                                                                                            message: errorHandler.getErrorMessage(err)
-                                                                                          });
-                                                                                        }
-                                                                                        else
-                                                                                        console.log(doc.credit);
-                                                                                      })
+                                                                                      // console.log(chalk.blue("CNC user credit:"));
+                                                                                      // User.findOne({_id: order.cncUser}, function (err, doc) {
+                                                                                      //   if (err) {
+                                                                                      //     return res.status(400).send({
+                                                                                      //       message: errorHandler.getErrorMessage(err)
+                                                                                      //     });
+                                                                                      //   }
+                                                                                      //   else
+                                                                                      //   console.log(doc.credit);
+                                                                                      // })
                                                                                       User.findOneAndUpdate({_id: order.cncUser}, {
                                                                                         $inc: {credit: order.orderPrice}, //req.session.amount},
                                                                                       }, function (err, doc) {
@@ -425,27 +426,15 @@ exports.pay = function (req, res) {
                                                                                     });
                                                                                 });
                                                                             });
-
-
-
-
-
                                                                     }
                                                                 })
-
                                                             }
                                                         })
-
-
                                                     }
                                                 })
-
-
                                             }
                                         }
                                     );
-
-
                                 }
                             })
                         } else {

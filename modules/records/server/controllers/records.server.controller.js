@@ -11,6 +11,7 @@ var path = require('path'),
     mongoose = require('mongoose'),
     StreamZip = require('node-stream-zip'),
     Record = mongoose.model('Record'),
+  chalk = require('chalk'),
     Patient = mongoose.model('Patient'),
     archiver = require('archiver'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
@@ -88,7 +89,7 @@ exports.import = function (req, res) {
             });
             var originalName = req.file.originalname.split(".")[0];
             var isNew = true;
-
+            console.log(chalk.yellow(originalName));
             if (originalName.split("_")[0] == "Patient") {
                 isNew = true;
             }
@@ -267,7 +268,8 @@ exports.import = function (req, res) {
                         });
                         zip.close();
                     });
-                } else {
+                }
+                else {
                     console.log("Is Updated Zip");
                     var number = "/U" + fs.readdirSync(patientUpdatesFolder).length;
                     if (!fs.existsSync(patientUpdatesFolder + number)) fs.mkdirSync(patientUpdatesFolder + number);
