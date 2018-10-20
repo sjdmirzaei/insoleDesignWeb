@@ -166,7 +166,7 @@ exports.PaymentRequest = function (req, res) {
 
   zarinpal.PaymentRequest({
     Amount: req.body.price,
-    CallbackURL: config.domain + "/paymentCallback",//"https://www.google.com",//
+    CallbackURL: config.domain + "/paymentCallback",
     Description: "شارژ حساب از طریق زرین پال",
     Email: 'info@payatek.ir',
     Mobile: '09120000000'
