@@ -21,6 +21,7 @@ exports.renderIndex = function (req, res) {
       username: validator.escape(req.user.username),
       created: req.user.created.toString(),
       roles: req.user.roles,
+      _id: req.user._id,
       credit: req.user.credit,
       creditPlan: req.user.creditPlan,
       gcodePlan: req.user.gcodePlan,

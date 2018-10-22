@@ -11,7 +11,7 @@
     function OrdersController($scope, $stateParams, $state, $window, Authentication, order, patients, cncUsers,PriceplansService,OrdersService,Notification,RecordsService) {
         var vm = this;
 
-        console.log($stateParams);
+        //console.log($stateParams);
         Array.prototype.remove = function() {
             var what, a = arguments, L = a.length, ax;
             while (L && this.length) {
@@ -25,7 +25,7 @@
         vm.authentication = Authentication;
         vm.order = order;
         vm.ShowCheckBox = false;
-        console.log(vm.order);
+        //console.log(vm.order);
         vm.error = null;
         vm.form = {};
 
@@ -33,6 +33,7 @@
         vm.save = save;
         vm.patients = patients;
         vm.cncUsers = cncUsers;
+        //console.log(vm.cncUsers);
         vm.pay=pay;
         vm.order.records=[];
         // console.log('MNR');
@@ -45,15 +46,13 @@
         // Remove existing Order
         vm.toggleChecked=function (recordId) {
 
-            console.log(vm.order.records.indexOf(recordId));
+            //console.log(vm.order.records.indexOf(recordId));
             if (vm.order.records.indexOf(recordId) !=-1){
                 vm.order.records.remove(recordId)
             }else{
                 vm.order.records.push(recordId);
-
-
             }
-            console.log(vm.order.records);
+            //console.log(vm.order.records);
         };
 
         function pay(){
@@ -76,10 +75,17 @@
         }
         vm.fillPricePlans=fillPricePlans;
         function fillPricePlans(){
+          console.log('2');
             if(vm.order.cncUser=="-1"){
 
                 Notification.error({message: "طراح را انتخاب کنید"});
-            }else {
+            }
+            else if (vm.order.cncUser == vm.authentication.user._id){
+              Notification.error({message: "امکان انتخاب خودتان وجود ندارد"});
+              vm.order.cncUser=-1;
+              return false;
+            }
+            else {
                 PriceplansService.findBy({user: vm.order.cncUser}).$promise.then(function (data) {
                     vm.pricePlans = data;
                 })
@@ -95,7 +101,7 @@
                 // data.forEach(function (rec) {
                 //     vm.order.records.push(rec._id);
                 // });
-                console.log(vm.order.records);
+                //console.log(vm.order.records);
                 vm.records=data;
             })
         }
@@ -108,7 +114,7 @@
         // Save Order
         function save(isValid) {
 
-          console.log(vm.order);
+          //console.log(vm.order);
           //   console.log(vm.authentication.software);
           // console.log(vm.authentication.user);
           // if(vm.authentication.user.creditPlan == null ||vm.authentication.user.creditPlan === undefined){
@@ -125,11 +131,15 @@
                 Notification.error({message: "هیچ طراحی انتخاب نشده است"});
                 return false;
             }
+
             if ((!vm.order.sendTome || vm.order.sendTome==false) && !vm.order.cncUser){
                 Notification.error({message: "هیچ طراحی انتخاب نشده است"});
                 return false;
             }
-
+          if (vm.order.cncUser == vm.authentication.user._id){
+            Notification.error({message: "امکان انتخاب خودتان وجود ندارد"});
+            return false;
+          }
             if (vm.order.records.length==0){
 
                 Notification.error({message: "هیچ آزمایشی انتخاب نشده است"});

@@ -53,8 +53,6 @@
       vm.progress = 0;
 
       vm.upload = function (dataUrl) {
-        console.log('MNR');
-        console.log(dataUrl);
           Upload.upload({
               url: '/api/softwareupdates/add',
               data: {
@@ -71,7 +69,7 @@
           }, function (evt) {
               vm.fileSelected = true;
               vm.progress = parseInt(100.0 * evt.loaded / evt.total, 10);
-              console.log(vm.progress);
+              //console.log(vm.progress);
           });
       };
 

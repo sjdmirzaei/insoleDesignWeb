@@ -147,7 +147,7 @@ exports.pay = function (req, res) {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log(saved)
+                    console.log(saved);
                     result.push(saved);
                     if (total != -1) {
                         saveAll(cb)
@@ -162,7 +162,6 @@ exports.pay = function (req, res) {
             })
 
     }
-
 
     var orderId = req.body.orderId;
 
@@ -242,19 +241,22 @@ exports.pay = function (req, res) {
                         }
                       }
                         if (minusPrice) {
-                            User.findOneAndUpdate({_id: order.orderer}, inc, function (err, doc) {
+                          //var orderer_inc = inc;
+                            // User.findOneAndUpdate({_id: order.orderer}, inc, function (err, doc) {
+                              User.findOne({_id: order.orderer}, function (err, doc) {
                                 if (err) {
                                     return res.status(400).send({
                                         message: errorHandler.getErrorMessage(err)
                                     });
                                 } else {
                                     var usercredit = doc.credit;
-                                    Order.findOneAndUpdate({_id: orderId, status: "NOTPAYED"}, {
-                                      //Order.findOne({_id: orderId, status: "NOTPAYED"}
-                                      status: "PAYED",
-                                            payedDate: Date.now()
-                                        }
-                                        , function (err, order) {
+                                    // Order.findOneAndUpdate({_id: orderId, status: "NOTPAYED"}, {
+                                    //   //Order.findOne({_id: orderId, status: "NOTPAYED"}
+                                    //   status: "PAYED",
+                                    //         payedDate: Date.now()
+                                    //     }
+                                      Order.findOne({_id: orderId, status: "NOTPAYED"}
+                                      , function (err, order) {
                                             if (err) {
                                                 return res.status(400).send({
                                                     message: errorHandler.getErrorMessage(err)
@@ -391,35 +393,51 @@ exports.pay = function (req, res) {
                                                                                         console.log("deleted:" + saved.lastupdate + "/" + record2.name);
                                                                                     });
                                                                                     saveAll(function () {
-                                                                                      // console.log(chalk.blue("CNC user credit:"));
-                                                                                      // User.findOne({_id: order.cncUser}, function (err, doc) {
-                                                                                      //   if (err) {
-                                                                                      //     return res.status(400).send({
-                                                                                      //       message: errorHandler.getErrorMessage(err)
-                                                                                      //     });
-                                                                                      //   }
-                                                                                      //   else
-                                                                                      //   console.log(doc.credit);
-                                                                                      // })
+                                                                                      User.findOneAndUpdate({_id: order.orderer}, inc, function (err, doc) {
+                                                                                        if(err){
+                                                                                          console.log(err);
+                                                                                          return res.status(200).send({
+                                                                                            msgtype: "error",
+                                                                                            message: "ُخطا در کسر وجه"
+                                                                                          });
+                                                                                        }
+                                                                                      });
                                                                                       User.findOneAndUpdate({_id: order.cncUser}, {
                                                                                         $inc: {credit: order.orderPrice}, //req.session.amount},
                                                                                       }, function (err, doc) {
                                                                                         if(err){
                                                                                           console.log(err);
-                                                                                          res.status(200).send({
+                                                                                          return res.status(200).send({
                                                                                             msgtype: "error",
                                                                                             message: "ُخطا در انتقال وجه"
                                                                                           });
                                                                                         }
-                                                                                        console.log(doc.credit);
+                                                                                        // console.log(doc.credit);
+                                                                                      });
+                                                                                      Order.findOneAndUpdate({_id: orderId, status: "NOTPAYED"}, {
+                                                                                        status: "PAYED", payedDate: Date.now()
+                                                                                      }, function (err, order) {
+                                                                                        if(err){
+                                                                                          console.log(err);
+                                                                                          return res.status(200).send({
+                                                                                            msgtype: "error",
+                                                                                            message: "ُخطا در تغییر وضعیت سفارش"
+                                                                                          });
+                                                                                          }
                                                                                       });
                                                                                         console.log(chalk.blue("Success Insole Order"));
-                                                                                        console.log(doc.creditPlan);
-                                                                                        console.log(doc.credit);
-                                                                                        console.log("All Saved!");
+                                                                                        // console.log(doc.creditPlan);
+                                                                                        // console.log(doc.credit);
+                                                                                        // console.log("All Saved!");
+                                                                                      // var myNewDoc = doc;
+                                                                                      // User.findOne({_id: order.orderer}, function (err, newDoc) {
+                                                                                      //   if(!err){
+                                                                                      //     myNewDoc = newDoc;
+                                                                                      //   }
+                                                                                      // });
                                                                                         res.status(200).send({
                                                                                             newcreditPlan: doc.creditPlan,
-                                                                                            newcredit: usercredit - order.orderPrice,
+                                                                                            newcredit: usercredit - doc.orderPrice,
                                                                                             msgtype: "success",
                                                                                             message: "ُسفارش شما با موفقیت انجام شد"
                                                                                         });

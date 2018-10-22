@@ -52,9 +52,9 @@ exports.generateKey = function (req, res) {
     //  if (!fs.existsSync(baseUploadPath+'/'+req.user._id+'_privatekey.pem')) {
     fs.writeFileSync(baseUploadPath + '/' + req.user._id + '_privatekey.pem', publicKey.exportKey("private"))
     // }
-  res.sendFile("/home/admin/mnr/payatek-insole/certs/"+ req.user._id +"/"+ req.user._id + '_publickey.pub');
+  //res.sendFile("/home/admin/mnr/payatek-insole/certs/"+ req.user._id +"/"+ req.user._id + '_publickey.pub');
 
-  // res.sendFile("F:\\Payatek\\WebProjects\\git\\payainsole-master\\certs\\"+ req.user._id +"\\"+ req.user._id + '_publickey.pub');
+  res.sendFile("F:\\Payatek\\WebProjects\\git\\payainsole-master\\certs\\"+ req.user._id +"\\"+ req.user._id + '_publickey.pub');
   // res.sendFile("/home/admin/paya/payainsole/certs/"+ req.user._id +"/"+ req.user._id + '_publickey.pub');
   // res.sendFile("/home/admin/payainsole/certs/"+ req.user._id +"/"+ req.user._id + '_publickey.pub');
     //console.log(fs.readFileSync("D:\\Projects\\payainsole\\"+"/"+baseUploadPath + '/' + req.user._id + '_publickey.pub'));
@@ -90,7 +90,7 @@ exports.getGcode = function (req, res) {
     decrypted = decipher.update(encryptdata, 'binary', 'utf8');
     decrypted += decipher.final('utf8');
 
-    var orderPrice = 50;  //For test only
+    var orderPrice = 10000;  //For test only
     var gcode = new Gcode();
     gcode.orderPrice=orderPrice;
     gcode.user=req.user._id;
