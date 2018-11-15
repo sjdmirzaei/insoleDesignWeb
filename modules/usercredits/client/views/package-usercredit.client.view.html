@@ -20,10 +20,7 @@
               {{plan.name}}
             </li>
             <li class="plan-price">
-              <h3> {{plan.price}} تومان </h3>
-            </li>
-            <li>فضای اطلاعات
-              <strong>{{plan.host}}GB</strong>
+              <h3> {{plan.price | currency:"":0}} تومان </h3>
             </li>
             <li>تعداد سفارش
               <strong>{{plan.totalorder}}</strong>
@@ -56,7 +53,7 @@
               {{plan.name}}
             </li>
             <li class="plan-price">
-              <h3> {{plan.price}} تومان </h3>
+              <h3> {{plan.price | currency:"":0}} تومان </h3>
             </li>
             <!--<li>فضای اطلاعات-->
               <!--<strong>{{plan.host}}GB</strong>-->

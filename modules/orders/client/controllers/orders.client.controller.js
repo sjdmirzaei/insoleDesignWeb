@@ -75,7 +75,7 @@
         }
         vm.fillPricePlans=fillPricePlans;
         function fillPricePlans(){
-          console.log('2');
+          // console.log('2');
             if(vm.order.cncUser=="-1"){
 
                 Notification.error({message: "طراح را انتخاب کنید"});
