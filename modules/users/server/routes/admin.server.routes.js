@@ -14,6 +14,12 @@ module.exports = function (app) {
   app.route('/api/users')
     .get(adminPolicy.isAllowed, admin.list);
 
+  // Users collection routes
+  app.route('/api/usersFiles')
+    .get(adminPolicy.isAllowed, admin.folderList);
+// Users collection routes
+  app.route('/api/completeDelete')
+    .post(adminPolicy.isAllowed, admin.completeDelete);
   // Single user routes
   app.route('/api/users/:userId')
     .get(adminPolicy.isAllowed, admin.read)

@@ -7,6 +7,8 @@ var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
   PricePlans= mongoose.model('Priceplan'),
+  fs = require('fs'),
+  fse = require('fs-extra'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
@@ -121,6 +123,113 @@ exports.report = function (req, res) {
   });
 };
 /**
+ * List of folders
+ */
+exports.folderList = function (req, res) {
+  // var getSize = require('get-folder-size');
+  var baseUploadPath = './uploads/';
+  // getSize(baseUploadPath+, function(err, size) {
+  //
+  // });
+  var list = [];
+  var i, j;
+  var k=0;
+  User.find({}).exec(function (err, users) {
+    if (err) {
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+    else{
+      var usage=[];
+      fs.readdir(baseUploadPath, function(err, items) {
+        for(i=0; i<items.length; i++){
+          var userFolder = baseUploadPath+items[i];
+          //getSize(userFolder, function(err, size){
+          var size=0;
+            usage[i] = (size / 1024 / 1024).toFixed(2);
+            for(j=0; j<users.length; j++){
+              if(items[i] == users[j]._id){
+                // list.push({path:items[i], user:users[j]});
+                var toPush = {path:items[i], usage:usage[i], user:users[j]};
+                //console.log(toPush);
+                list[k]=(toPush);
+                k=k+1;
+                break;
+              }
+            }
+            if(items[i] != "Orders" && j==users.length){
+              var toPush = {path:items[i], usage:usage[i]};
+              //console.log(toPush);
+              list[k]=(toPush);
+              k=k+1;
+            }
+          //});
+        }
+        //console.log(list);
+        res.json(list);
+      });
+    }
+  });
+
+};
+
+/**
+ * Delete Folder as well as DB
+ */
+exports.completeDelete = function (req, res) {
+  var baseUploadPath = './uploads/';
+  if(!req.body.userId){
+    return;
+  }
+  // var sucess = false;
+  // var folderSuccess = false;
+  fse.remove(baseUploadPath+req.body.userId
+  //   , function(err){
+  //   if(err){
+  //     folderSuccess=false;
+  //   }
+  //   else{
+  //     folderSuccess = true;
+  //   }
+  // }
+  ).then(()=>
+  {
+    User.findByIdAndRemove(req.body.userId, function (err, doc) {
+      if (err) {
+        return res.status(200).send({
+          message: "حذف پوشه با موفقیت انجام شد"
+        });
+      }else{
+          return res.status(200).send({
+            message:
+              "حذف کاربر و پوشه با موفقیت انجام شد"
+          });
+      }
+    });
+  }).catch(()=>{
+    return res.status(400).send({
+      message:
+        "حذف  با خطا روبرو شد"
+    });
+  });
+  // fse.remove(baseUploadPath+req.body.userId).then(()=>folderSuccess=true).catch(()=>folderSuccess=false);
+
+  // var msg;
+  // if(folderSuccess && sucess)
+  //   msg="حذف کاربر و پوشه با موفقیت انجام شد";
+  // else if(!folderSuccess && sucess)
+  //   msg="حذف کاربر با موفقیت انجام شد";
+  // else if(folderSuccess && !sucess)
+  //   msg="حذف پوشه با موفقیت انجام شد";
+  // else
+  //   msg="حذف  با خطا روبرو شد";
+  // return res.status(200).send({
+  //   message: msg
+  // });
+
+};
+/**
  * List of Users
  */
 exports.list = function (req, res) {
@@ -148,7 +257,8 @@ exports.list = function (req, res) {
       });
 
     });
-  }else{
+  }
+  else{
     User.find({}).exec(function (err, users) {
       if (err) {
         return res.status(422).send({
@@ -159,6 +269,8 @@ exports.list = function (req, res) {
       res.json(users);
     });
   }
+
+
 };
 
 /**

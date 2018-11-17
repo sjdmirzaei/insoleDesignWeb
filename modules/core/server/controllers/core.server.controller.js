@@ -35,6 +35,12 @@ exports.renderIndex = function (req, res) {
   }
   console.log(chalk.blue("Refresh user"));
   console.log(safeUserObject);
+  // if(req.session.softwareVersion == false){
+  //   var users = require('../controllers/users.server.controller');
+  //   users.signout();
+  //   res.render('modules/core/server/views/404');
+  //   return;
+  // }
   res.render('modules/core/server/views/index', {
     user: JSON.stringify(safeUserObject),
     software:req.session.software,

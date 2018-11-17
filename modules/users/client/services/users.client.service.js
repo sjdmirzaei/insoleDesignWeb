@@ -84,7 +84,21 @@
             update: {
                 method: 'PUT'
             },
-
+          users: {
+            url: '/api/users',
+            method: 'GET',
+            isObject: true
+          },
+          usersFiles: {
+            url: '/api/usersFiles',
+            method: 'GET',
+            isArray: true
+          },
+          completeDelete: {
+            url: '/api/completeDelete',
+            method: 'POST',
+            isObject: true
+          },
             report: {
                 url: '/api/report',
                 method: 'POST',

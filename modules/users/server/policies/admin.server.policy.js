@@ -17,6 +17,12 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/users',
       permissions: '*'
+    },{
+      resources: '/api/usersFiles',
+      permissions: '*'
+    },{
+      resources: '/api/completeDelete',
+      permissions: '*'
     }, {
         resources: '/api/users/generateKey',
         permissions: '*'

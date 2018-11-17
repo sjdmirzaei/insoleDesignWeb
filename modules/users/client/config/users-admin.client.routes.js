@@ -16,6 +16,12 @@
         controller: 'UserListController',
         controllerAs: 'vm'
       })
+      .state('admin.usersFiles', {
+        url: '/usersFiles',
+        templateUrl: '/modules/users/client/views/admin/list-users-files.client.view.html',
+        controller: 'UserFileListController',
+        controllerAs: 'vm'
+      })
         .state('admin.reports', {
             url: '/reports',
             templateUrl: '/modules/users/client/views/admin/report.client.view.html',
