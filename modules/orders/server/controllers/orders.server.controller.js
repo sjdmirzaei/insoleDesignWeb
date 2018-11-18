@@ -437,7 +437,7 @@ exports.pay = function (req, res) {
                                                                                       // });
                                                                                         res.status(200).send({
                                                                                             newcreditPlan: doc.creditPlan,
-                                                                                            newcredit: usercredit - doc.orderPrice,
+                                                                                            newcredit: usercredit - order.orderPrice,
                                                                                             msgtype: "success",
                                                                                             message: "ُسفارش شما با موفقیت انجام شد"
                                                                                         });

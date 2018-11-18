@@ -24,7 +24,7 @@
       روز
       <!--{{vm.remainingDate|number:6}}-->
       <!--{{vm.authentication.user.creditPlan.expire }}-->
-      {{isNaN(Math.ceil(vm.authentication.user.remainingDate))?Math.ceil(vm.authentication.user.remainingDate):0}}
+      {{isNaN(Math.ceil(vm.authentication.user.remainingDate))?0:Math.ceil(vm.authentication.user.remainingDate)}}
       <!--{{(vm.authentication.user.remainingDate)|number:6}}-->
       <!--{{moment(moment(), "DD-MM-YYYY") - vm.authentication.user.creditPlan.created }}-->
 
@@ -35,7 +35,7 @@
     <a href >
       <i class="ti-shopping-cart"></i>
       سفارش
-      {{isNaN(vm.authentication.user.creditPlan.totalorder)?vm.authentication.user.creditPlan.totalorder:0}}
+      {{isNaN(vm.authentication.user.creditPlan.totalorder)?0:vm.authentication.user.creditPlan.totalorder}}
     </a>
 
   </li>
@@ -43,7 +43,7 @@
     <a href>
       <i class="ti-hummer"></i>
       gcode
-      {{isNaN(vm.authentication.user.gcodePlan.totalorder)?vm.authentication.user.gcodePlan.totalorder:0}}
+      {{isNaN(vm.authentication.user.gcodePlan.totalorder)?0:vm.authentication.user.gcodePlan.totalorder}}
     </a>
 
   </li>
