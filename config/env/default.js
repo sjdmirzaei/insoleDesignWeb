@@ -84,7 +84,7 @@ module.exports = {
             file: {
                     dest: './softwareupdate/uploads/',
                     limits: {
-                        fileSize: 10000000 // Limit filesize (100kb) for testing purposes
+                        fileSize: 20 * 1024 * 1024 // Max file size in bytes (20 MB)
                     }
                 }
         },
