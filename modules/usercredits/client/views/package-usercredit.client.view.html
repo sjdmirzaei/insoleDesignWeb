@@ -1,17 +1,17 @@
 <section id="page-title">
   <div class="row">
     <div class="col-sm-8">
-      <h1 class="mainTitle">خرید بسته طراحی و gcode</h1>
+      <h1 class="mainTitle"><a href="#design">بسته طراحی</a> و <a href="#gcode">بسته Gcode</a>خرید </h1>
       <span class="mainDescription">انتخاب بسته</span>
     </div>
   </div>
 </section>
 <div class="container-fluid container-fullw bg-white">
   <div class="row">
+    <a name="design">
     <div class="col-md-12 col-sm-6 col-xs-6" >
       <h5 class="over-title margin-bottom-15">انتخاب  <span class="text-bold">بسته طراحی</span></h5>
       <p>
-
       </p>
       <div class="pricing-table pricing-blue" ng-repeat="plan in vm.creditplans" >
         <div class="col-lg-3 col-md-3 col-xs-6">
@@ -21,7 +21,7 @@
             </li>
             <li class="plan-price">
               <h3> {{plan.price | currency:"":0}} تومان </h3>
-              <p>({{plan.price /plan.totalorder}} قیمت هر واحد)</p>
+              <p>(قیمت هر واحد {{(plan.price /plan.totalorder)| currency:"":0}} تومان)</p>
             </li>
             <li>تعداد سفارش
               <strong>{{plan.totalorder}}</strong>
@@ -37,13 +37,13 @@
             </li>
           </ul>
         </div>
-
       </div>
     </div>
-    <div class="col-md-12 col-sm-6 col-xs-6" >
+    </a>
+    <a name="gcode">
+      <div class="col-md-12 col-sm-6 col-xs-6" >
       <h5 class="over-title margin-bottom-15">انتخاب  <span class="text-bold">بسته gcode</span></h5>
       <p>
-
       </p>
       <div class="pricing-table pricing-green" ng-repeat="plan in vm.gcodeplans" >
         <div class="col-lg-3 col-md-3 col-xs-6">
@@ -53,7 +53,7 @@
             </li>
             <li class="plan-price">
               <h3> {{plan.price | currency:"":0}} هزار تومان </h3>
-              <p>({{plan.price /plan.totalorder}} قیمت هر واحد)</p>
+              <p>(قیمت هر واحد {{(plan.price /plan.totalorder)| currency:"":0}} تومان)</p>
             </li>
             <!--<li>فضای اطلاعات-->
               <!--<strong>{{plan.host}}GB</strong>-->
@@ -75,7 +75,8 @@
 
       </div>
     </div>
-    <!--<div class="col-md-12 col-sm-6 col-xs-6" >-->
+    </a>
+      <!--<div class="col-md-12 col-sm-6 col-xs-6" >-->
       <!--<h5 class="over-title margin-bottom-15">انتخاب  <span class="text-bold">بسته gcode</span></h5>-->
       <!--<p>-->
 

@@ -126,6 +126,7 @@ exports.report = function (req, res) {
  * List of folders
  */
 exports.folderList = function (req, res) {
+  var fsUtils = require("nodejs-fs-utils");
   // var getSize = require('get-folder-size');
   var baseUploadPath = './uploads/';
   // getSize(baseUploadPath+, function(err, size) {
@@ -146,7 +147,8 @@ exports.folderList = function (req, res) {
         for(i=0; i<items.length; i++){
           var userFolder = baseUploadPath+items[i];
           //getSize(userFolder, function(err, size){
-          var size=0;
+          //var size=0;
+          var size= fsUtils.fsizeSync(userFolder);
             usage[i] = (size / 1024 / 1024).toFixed(2);
             for(j=0; j<users.length; j++){
               if(items[i] == users[j]._id){
