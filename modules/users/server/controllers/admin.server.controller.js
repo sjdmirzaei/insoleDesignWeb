@@ -146,7 +146,7 @@ exports.folderList = function (req, res) {
       fs.readdir(baseUploadPath, function(err, items) {
         for(i=0; i<items.length; i++){
           var userFolder = baseUploadPath+items[i];
-          //getSize(userFolder, function(err, size){
+          //getSize(us erFolder, function(err, size){
           //var size=0;
           var size= fsUtils.fsizeSync(userFolder);
             usage[i] = (size / 1024 / 1024).toFixed(2);
