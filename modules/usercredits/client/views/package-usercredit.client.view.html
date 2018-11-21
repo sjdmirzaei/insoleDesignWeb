@@ -20,7 +20,8 @@
               {{plan.name}}
             </li>
             <li class="plan-price">
-              <h3> {{plan.price | currency:"":0}} تومان </h3>
+              <h3> {{plan.price/1000 | currency:"":0}} هزار تومان </h3>
+              <strong>({{plan.price/1000 /plan.totalorder}} قیمت هر واحد)</strong>
             </li>
             <li>تعداد سفارش
               <strong>{{plan.totalorder}}</strong>
@@ -30,8 +31,6 @@
             </li>
             <li class="plan-action">
               <a href="#" class="btn btn-blue btn-lg" ng-click="vm.PaymentRequest(plan)">
-
-
                 خرید بسته
                 <span class="fa fa-cart"></span>
               </a>
@@ -53,7 +52,8 @@
               {{plan.name}}
             </li>
             <li class="plan-price">
-              <h3> {{plan.price | currency:"":0}} تومان </h3>
+              <h3> {{plan.price/1000 | currency:"":0}} هزار تومان </h3>
+              <strong>({{plan.price/1000 /plan.totalorder}} قیمت هر واحد)</strong>
             </li>
             <!--<li>فضای اطلاعات-->
               <!--<strong>{{plan.host}}GB</strong>-->
