@@ -120,7 +120,7 @@ exports.read = function(req, res) {
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   softwareupdate.isCurrentUserOwner = req.user && softwareupdate.user && softwareupdate.user._id.toString() === req.user._id.toString();
 
-  res.sendFile('/home/admin/mnr/payainsole/'+softwareupdate.filePath);
+  res.sendFile('/home/admin/mnr/paya-insole/'+softwareupdate.filePath);
   //res.jsonp(softwareupdate);
 };
 
