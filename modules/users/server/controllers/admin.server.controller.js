@@ -168,6 +168,20 @@ exports.folderList = function (req, res) {
             }
           //});
         }
+        for(j=0; j<users.length; j++){
+          var found = false;
+          for(i=0; i<list.length; i++){
+            if(list[i].user._id == users[j]._id){
+              found = true;
+              break;
+            }
+          }
+          if(found == false){
+            var toPush = {path:"", usage:0, user:users[j]};
+            list[k]=(toPush);
+            k=k+1;
+          }
+        }
         //console.log(list);
         res.json(list);
       });
