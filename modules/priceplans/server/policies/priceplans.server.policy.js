@@ -11,7 +11,7 @@ acl = new acl(new acl.memoryBackend());
 /**
  * Invoke Priceplans Permissions
  */
-exports.invokeRolesPolicies = function () {
+expriceplansports.invokeRolesPolicies = function () {
     acl.allow([{
         roles: ['admin'],
         allows: [{
@@ -25,7 +25,7 @@ exports.invokeRolesPolicies = function () {
             permissions: ['post']
         }]
     }, {
-        roles: ['user'],
+        roles: ['cnc'],
         allows: [{
             resources: '/api/priceplans',
             permissions: ['get', 'post']
@@ -36,19 +36,6 @@ exports.invokeRolesPolicies = function () {
             resources: '/api/priceplans/findBy',
             permissions: ['post']
         }]
-    }, {
-        roles: ['guest'],
-        allows: [{
-            resources: '/api/priceplans',
-            permissions: ['get']
-        }, {
-            resources: '/api/priceplans/:priceplanId',
-            permissions: ['get']
-        }, {
-            resources: '/api/priceplans/findBy',
-            permissions: ['post']
-        }
-        ]
     }]);
 };
 

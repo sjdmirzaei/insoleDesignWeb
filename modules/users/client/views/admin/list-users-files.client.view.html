@@ -25,6 +25,9 @@
           <th>نام کاربری</th>
           <th class="hidden-xs">نقش ها</th>
           <th class="hidden-xs">ایمیل</th>
+          <th class="hidden-xs">اعتبار</th>
+          <th class="hidden-xs">تعداد طراحی باقیمانده</th>
+          <th class="hidden-xs">تعداد جیکد باقیمانده</th>
           <th></th>
         </tr>
         </thead>
@@ -38,8 +41,24 @@
             <a href="#" rel="nofollow" target="_blank">
               {{user.user.email}}
             </a></td>
+          <td>{{user.user.credit}}</td>
+          <td>{{user.user.creditPlan.totalorder}}</td>
+          <td>{{user.user.gcodePlan.totalorder}} </td>
           <td class="hidden-xs">
             <button ng-click="vm.removeComplete({userId: user.path})" class="btn btn-transparent btn-xs" tooltip-placement="top" tooltip="حذف"><i class="fa fa-close" style="color:red"></i></button>
+            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+              <li>
+                <a href="#" ui-sref="admin.user({userId: user.user._id})">
+                  مشاهده
+                </a>
+              </li>
+              <li>
+                <a href="#" ui-sref="admin.user-edit({userId: user.user._id})">
+                  ویرایش
+                </a>
+              </li>
+
+            </ul>
             <!--<button ng-click="console.log('click')" >delete</button>-->
 
             <!--<div class="visible-md visible-lg hidden-sm hidden-xs">-->

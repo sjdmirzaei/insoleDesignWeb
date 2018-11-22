@@ -32,7 +32,7 @@
           priceplanResolve: newPriceplan
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['cnc', 'admin'],
           pageTitle: 'Priceplans Create'
         }
       })
@@ -45,7 +45,7 @@
           priceplanResolve: getPriceplan
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['cnc', 'admin'],
           pageTitle: 'Edit Priceplan {{ priceplanResolve.name }}'
         }
       })
