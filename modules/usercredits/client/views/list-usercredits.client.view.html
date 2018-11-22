@@ -26,7 +26,7 @@
           <tbody>
           <tr ng-repeat="usercredit in vm.usercredits">
             <td class="center">
-              <img ng-show="usercredit.user.profilePicUrl" src="{{usercredit.user.profilePicUrl}}" class="img-rounded" alt=""/>
+              <img ng-show="usercredit.user.profilePicUrl" src="{{usercredit.user.profilePicUrl}}" class="img-rounded" onerror="this.src='/modules/users/client/img/profile/default.png';"/>
               <img ng-show="!usercredit.user.profilePicUrl" class="img-circle" style="width: 32px" ng-src="/modules/users/client/img/profile/default.png" src="/modules/users/client/img/profile/default.png">
             </td>
             <td>{{usercredit.user.displayName}}</td>

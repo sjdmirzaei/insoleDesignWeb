@@ -37,7 +37,7 @@
                   >
                 <td>{{$index+1}}</td>
                 <td class="center">
-                  <img ng-show="patient.profilePicUrl" src="{{patient.profilePicUrl}}" class="img-rounded" alt=""/>
+                  <img ng-show="patient.profilePicUrl" src="{{patient.profilePicUrl}}" class="img-rounded" onerror="this.src='/modules/users/client/img/profile/default.png';"/>
                   <img ng-show="!patient.profilePicUrl" class="img-circle" style="width: 32px" ng-src="/modules/users/client/img/profile/default.png" src="/modules/users/client/img/profile/default.png">
                 </td>
                 <td>{{patient.FirstName}} {{patient.LastName}}</td>
