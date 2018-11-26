@@ -19,7 +19,8 @@
 
   <!--</li>-->
   <li ng-hide="!vm.authentication.user">
-    <a href >
+    <!--//temporary disable creditPlan-->
+    <a href ng-show="false" >
       <i class="ti-calendar"></i>
       روز
       <!--{{vm.remainingDate|number:6}}-->
@@ -32,7 +33,7 @@
 
   </li>
   <li ng-hide="!vm.authentication.user">
-    <a href >
+    <a href ng-show="false" >
       <i class="ti-shopping-cart"></i>
       سفارش
       {{isNaN(vm.authentication.user.creditPlan.totalorder)?0:vm.authentication.user.creditPlan.totalorder}}

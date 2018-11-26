@@ -189,7 +189,7 @@ exports.pay = function (req, res) {
                             message: errorHandler.getErrorMessage(err)
                         });
                     } else {
-                        if (!order.doDesign){
+                        if (false && !order.doDesign){    //temporary disable creditPlan
                           // console.log(chalk.blue("Check design package:"));
                           // console.log(doc);
                           if(!(doc.creditPlan)){ //req.user._doc
