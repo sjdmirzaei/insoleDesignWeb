@@ -22,6 +22,8 @@ module.exports = function (app) {
     app.route('/api/patients/download/:patientId').all(patientsPolicy.isAllowed).get(patients.download);
     app.route('/api/patients/download/last/:patientId').all(patientsPolicy.isAllowed).get(patients.downloadLast);
 
+  app.route('/api/patients/records/:patientId').all(patientsPolicy.isAllowed)
+    .get(patients.checkIfFileExist);
     app.route('/api/patients/:patientId').all(patientsPolicy.isAllowed)
         .get(patients.read)
         .put(patients.update)

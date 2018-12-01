@@ -22,6 +22,10 @@ $ npm install
 ## Start
 
 ```bash
+Start Mongo if needed
+$ sudo service mongod start
+
+Start Server
 $ npm start
 OR
 $ node server.js

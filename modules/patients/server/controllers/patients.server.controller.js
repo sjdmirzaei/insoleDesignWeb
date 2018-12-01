@@ -51,6 +51,24 @@ exports.read = function (req, res) {
 };
 
 /**
+ * Check if current Patient record exist
+ */
+exports.checkIfFileExist = function (req, res) {
+  // convert mongoose document to JSON
+  var patient = req.patient ? req.patient.toJSON() : {};
+  if (fs.existsSync(patient.lastupdate)) {
+    return res.status(200).send({
+      message: errorHandler.getErrorMessage("Records exist!")
+    });
+  }
+  else {
+    return res.status(404).send({
+      message: errorHandler.getErrorMessage("Records not exist")
+    });
+  }
+};
+
+/**
  * Update a Patient
  */
 exports.update = function (req, res) {
