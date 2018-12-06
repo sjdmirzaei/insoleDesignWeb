@@ -33,7 +33,7 @@ OR
 $ forever start server.js
 ```
 ## Git
-To push your changes to git, after commiting
+To push your changes to git, after commiting..
 ```bash
 $ git push -u origin master
 ```
