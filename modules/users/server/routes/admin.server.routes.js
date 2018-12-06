@@ -20,6 +20,8 @@ module.exports = function (app) {
 // Users collection routes
   app.route('/api/completeDelete')
     .post(adminPolicy.isAllowed, admin.completeDelete);
+  app.route('/admin/patient/completeDownload/:userPath')
+    .get(adminPolicy.isAllowed, admin.completeDownload);
   // Single user routes
   app.route('/api/users/:userId')
     .get(adminPolicy.isAllowed, admin.read)

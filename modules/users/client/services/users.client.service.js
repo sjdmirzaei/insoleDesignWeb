@@ -99,7 +99,12 @@
             method: 'POST',
             isObject: true
           },
-            report: {
+          completeDownload: {
+            url: '/api/completeDownload',
+            method: 'GET',
+            isObject: true
+          },
+          report: {
                 url: '/api/report',
                 method: 'POST',
                 isArray: true

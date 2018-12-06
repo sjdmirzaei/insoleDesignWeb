@@ -13,7 +13,7 @@ acl = new acl(new acl.memoryBackend());
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
-    roles: ['doctor','admin','cnc','PT-SCANSUIT','PT-InsoleDesign'],
+    roles: ['admin'],//'doctor','admin','cnc','PT-SCANSUIT','PT-InsoleDesign'],
     allows: [{
       resources: '/api/users',
       permissions: '*'
@@ -23,7 +23,11 @@ exports.invokeRolesPolicies = function () {
     },{
       resources: '/api/completeDelete',
       permissions: '*'
-    }, {
+    },{
+      resources: '/admin/patient/completeDownload/:userPath',//'/api/completeDownload',
+      permissions: '*'
+    },
+      {
         resources: '/api/users/generateKey',
         permissions: '*'
     },{

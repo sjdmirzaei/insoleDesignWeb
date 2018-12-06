@@ -30,6 +30,7 @@
           <th class="hidden-xs">تعداد طراحی باقیمانده</th>
           <th class="hidden-xs">تعداد جیکد باقیمانده</th>
           <th></th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
@@ -47,25 +48,14 @@
           <td>{{user.user.creditPlan.totalorder}}</td>
           <td>{{user.user.gcodePlan.totalorder}} </td>
           <td class="hidden-xs">
-            <button ng-click="vm.removeComplete({userId: user.path})" class="btn btn-transparent btn-xs" tooltip-placement="top" tooltip="حذف"><i class="fa fa-close" style="color:red"></i></button>
-            <ul class="dropdown-menu pull-right dropdown-light" role="menu">
-              <li>
-                <a href="#" ui-sref="admin.user({userId: user.user._id})">
-                  مشاهده
-                </a>
-              </li>
-              <li>
-                <a href="#" ui-sref="admin.user-edit({userId: user.user._id})">
-                  ویرایش
-                </a>
-              </li>
+            <a class="btn btn-sm btn-dark-yellow" href="patient/completeDownload/{{user.path}}" target="_blank"">
 
-            </ul>
-            <!--<button ng-click="console.log('click')" >delete</button>-->
-
-            <!--<div class="visible-md visible-lg hidden-sm hidden-xs">-->
-              <!--<a href="#" ui-sref="vm.completeDelete({userId: user.user._id})" class="btn btn-transparent btn-xs" tooltip-placement="top" tooltip="حذف"><i class="fa fa-close" style="color:blue"></i></a>-->
-            <!--</div>-->
+              <span ><i class="fa fa-download"></i></span>
+            </a>
+            <!--<button ng-click="vm.downloadComplete({userId: user.path})" class="btn btn-transparent btn-xs" tooltip-placement="top" tooltip="دانلود"><i class="fa fa-download" style="color:green"></i></button>-->
+          </td>
+          <td class="hidden-xs">
+            <button ng-click="vm.removeComplete({userPath:user.path, userId: user.user._id})" class="btn btn-transparent btn-xs" tooltip-placement="top" tooltip="حذف"><i class="fa fa-close" style="color:red"></i></button>
           </td>
 
           <!--<td class="center">-->

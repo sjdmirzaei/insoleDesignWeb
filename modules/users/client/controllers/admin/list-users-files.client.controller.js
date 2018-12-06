@@ -13,6 +13,7 @@
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
     vm.removeComplete = removeComplete;
+    vm.downloadComplete = downloadComplete;
     refreshData();
     function refreshData(){
       console.log('refresh list');
@@ -22,10 +23,30 @@
       });
     }
 
-
+    function downloadComplete(pathName){
+        AdminService.completeDownload(pathName).$promise.then(function (data) {
+          console.log("download");
+          // vm.error = data.message;
+          // Notification.success({message: data.message});
+          if (data.msgtype == 'error') {
+            Notification.error({message: data.message});
+          } else {
+            Notification.success({message: data.message});
+          }
+          refreshData();
+          $state.go('admin.usersFiles');
+        }).catch(function(err){
+          Notification.error({message: 'خطا در پردازش'});
+          refreshData();
+          $state.go('admin.usersFiles');
+        });
+      //refreshData();
+    }
     function removeComplete(pathName){
+      console.log(pathName);
       if ($window.confirm('Are you sure you want to delete?'))
       AdminService.completeDelete(pathName).$promise.then(function (data) {
+        console.log(pathName);
         // vm.error = data.message;
         // Notification.success({message: data.message});
         if (data.msgtype == 'error') {

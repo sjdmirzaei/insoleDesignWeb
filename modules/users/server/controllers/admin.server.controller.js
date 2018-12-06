@@ -8,6 +8,7 @@ var path = require('path'),
   User = mongoose.model('User'),
   PricePlans= mongoose.model('Priceplan'),
   fs = require('fs'),
+  archiver = require('archiver'),
   fse = require('fs-extra'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
@@ -127,11 +128,7 @@ exports.report = function (req, res) {
  */
 exports.folderList = function (req, res) {
   var fsUtils = require("nodejs-fs-utils");
-  // var getSize = require('get-folder-size');
   var baseUploadPath = './uploads/';
-  // getSize(baseUploadPath+, function(err, size) {
-  //
-  // });
   var list = [];
   var i, j;
   var k=0;
@@ -142,87 +139,127 @@ exports.folderList = function (req, res) {
       });
     }
     else{
-      var usage=[];
-      fs.readdir(baseUploadPath, function(err, items) {
-        for(i=0; i<items.length; i++){
-          var userFolder = baseUploadPath+items[i];
-          //getSize(us erFolder, function(err, size){
-          //var size=0;
-          var size= fsUtils.fsizeSync(userFolder);
-            usage[i] = (size / 1024 / 1024).toFixed(2);
-            for(j=0; j<users.length; j++){
-              if(items[i] == users[j]._id){
-                // list.push({path:items[i], user:users[j]});
-                var toPush = {path:items[i], usage:usage[i], user:users[j]};
-                //console.log(toPush);
-                list[k]=(toPush);
-                k=k+1;
-                break;
-              }
-            }
-            if(items[i] != "Orders" && j==users.length){
-              var toPush = {path:items[i], usage:usage[i]};
-              //console.log(toPush);
-              list[k]=(toPush);
-              k=k+1;
-            }
-          //});
+      list = list.concat(readDir('./uploads/', users));
+      list = list.concat(readDir('/home/admin/paya/payainsole/', users));
+      // var usage=[];
+      // var items = fs.readdirSync(baseUploadPath){//}, function(err, items) {
+      //   for(i=0; i<items.length; i++){
+      //     var userFolder = baseUploadPath+items[i];
+      //     var size= 0;//fsUtils.fsizeSync(userFolder);
+      //       usage[i] = (size / 1024 / 1024).toFixed(2);
+      //       for(j=0; j<users.length; j++){
+      //         if(items[i] == users[j]._id){
+      //           var toPush = {path:items[i], usage:usage[i], user:users[j]};
+      //           list[k]=(toPush);
+      //           k=k+1;
+      //           break;
+      //         }
+      //       }
+      //       if(items[i] != "Orders" && j==users.length){
+      //         var toPush = {path:items[i], usage:usage[i]};
+      //         list[k]=(toPush);
+      //         k=k+1;
+      //       }
+      //   }
+      //
+      // }//);
+      for(j=0; j<users.length; j++){  //if there was users that dont have folders
+        var found = false;
+        for(i=0; i<list.length; i++){
+          if(list[i].user && list[i].user._id == users[j]._id){
+            found = true;
+            break;
+          }
         }
-        for(j=0; j<users.length; j++){
-          var found = false;
-          for(i=0; i<list.length; i++){
-            if(list[i].user._id == users[j]._id){
-              found = true;
+        if(found == false){
+          var toPush = {path:"", usage:0, user:users[j]};
+          list[k]=(toPush);
+          k=k+1;
+        }
+      }
+      res.json(list);
+    }
+  });
+  function readDir(baseFolder, users){
+    var usage=[];
+    if(fs.existsSync(baseFolder))
+    {
+      var items = fs.readdirSync(baseFolder)
+      {//}, function(err, items) {
+        for (i = 0; i < items.length; i++) {
+          var userFolder = baseFolder + items[i];
+          var size = fsUtils.fsizeSync(userFolder);
+          usage[i] = (size / 1024 / 1024).toFixed(2);
+          for (j = 0; j < users.length; j++) {
+            if (items[i] == users[j]._id) {
+              var toPush = {path: userFolder, usage: usage[i], user: users[j]};
+              list[k] = (toPush);
+              k = k + 1;
               break;
             }
           }
-          if(found == false){
-            var toPush = {path:"", usage:0, user:users[j]};
-            list[k]=(toPush);
-            k=k+1;
+          if (items[i] != "Orders" && j == users.length) {
+            var toPush = {path: userFolder, usage: usage[i]};
+            list[k] = (toPush);
+            k = k + 1;
           }
         }
-        //console.log(list);
-        res.json(list);
-      });
+      }
     }
-  });
-
+    return usage;
+  }
 };
-
 /**
- * Delete Folder as well as DB
+ * Download user folder
+ */
+exports.completeDownload = function (req, res) {
+  console.log(req.params.userPath);
+  var baseUploadPath = './uploads/';
+  var completePath = req.params.userPath;//baseUploadPath+req.params.userId;  //req.body.userId
+  if(!completePath){
+    return res.status(400).send({
+      message:
+        "فولدر وجود ندارد"
+    });
+  }
+  res.writeHead(200, {
+    'Content-Type': 'application/zip',
+    'Content-disposition': 'attachment; filename=' +req.params.userId + '.zip'
+  });
+  var zip = archiver('zip');
+  zip.pipe(res);
+  zip.directory(completePath, false)
+    .finalize();
+};
+/**
+ * Delete only Folder
  */
 exports.completeDelete = function (req, res) {
   var baseUploadPath = './uploads/';
-  if(!req.body.userId){
-    return;
-  }
-  // var sucess = false;
-  // var folderSuccess = false;
-  fse.remove(baseUploadPath+req.body.userId
-  //   , function(err){
-  //   if(err){
-  //     folderSuccess=false;
-  //   }
-  //   else{
-  //     folderSuccess = true;
-  //   }
+  //console.log(req);
+  var completePath=req.body.userPath;//baseUploadPath+req.body.userId
+  //console.log(completePath);
+  // if(!req.body.userId){
+  //   return;
   // }
-  ).then(()=>
+  fse.remove(completePath).then(()=>
   {
-    User.findByIdAndRemove(req.body.userId, function (err, doc) {
-      if (err) {
-        return res.status(200).send({
-          message: "حذف پوشه با موفقیت انجام شد"
-        });
-      }else{
-          return res.status(200).send({
-            message:
-              "حذف کاربر و پوشه با موفقیت انجام شد"
-          });
-      }
-    });
+    return res.status(200).send({
+              message:
+                "حذف پوشه با موفقیت انجام شد"
+            });
+    // User.findByIdAndRemove(req.body.userId, function (err, doc) {
+    //   if (err) {
+    //     return res.status(200).send({
+    //       message: "حذف پوشه با موفقیت انجام شد"
+    //     });
+    //   }else{
+    //       return res.status(200).send({
+    //         message:
+    //           "حذف کاربر و پوشه با موفقیت انجام شد"
+    //       });
+    //   }
+    // });
   }).catch(()=>{
     return res.status(400).send({
       message:
