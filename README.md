@@ -38,7 +38,7 @@ To push your changes to git, after commiting
 $ git push -u origin master
 ```
 
-To clone and pull git changes
+To clone and pull git changes..
 ```bash
 $ git clone https://gitlab.com/MNR85/payatek-insole.git
 $ git pull origin
