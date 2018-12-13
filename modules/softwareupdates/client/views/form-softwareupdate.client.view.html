@@ -42,12 +42,12 @@
 
                         </div>
 
-                        <!--<div ng-show="!vm.fileSelected" class="text-right form-group">-->
-                            <!--<button class="btn btn-default btn-file"-->
-                                    <!--ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="patientFile"-->
-                                    <!--ngf-before-model-change="vm.loading = true">انتخاب فایل آپدیت-->
-                            <!--</button>-->
-                        <!--</div>-->
+                        <div ng-show="!vm.fileSelected" class="text-right form-group">
+                            <button class="btn btn-default btn-file"
+                                    ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="patientFile"
+                                    ngf-before-model-change="vm.loading = true">انتخاب فایل آپدیت
+                            </button>
+                        </div>
 
                         <div ng-show="vm.fileSelected" class="progress text-center">
                             <div class="progress-bar" role="progressbar" aria-valuenow="{{vm.progress}}"

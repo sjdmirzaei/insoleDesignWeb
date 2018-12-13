@@ -214,6 +214,7 @@ exports.folderList = function (req, res) {
  */
 exports.completeDownload = function (req, res) {
   console.log(req.params.userPath);
+  console.log(req.body);
   var baseUploadPath = './uploads/';
   var completePath = req.params.userPath;//baseUploadPath+req.params.userId;  //req.body.userId
   if(!completePath){

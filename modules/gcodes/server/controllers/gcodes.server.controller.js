@@ -192,7 +192,7 @@ var downloadGcode = function (gcodeId,cb) {
 
 
         var MainEditor = JSON.parse(gcode.data);
-
+        var middle = MainEditor.middle;
         var Area = MainEditor.Area.split(", ");
         var ToolDiameter = MainEditor.ToolDiameter;
         var SafeZ = MainEditor.SafeZ;
@@ -230,6 +230,11 @@ var downloadGcode = function (gcodeId,cb) {
         var i=1;
         for (i = 1; i < verts.length; i++)
         {
+          if(middle)
+            if(i==middle){
+              SW.write('G28 Z\r\n'); // Home the X and Z axes
+              SW.write('G28\r\n'); // Home all axes
+            }
             var v= verts[i].split(", ");
             SW.write("X" + fl(v[0])+ "Y" + fl(v[1]) + "Z" + fl(v[2])+'\r\n');
 
