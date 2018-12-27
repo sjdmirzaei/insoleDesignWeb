@@ -62,7 +62,7 @@ exports.checkIfFileExist = function (req, res) {
     });
   }
   else {
-    return res.status(404).send({
+    return res.status(204).send({
       message: errorHandler.getErrorMessage("Records not exist")
     });
   }
