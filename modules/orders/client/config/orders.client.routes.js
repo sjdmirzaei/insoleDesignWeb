@@ -34,7 +34,6 @@
                     orderResolve: newOrder,
                     patientsResolve: getPatients,
                     cncUsersResolve: getCncUsers,
-
                 },
                 data: {
                     roles: ['user', 'doctor','cnc'],

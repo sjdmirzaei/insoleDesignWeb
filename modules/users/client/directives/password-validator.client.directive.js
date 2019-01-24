@@ -20,6 +20,7 @@
         var status = true;
         if (password) {
           var result = PasswordValidator.getResult(password);
+          //console.log(result);
           var requirementsIdx = 0;
 
           // Requirements Meter - visual indicator for users

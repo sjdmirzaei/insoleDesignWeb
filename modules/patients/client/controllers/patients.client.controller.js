@@ -1,4 +1,4 @@
-(function () {
+patientRecords(function () {
     'use strict';
 
     // Patients controller

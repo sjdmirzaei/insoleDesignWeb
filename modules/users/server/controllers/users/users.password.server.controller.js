@@ -45,11 +45,13 @@ exports.forgot = function (req, res, next) {
             return res.status(400).send({
               message: 'No account with that username or email has been found'
             });
-          } else if (user.provider !== 'local') {
+          }
+          else if (user.provider !== 'local') {
             return res.status(400).send({
               message: 'It seems like you signed up using your ' + user.provider + ' account, please sign in using that provider.'
             });
-          } else {
+          }
+          else {
             user.resetPasswordToken = token;
             user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
               console.log("step4");

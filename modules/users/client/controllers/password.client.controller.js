@@ -75,6 +75,8 @@
 
     function onResetPasswordError(response) {
       Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Password reset failed!', delay: 4000 });
+      // $state.go('password.forgotRequest', {
+      // });
     }
   }
 }());
