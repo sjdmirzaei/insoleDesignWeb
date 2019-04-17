@@ -248,6 +248,7 @@ var downloadGcode = function (gcodeId,cb) {
             if(i == startAround2){
               SW.write(" F" + fl(FeedRate)+" ");
             }
+            //s
           if(stopAround1)
           if(i == stopAround1){
             SW.write(" F" + fl(FeedRate/2)+" ");
