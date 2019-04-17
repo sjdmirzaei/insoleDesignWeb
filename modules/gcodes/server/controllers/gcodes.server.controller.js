@@ -192,6 +192,11 @@ var downloadGcode = function (gcodeId,cb) {
 
 
         var MainEditor = JSON.parse(gcode.data);
+        var speed = MainEditor.speed;
+      var startAround1 = MainEditor.startAround1;
+      var startAround2 = MainEditor.startAround2;
+      var stopAround1 = MainEditor.stopAround1;
+      var stopAround2 = MainEditor.stopAround2;
         var middle = MainEditor.middle;
         var Area = MainEditor.Area.split(", ");
         var ToolDiameter = MainEditor.ToolDiameter;
@@ -235,10 +240,24 @@ var downloadGcode = function (gcodeId,cb) {
             //   SW.write('G28 Z\r\n'); // Home the X and Z axes
             //   SW.write('G28\r\n'); // Home all axes
             // }
+          if(startAround1)
+            if(i == startAround1){
+              SW.write(" F" + fl(FeedRate/2)+" ");
+            }
+          if(startAround2)
+            if(i == startAround2){
+              SW.write(" F" + fl(FeedRate)+" ");
+            }
+          if(stopAround1)
+          if(i == stopAround1){
+            SW.write(" F" + fl(FeedRate/2)+" ");
+          }
+          if(stopAround2)
+            if(i == stopAround2){
+              SW.write(" F" + fl(FeedRate)+" ");
+            }
             var v= verts[i].split(", ");
             SW.write("X" + fl(v[0])+ "Y" + fl(v[1]) + "Z" + fl(v[2])+'\r\n');
-
-
         }
 
 

@@ -17,6 +17,10 @@
       title: 'مدیریت فایلهای کاربران',
       state: 'admin.usersFiles'
     });
+    menuService.addSubMenuItem('topbar', 'admin', {
+      title: 'مشاهده تراکنش ها',
+      state: 'admin.usersTransactions'
+    });
       menuService.addSubMenuItem('topbar', 'admin', {
           title: 'گزارش کاربران',
           state: 'admin.reports'

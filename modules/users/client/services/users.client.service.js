@@ -94,6 +94,11 @@
             method: 'GET',
             isArray: true
           },
+          usersTransactions: {
+            url: '/api/usersTransactions',
+            method: 'GET',
+            isArray: true
+          },
           completeDelete: {
             url: '/api/completeDelete',
             method: 'POST',

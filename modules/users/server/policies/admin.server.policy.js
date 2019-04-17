@@ -21,6 +21,9 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/usersFiles',
       permissions: '*'
     },{
+      resources: '/api/usersTransactions',
+      permissions: '*'
+    },{
       resources: '/api/completeDelete',
       permissions: '*'
     },{

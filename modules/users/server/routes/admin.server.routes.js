@@ -17,6 +17,9 @@ module.exports = function (app) {
   // Users collection routes
   app.route('/api/usersFiles')
     .get(adminPolicy.isAllowed, admin.folderList);
+  // Users Transactions routes
+  app.route('/api/usersTransactions')
+    .get(adminPolicy.isAllowed, admin.transactionList);
 // Users collection routes
   app.route('/api/completeDelete')
     .post(adminPolicy.isAllowed, admin.completeDelete);

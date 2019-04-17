@@ -7,6 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
   PricePlans= mongoose.model('Priceplan'),
+  Transaction = mongoose.model('Transaction'),
   fs = require('fs'),
   archiver = require('archiver'),
   fse = require('fs-extra'),
@@ -121,6 +122,28 @@ exports.report = function (req, res) {
 
     }
 
+  });
+};
+/**
+ * List of transactions
+ */
+exports.transactionList = function (req, res) {
+  Transaction.find({}).exec(function (err, users) {
+    console.log("MNR Test");
+    console.log(users);
+    if (err) {
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }else{
+      var list = [];
+      var j=0;
+      for(j=0; j<users.length; j++){
+        var toPush = {username:users.user, transactionCode:users.RefID, price:users.orderPrice, phone:users};
+        list[j]=(toPush);
+      }
+      res.json(list);
+    }
   });
 };
 /**
