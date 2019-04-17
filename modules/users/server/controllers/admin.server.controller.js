@@ -129,8 +129,8 @@ exports.report = function (req, res) {
  */
 exports.transactionList = function (req, res) {
   Transaction.find({}).exec(function (err, users) {
-    console.log("MNR Test");
-    console.log(users);
+    //console.log("MNR Test");
+    //console.log(users);
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
