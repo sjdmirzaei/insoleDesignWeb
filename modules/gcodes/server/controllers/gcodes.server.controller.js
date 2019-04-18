@@ -246,11 +246,11 @@ var downloadGcode = function (gcodeId,cb) {
             }
           if(startAround2)
             if(i == startAround2){
-              SW.write(" F" + fl(FeedRate)+" ");
+              SW.write(" F" + fl(FeedRate/2)+" ");
             }
           if(stopAround1)
           if(i == stopAround1){
-            SW.write(" F" + fl(FeedRate/2)+" ");
+            SW.write(" F" + fl(FeedRate)+" ");
           }
           if(stopAround2)
             if(i == stopAround2){
