@@ -9,6 +9,7 @@ var path = require('path'),
   PricePlans= mongoose.model('Priceplan'),
   Transaction = mongoose.model('Transaction'),
   fs = require('fs'),
+  chalk = require('chalk'),
   archiver = require('archiver'),
   fse = require('fs-extra'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
@@ -128,23 +129,43 @@ exports.report = function (req, res) {
  * List of transactions
  */
 exports.transactionList = function (req, res) {
-  Transaction.find({}).exec(function (err, users) {
+  Transaction.find({}).exec(function (err, trans) {
     //console.log("MNR Test");
     //console.log(users);
+    console.log(chalk.red('======='));
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
       });
     }else{
-      var list = [];
-      var j=0;
-      for(j=0; j<users.length; j++){
-        var toPush = {username:users.user, transactionCode:users.RefID, price:users.orderPrice, phone:users};
-        list[j]=(toPush);
-      }
-      res.json(list);
+      User.find({}).exec(function (err, users) {
+        if (err) {
+          return res.status(422).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        }else{
+
+          var list = [];
+          var j=0;
+          console.log(chalk.yellow('size is: '+trans.length));
+          for(j=0; j<trans.length; j++){
+            var toPush = {userId:trans[j].user, userName:getUserName(users, trans[j].user), transactionCode:trans[j].RefID, price:trans[j].orderPrice, phone:trans[j], detail:trans[j].detail};
+            list.push(toPush);
+          }
+          res.json(list);
+        }
+      });
+
     }
   });
+  function getUserName (users, userId){
+    for (let i = 0; i < users.length; i++) {
+      if(users[i]._id == userId){
+        return users[i];
+      }
+    }
+
+  }
 };
 /**
  * List of folders

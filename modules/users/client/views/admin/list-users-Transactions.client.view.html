@@ -31,7 +31,7 @@
         <tbody>
         <tr ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})">
           <td class="center"><img width="64px" src="{{user.profileImageURL}}" class="img-rounded" alt="image"/></td>
-          <td>{{user.username}}</td>
+          <td>{{user.userName}}</td>
           <td class="hidden-xs">{{user.transactionCode}}</td>
           <td class="hidden-xs">{{user.price}}</td>
           <td class="hidden-xs">{{user.phone}}</td>
