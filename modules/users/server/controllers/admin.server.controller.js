@@ -144,15 +144,45 @@ exports.transactionList = function (req, res) {
             message: errorHandler.getErrorMessage(err)
           });
         }else{
-
+          var userDict={};
           var list = [];
-          var j=0;
-          console.log(chalk.yellow('size is: '+trans.length));
-          for(j=0; j<trans.length; j++){
-            var toPush = {userId:trans[j].user, userName:getUserName(users, trans[j].user), transactionCode:trans[j].RefID, price:trans[j].orderPrice, phone:trans[j], detail:trans[j].detail};
-            list.push(toPush);
+          var userCounter = [];
+          for (let i = 0; i < users.length; i++) {
+            userDict[users[i]._doc._id.toString()] = {_id:users[i]._doc._id , name: users[i]._doc.firstName + " " + users[i]._doc.lastName, gcode:0, transaction:0};
           }
-          res.json(list);
+          console.log(chalk.yellow('size is: '+trans.length));
+          for(let j=0; j<trans.length; j++){
+            var user = userDict[trans[j].user.toString()];
+            if(trans[j].type == "ORDER"){
+              user.transaction++;
+              var toPush = {
+                userId: trans[j].user,
+                userName: user.firstName + " " + user.lastName,
+                transactionCode: trans[j].RefID,
+                price: trans[j].orderPrice,
+                phone: user.phone,
+                detail: trans[j].detail,
+                transactionCount: user.transaction,
+                gcodeCount: user.gcode
+              };
+              list.push(toPush);
+            }else if(trans[j].type == "GCODE"){
+              user.gcode++;
+            }
+          }
+          for (let i = 0; i < Object.keys(userDict).length; i++) {
+            var val= userDict[Object.keys(userDict)[i]];
+            if(val.gcode != 0 || val.transaction != 0){
+              let toPush = {
+                userId: val._id,
+                userName: val.name,
+                transactionCount: val.transaction,
+                gcodeCount: val.gcode
+              };
+              userCounter.push(toPush);
+            }
+          }
+          res.json(userCounter.concat(list));
         }
       });
 
@@ -160,8 +190,8 @@ exports.transactionList = function (req, res) {
   });
   function getUserName (users, userId){
     for (let i = 0; i < users.length; i++) {
-      if(users[i]._id == userId){
-        return users[i];
+      if(users[i]._id.toString() == userId.toString()){
+        return users[i]._doc;
       }
     }
 
