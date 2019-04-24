@@ -6,7 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
-  PricePlans= mongoose.model('Priceplan'),
+  PricePlans = mongoose.model('Priceplan'),
   Transaction = mongoose.model('Transaction'),
   fs = require('fs'),
   chalk = require('chalk'),
@@ -85,27 +85,27 @@ exports.report = function (req, res) {
         as: "transactions"
       }
     },
-    {$unwind:"$transactions"},
+    {$unwind: "$transactions"},
     {
-      $group:{
+      $group: {
         _id: "$transactions.user",
-        orders:{$addToSet:"$orders._id"},
-        transactions:{$sum:"$transactions.orderPrice"},
-        credit:{$addToSet:"$credit"},
-        creditPlan:{$addToSet:"$creditPlan"},
-        gcodePlan:{$addToSet:"$gcodePlan"}
+        orders: {$addToSet: "$orders._id"},
+        transactions: {$sum: "$transactions.orderPrice"},
+        credit: {$addToSet: "$credit"},
+        creditPlan: {$addToSet: "$creditPlan"},
+        gcodePlan: {$addToSet: "$gcodePlan"}
       }
     },
-    {$unwind:"$orders"},
+    {$unwind: "$orders"},
     {
-      $project:{
+      $project: {
         _id: 1,
-        user:"$_id",
-        orders:{$size:"$orders"},
-        transactions:"$transactions",
-        credit:"$credit",
-        creditPlan:"$creditPlan",
-        gcodePlan:"$gcodePlan"
+        user: "$_id",
+        orders: {$size: "$orders"},
+        transactions: "$transactions",
+        credit: "$credit",
+        creditPlan: "$creditPlan",
+        gcodePlan: "$gcodePlan"
       }
     },
 
@@ -117,7 +117,7 @@ exports.report = function (req, res) {
       });
     } else {
       console.log(data);
-      User.populate(data,{path:'user',select:'displayName'},function (err,data) {
+      User.populate(data, {path: 'user', select: 'displayName'}, function (err, data) {
         res.jsonp(data);
       })
 
@@ -137,42 +137,50 @@ exports.transactionList = function (req, res) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
       });
-    }else{
+    } else {
       User.find({}).exec(function (err, users) {
         if (err) {
           return res.status(422).send({
             message: errorHandler.getErrorMessage(err)
           });
-        }else{
-          var userDict={};
+        } else {
+          var userDict = {};
           var list = [];
           var userCounter = [];
           for (let i = 0; i < users.length; i++) {
-            userDict[users[i]._doc._id.toString()] = {_id:users[i]._doc._id , name: users[i]._doc.firstName + " " + users[i]._doc.lastName, gcode:0, transaction:0};
+            userDict[users[i]._doc._id.toString()] = {
+              _id: users[i]._doc._id,
+              name: users[i]._doc.firstName + " " + users[i]._doc.lastName,
+              gcode: 0,
+              transaction: 0
+            };
           }
-          console.log(chalk.yellow('size is: '+trans.length));
-          for(let j=0; j<trans.length; j++){
+          console.log(chalk.yellow('size is: ' + trans.length));
+          for (let j = 0; j < trans.length; j++) {
             var user = userDict[trans[j].user.toString()];
-            if(trans[j].type == "ORDER"){
-              user.transaction++;
-              var toPush = {
-                userId: trans[j].user,
-                userName: user.firstName + " " + user.lastName,
-                transactionCode: trans[j].RefID,
-                price: trans[j].orderPrice,
-                phone: user.phone,
-                detail: trans[j].detail,
-                transactionCount: user.transaction,
-                gcodeCount: user.gcode
-              };
-              list.push(toPush);
-            }else if(trans[j].type == "GCODE"){
-              user.gcode++;
+            if(user) {
+              if (trans[j].type == "ORDER") {
+                user.transaction++;
+                var toPush = {
+                  userId: trans[j].user,
+                  userName: user.firstName + " " + user.lastName,
+                  transactionCode: trans[j].RefID,
+                  price: trans[j].orderPrice,
+                  phone: user.phone,
+                  detail: trans[j].detail,
+                  transactionCount: user.transaction,
+                  gcodeCount: user.gcode
+                };
+                list.push(toPush);
+              }
+              else if (trans[j].type == "GCODE") {
+                user.gcode++;
+              }
             }
           }
           for (let i = 0; i < Object.keys(userDict).length; i++) {
-            var val= userDict[Object.keys(userDict)[i]];
-            if(val.gcode != 0 || val.transaction != 0){
+            var val = userDict[Object.keys(userDict)[i]];
+            if (val.gcode != 0 || val.transaction != 0) {
               let toPush = {
                 userId: val._id,
                 userName: val.name,
@@ -182,15 +190,24 @@ exports.transactionList = function (req, res) {
               userCounter.push(toPush);
             }
           }
-          res.json(userCounter.concat(list));
+          var seperator = [];
+          seperator.push( {
+            userId: 'seperator',
+            userName: 'xxxxx',
+            transactionCount: 'xxxxx',
+            gcodeCount: 'xxxxx'
+          });
+          var result = userCounter.concat(seperator);
+          res.json(result.concat(list));
         }
       });
 
     }
   });
-  function getUserName (users, userId){
+
+  function getUserName(users, userId) {
     for (let i = 0; i < users.length; i++) {
-      if(users[i]._id.toString() == userId.toString()){
+      if (users[i]._id.toString() == userId.toString()) {
         return users[i]._doc;
       }
     }
@@ -205,14 +222,14 @@ exports.folderList = function (req, res) {
   var baseUploadPath = './uploads/';
   var list = [];
   var i, j;
-  var k=0;
+  var k = 0;
   User.find({}).exec(function (err, users) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
       });
     }
-    else{
+    else {
       list = list.concat(readDir('./uploads/', users));
       list = list.concat(readDir('/home/admin/paya/payainsole/', users));
       // var usage=[];
@@ -237,27 +254,27 @@ exports.folderList = function (req, res) {
       //   }
       //
       // }//);
-      for(j=0; j<users.length; j++){  //if there was users that dont have folders
+      for (j = 0; j < users.length; j++) {  //if there was users that dont have folders
         var found = false;
-        for(i=0; i<list.length; i++){
-          if(list[i].user && list[i].user._id == users[j]._id){
+        for (i = 0; i < list.length; i++) {
+          if (list[i].user && list[i].user._id == users[j]._id) {
             found = true;
             break;
           }
         }
-        if(found == false){
-          var toPush = {path:"", usage:0, user:users[j]};
-          list[k]=(toPush);
-          k=k+1;
+        if (found == false) {
+          var toPush = {path: "", usage: 0, user: users[j]};
+          list[k] = (toPush);
+          k = k + 1;
         }
       }
       res.json(list);
     }
   });
-  function readDir(baseFolder, users){
-    var usage=[];
-    if(fs.existsSync(baseFolder))
-    {
+
+  function readDir(baseFolder, users) {
+    var usage = [];
+    if (fs.existsSync(baseFolder)) {
       var items = fs.readdirSync(baseFolder)
       {//}, function(err, items) {
         for (i = 0; i < items.length; i++) {
@@ -291,7 +308,7 @@ exports.completeDownload = function (req, res) {
   console.log(req.body);
   var baseUploadPath = './uploads/';
   var completePath = req.params.userPath;//baseUploadPath+req.params.userId;  //req.body.userId
-  if(!completePath){
+  if (!completePath) {
     return res.status(400).send({
       message:
         "فولدر وجود ندارد"
@@ -299,7 +316,7 @@ exports.completeDownload = function (req, res) {
   }
   res.writeHead(200, {
     'Content-Type': 'application/zip',
-    'Content-disposition': 'attachment; filename=' +req.params.userId + '.zip'
+    'Content-disposition': 'attachment; filename=' + req.params.userId + '.zip'
   });
   var zip = archiver('zip');
   zip.pipe(res);
@@ -312,17 +329,16 @@ exports.completeDownload = function (req, res) {
 exports.completeDelete = function (req, res) {
   var baseUploadPath = './uploads/';
   //console.log(req);
-  var completePath=req.body.userPath;//baseUploadPath+req.body.userId
+  var completePath = req.body.userPath;//baseUploadPath+req.body.userId
   //console.log(completePath);
   // if(!req.body.userId){
   //   return;
   // }
-  fse.remove(completePath).then(()=>
-  {
+  fse.remove(completePath).then(() => {
     return res.status(200).send({
-              message:
-                "حذف پوشه با موفقیت انجام شد"
-            });
+      message:
+        "حذف پوشه با موفقیت انجام شد"
+    });
     // User.findByIdAndRemove(req.body.userId, function (err, doc) {
     //   if (err) {
     //     return res.status(200).send({
@@ -335,7 +351,7 @@ exports.completeDelete = function (req, res) {
     //       });
     //   }
     // });
-  }).catch(()=>{
+  }).catch(() => {
     return res.status(400).send({
       message:
         "حذف  با خطا روبرو شد"
@@ -386,7 +402,7 @@ exports.list = function (req, res) {
 
     });
   }
-  else{
+  else {
     User.find({}).exec(function (err, users) {
       if (err) {
         return res.status(422).send({
