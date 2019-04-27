@@ -8,6 +8,8 @@ var path = require('path'),
   User = mongoose.model('User'),
   PricePlans = mongoose.model('Priceplan'),
   Transaction = mongoose.model('Transaction'),
+  OnlinePayment = mongoose.model('OnlinePayment'),
+  OnlinePaymentRecords = mongoose.model('OnlinePaymentRecords'),
   fs = require('fs'),
   chalk = require('chalk'),
   archiver = require('archiver'),
@@ -126,10 +128,32 @@ exports.report = function (req, res) {
   });
 };
 /**
+ * List of payments
+ */
+exports.paymentList = function (req, res) {
+  console.log("MNR2 Test");
+  OnlinePaymentRecords.find({}).exec(function (err, payments) {
+
+    console.log(chalk.red('======='));
+    if (err) {
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+//       var res=[];
+//       for (let i = 0; i <payments.length ; i++) {
+// res.push
+//       }
+          res.json(payments);//result.concat(list));
+        }
+      });
+
+    };
+/**
  * List of transactions
  */
 exports.transactionList = function (req, res) {
-  Transaction.find({}).exec(function (err, trans) {
+  OnlinePaymentRecords.find({}).exec(function (err, trans) {
     //console.log("MNR Test");
     //console.log(users);
     console.log(chalk.red('======='));
@@ -152,7 +176,8 @@ exports.transactionList = function (req, res) {
               _id: users[i]._doc._id,
               name: users[i]._doc.firstName + " " + users[i]._doc.lastName,
               gcode: 0,
-              transaction: 0
+              transaction: 0,
+              payment: 0
             };
           }
           console.log(chalk.yellow('size is: ' + trans.length));
@@ -161,20 +186,11 @@ exports.transactionList = function (req, res) {
             if(user) {
               if (trans[j].type == "ORDER") {
                 user.transaction++;
-                var toPush = {
-                  userId: trans[j].user,
-                  userName: user.firstName + " " + user.lastName,
-                  transactionCode: trans[j].RefID,
-                  price: trans[j].orderPrice,
-                  phone: user.phone,
-                  detail: trans[j].detail,
-                  transactionCount: user.transaction,
-                  gcodeCount: user.gcode
-                };
-                list.push(toPush);
               }
               else if (trans[j].type == "GCODE") {
                 user.gcode++;
+              }else if (trans[j].type == "PAYMENT") {
+                user.payment++;
               }
             }
           }
@@ -185,20 +201,21 @@ exports.transactionList = function (req, res) {
                 userId: val._id,
                 userName: val.name,
                 transactionCount: val.transaction,
-                gcodeCount: val.gcode
+                gcodeCount: val.gcode,
+                paymentCount: val.payment
               };
               userCounter.push(toPush);
             }
           }
-          var seperator = [];
-          seperator.push( {
-            userId: 'seperator',
-            userName: 'xxxxx',
-            transactionCount: 'xxxxx',
-            gcodeCount: 'xxxxx'
-          });
-          var result = userCounter.concat(seperator);
-          res.json(result.concat(list));
+          // var seperator = [];
+          // seperator.push( {
+          //   userId: 'seperator',
+          //   userName: 'xxxxx',
+          //   transactionCount: 'xxxxx',
+          //   gcodeCount: 'xxxxx'
+          // });
+          // var result = userCounter.concat(seperator);
+          res.json(userCounter);//result.concat(list));
         }
       });
 

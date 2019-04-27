@@ -100,3 +100,39 @@ var OnlinePaymentSchema = new Schema({
 });
 
 mongoose.model('OnlinePayment', OnlinePaymentSchema);
+
+/**
+ * OnlinePaymentRecordsSchema Schema
+ */
+var OnlinePaymentRecordsSchema = new Schema({
+  /// Zarinpal Data
+  authority: {
+    type: String,
+    default: ''
+  },
+  ///Payment data
+  price: {
+    type: Number, default: 0
+  },
+  created: {
+    type: Date,
+    default: Date.now
+  },
+  state:{
+    type:String, default:'Clicked on pay button!'
+  },
+  ///User Data
+  software: {
+    type: String,
+    default: ''
+  },
+  type: {
+    type: String,
+    default: ''
+  },
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
+});
+mongoose.model('OnlinePaymentRecords', OnlinePaymentRecordsSchema);

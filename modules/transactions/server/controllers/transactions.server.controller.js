@@ -8,6 +8,7 @@ var path = require('path'),
   moment = require('moment'),
   Transaction = mongoose.model('Transaction'),
   OnlinePayment = mongoose.model('OnlinePayment'),
+  OnlinePaymentRecords = mongoose.model('OnlinePaymentRecords'),
   User = mongoose.model('User'),
   config = require(path.resolve('./config/config')),
   chalk = require('chalk'),
@@ -163,6 +164,20 @@ exports.PaymentCallback = function (req, res) {
  * PaymentRequest
  */
 exports.PaymentRequest = function (req, res) {
+  var onlinePaymentRecords = new OnlinePaymentRecords();
+  onlinePaymentRecords.user = req.user;
+  onlinePaymentRecords.software = req.session.software;
+  onlinePaymentRecords.price=req.body.price;
+  onlinePaymentRecords.state='in PaymentRequest';
+
+  if (typeof(req.body.expire) !== 'undefined'){
+    onlinePaymentRecords.type = "design plan";
+  }
+  else if (typeof(req.body.totalorder) !== 'undefined'){
+    onlinePaymentRecords.type = "gcode plan";
+  }else{
+    onlinePaymentRecords.type = "credit";
+  }
 
   zarinpal.PaymentRequest({
     Amount: req.body.price,
@@ -171,7 +186,11 @@ exports.PaymentRequest = function (req, res) {
     Email: 'info@payatek.ir',
     Mobile: '09120000000'
   }).then(function (response) {
+    onlinePaymentRecords.authority = response.authority;
+    console.log(chalk.red(response));
+    onlinePaymentRecords.state='in PaymentRequest';
     if (response.status == 100) {
+      onlinePaymentRecords.state='in PaymentRequest 100';
       req.session.amount = req.body.price;
       req.session.expire = req.body.expire;
 
@@ -232,8 +251,23 @@ exports.PaymentRequest = function (req, res) {
       });
       // res.redirect(response.url);
     }
+    onlinePaymentRecords.save(function (err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+    });
   }).catch(function (err) {
+    onlinePaymentRecords.state='in PaymentRequest exception: '+err;
     console.log(err);
+    onlinePaymentRecords.save(function (err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+    });
   });
 };
 

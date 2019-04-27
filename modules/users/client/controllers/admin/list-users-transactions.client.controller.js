@@ -19,6 +19,7 @@
     function refreshData(){
       console.log('refresh list');
       AdminService.usersTransactions(function (data) {
+        console.log(data);
         vm.users = data;
         vm.buildPager();
       });

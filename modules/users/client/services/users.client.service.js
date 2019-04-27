@@ -94,6 +94,11 @@
             method: 'GET',
             isArray: true
           },
+          usersPayments: {
+            url: '/api/usersPayments',
+            method: 'GET',
+            isArray: true
+          },
           usersTransactions: {
             url: '/api/usersTransactions',
             method: 'GET',

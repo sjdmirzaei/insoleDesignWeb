@@ -28,6 +28,12 @@
         controller: 'UserTransactionsListController',
         controllerAs: 'vm'
       })
+      .state('admin.usersPayments', {
+        url: '/usersPayments',
+        templateUrl: '/modules/users/client/views/admin/list-users-Payments.client.view.html',
+        controller: 'UserPaymentsListController',
+        controllerAs: 'vm'
+      })
         .state('admin.reports', {
             url: '/reports',
             templateUrl: '/modules/users/client/views/admin/report.client.view.html',

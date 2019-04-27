@@ -20,6 +20,9 @@ module.exports = function (app) {
   // Users Transactions routes
   app.route('/api/usersTransactions')
     .get(adminPolicy.isAllowed, admin.transactionList);
+  // Users Payments routes
+  app.route('/api/usersPayments')
+    .get(adminPolicy.isAllowed, admin.paymentList);
 // Users collection routes
   app.route('/api/completeDelete')
     .post(adminPolicy.isAllowed, admin.completeDelete);

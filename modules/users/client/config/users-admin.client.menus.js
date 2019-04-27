@@ -21,6 +21,10 @@
       title: 'مشاهده تراکنش ها',
       state: 'admin.usersTransactions'
     });
+    menuService.addSubMenuItem('topbar', 'admin', {
+      title: 'مشاهده خریدهای آنلاین',
+      state: 'admin.usersPayments'
+    });
       menuService.addSubMenuItem('topbar', 'admin', {
           title: 'گزارش کاربران',
           state: 'admin.reports'
