@@ -44,7 +44,7 @@ exports.PaymentCallback = function (req, res) {
         Authority: docPayment.authority,
       }).then(function (response) {
         console.log('zarinpal.PaymentVerification', response);
-        stat += 'PaymentVerification '+response.authority+' '+response.status+ '// ';
+        stat += 'PaymentVerification '+response.RefID+' '+response.status+ '// ';
         if (response.status == 101) {
           console.log(chalk.blue("101 callback"));
           //var tid = docPayment.transactionId;
@@ -160,14 +160,14 @@ exports.PaymentCallback = function (req, res) {
           }
         }
         OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
-          $set: {
+          $push: {
             state : stat
           }
         }, function (err, doc) {});
       }).catch(function (err) {
         stat += 'exception: '+err;
         OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
-          $set: {
+          $push: {
             state : stat
           }
         }, function (err, doc) {});
@@ -303,14 +303,14 @@ exports.PaymentVerification = function (req, res) {
       res.json(response);
     }
     OnlinePaymentRecords.findOneAndUpdate({authority: req.params.authority}, {
-      $set: {
+      $push: {
         state : stat
       }
     }, function (err, doc) {});
   }).catch(function (err) {
     stat += 'exception: '+err;
     OnlinePaymentRecords.findOneAndUpdate({authority: req.params.authority}, {
-      $set: {
+      $push: {
         state : stat
       }
     }, function (err, doc) {});
