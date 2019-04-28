@@ -20,26 +20,25 @@
       <table class="table table-striped table-hover" id="sample-table-2">
         <thead>
         <tr>
-          <th class="center">تصویر</th>
           <th>نام کاربری</th>
-          <!--<th class="hidden-xs">کد تراکنش</th>-->
-          <!--<th class="hidden-xs">طرح خریده شده</th>-->
-          <!--<th class="hidden-xs">تلفن</th>-->
-          <th class="hidden-xs">تعداد خرید</th>
-          <th class="hidden-xs">تعداد جیکد</th>
+          <th class="hidden-xs">کد زرینپال</th>
+          <th class="hidden-xs">نوع</th>
+          <th class="hidden-xs">قیمت</th>
+          <th class="hidden-xs">وضعیت</th>
+          <th class="hidden-xs">نرم افزار</th>
+          <th class="hidden-xs">تاریخ</th>
           <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})">
-          <!--<td class="center"><img width="64px" src="{{user.profileImageURL}}" class="img-rounded" alt="image"/></td>-->
-          <td>{{user.userId}}</td>
-          <td>{{user.userName}}</td>
-          <!--<td class="hidden-xs">{{user.transactionCode}}</td>-->
-          <!--<td class="hidden-xs">{{user.price}}</td>-->
-          <!--<td class="hidden-xs">{{user.phone}}</td>-->
-          <td class="hidden-xs">{{user.transactionCount}}</td>
-          <td class="hidden-xs">{{user.gcodeCount}}</td>
+        <tr ng-repeat="paymentData in vm.pagedItems" ui-sref="admin.user({userId: user._id})">
+          <td>{{paymentData.user.firstName}} {{paymentData.user.lastName}}</td>
+          <td>{{paymentData.authority}}</td>
+          <td>{{paymentData.type}}</td>
+          <td>{{paymentData.price}}</td>
+          <td style="text-align: left; direction: ltr;">{{paymentData.state}}</td>
+          <td>{{paymentData.software}}</td>
+          <td>{{paymentData.created}}</td>
         </tr>
         </tbody>
 

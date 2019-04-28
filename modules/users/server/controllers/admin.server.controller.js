@@ -131,10 +131,10 @@ exports.report = function (req, res) {
  * List of payments
  */
 exports.paymentList = function (req, res) {
-  console.log("MNR2 Test");
-  OnlinePaymentRecords.find({}).exec(function (err, payments) {
+  // console.log("MNR2 Test");
+  OnlinePaymentRecords.find({}).populate('user').exec(function (err, payments) {
 
-    console.log(chalk.red('======='));
+    // console.log(chalk.red('======='));
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)

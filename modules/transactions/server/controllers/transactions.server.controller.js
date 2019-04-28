@@ -19,13 +19,16 @@ var path = require('path'),
 var zarinpal = ZarinpalCheckout.create('f47973b0-7e73-11e8-86ec-005056a205be', false);
 
 exports.PaymentCallback = function (req, res) {
+  var stat = '2) In PaymentCallback// ';
   OnlinePayment.findOneAndRemove({authority: req.query.Authority}, {
   }, function (err, docPayment) {
     if(err){
+      stat += 'error in remove OnlinePayment: '+err+'// ';
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     }else{
+      stat += 'removed OnlinePayment ok// ';
       console.log(chalk.yellow('========='));
       console.log(chalk.yellow(docPayment));
       // req.session.amount = doc.amount;
@@ -40,6 +43,8 @@ exports.PaymentCallback = function (req, res) {
         Amount: docPayment.amount,
         Authority: docPayment.authority,
       }).then(function (response) {
+        console.log('zarinpal.PaymentVerification', response);
+        stat += 'PaymentVerification '+response.authority+' '+response.status+ '// ';
         if (response.status == 101) {
           console.log(chalk.blue("101 callback"));
           //var tid = docPayment.transactionId;
@@ -53,6 +58,7 @@ exports.PaymentCallback = function (req, res) {
               withdraw: docPayment.amount
             }
           }, function (err, doc) {
+            //stat += 'in Transaction findOneAndUpdate';
             console.log("Verified! Ref ID: " + response.RefID);
             res.render('modules/core/server/views/index', {
               response: JSON.stringify(response),
@@ -153,8 +159,18 @@ exports.PaymentCallback = function (req, res) {
             })
           }
         }
-
+        OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
+          $set: {
+            state : stat
+          }
+        }, function (err, doc) {});
       }).catch(function (err) {
+        stat += 'exception: '+err;
+        OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
+          $set: {
+            state : stat
+          }
+        }, function (err, doc) {});
         console.log(err);
       });
     }
@@ -165,10 +181,10 @@ exports.PaymentCallback = function (req, res) {
  */
 exports.PaymentRequest = function (req, res) {
   var onlinePaymentRecords = new OnlinePaymentRecords();
-  onlinePaymentRecords.user = req.user;
+  onlinePaymentRecords.user = req.user._doc;
   onlinePaymentRecords.software = req.session.software;
   onlinePaymentRecords.price=req.body.price;
-  onlinePaymentRecords.state='in PaymentRequest';
+  onlinePaymentRecords.state= '1) in PaymentRequest// ';
 
   if (typeof(req.body.expire) !== 'undefined'){
     onlinePaymentRecords.type = "design plan";
@@ -188,9 +204,9 @@ exports.PaymentRequest = function (req, res) {
   }).then(function (response) {
     onlinePaymentRecords.authority = response.authority;
     console.log(chalk.red(response));
-    onlinePaymentRecords.state='in PaymentRequest';
+    onlinePaymentRecords.state +='zarinpal.PaymentRequest '+response.authority+' '+response.status+'// ';
     if (response.status == 100) {
-      onlinePaymentRecords.state='in PaymentRequest 100';
+      //onlinePaymentRecords.state='in PaymentRequest 100';
       req.session.amount = req.body.price;
       req.session.expire = req.body.expire;
 
@@ -259,7 +275,7 @@ exports.PaymentRequest = function (req, res) {
       }
     });
   }).catch(function (err) {
-    onlinePaymentRecords.state='in PaymentRequest exception: '+err;
+    onlinePaymentRecords.state +='exception: '+err;
     console.log(err);
     onlinePaymentRecords.save(function (err) {
       if (err) {
@@ -271,12 +287,14 @@ exports.PaymentRequest = function (req, res) {
   });
 };
 
-
 exports.PaymentVerification = function (req, res) {
+  var stat = '3) In PaymentVerification// ';
   zarinpal.PaymentVerification({
     Amount: req.params.amount,
     Authority: req.params.token,
   }).then(function (response) {
+    stat+='zarinpal.PaymentVerification '+response.authority+' '+response.status+'// ';
+    console.log('zarinpal.PaymentVerification', response);
     if (response.status == 101) {
       res.json(response);
       console.log("Verified! Ref ID: " + response.RefID);
@@ -284,7 +302,18 @@ exports.PaymentVerification = function (req, res) {
       console.log(response);
       res.json(response);
     }
+    OnlinePaymentRecords.findOneAndUpdate({authority: req.params.authority}, {
+      $set: {
+        state : stat
+      }
+    }, function (err, doc) {});
   }).catch(function (err) {
+    stat += 'exception: '+err;
+    OnlinePaymentRecords.findOneAndUpdate({authority: req.params.authority}, {
+      $set: {
+        state : stat
+      }
+    }, function (err, doc) {});
     console.log(err);
   });
 };
