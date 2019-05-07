@@ -45,7 +45,11 @@ exports.PaymentCallback = function (req, res) {
       }).then(function (response) {
         console.log('zarinpal.PaymentVerification', response);
         stat += 'PaymentVerification '+response.RefID+' '+response.status+ '// ';
-
+        OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
+          $concat: {
+            state : stat
+          }
+        }, function (err, doc) {
         if (response.status == 101) {
           console.log(chalk.blue("101 callback"));
           //var tid = docPayment.transactionId;
@@ -61,11 +65,6 @@ exports.PaymentCallback = function (req, res) {
           }, function (err, doc) {
             //stat += 'in Transaction findOneAndUpdate';
             console.log("Verified! Ref ID: " + response.RefID);
-            OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
-              $concat: {
-                state : stat
-              }
-            }, function (err, doc) {});
             res.render('modules/core/server/views/index', {
               response: JSON.stringify(response),
               user: JSON.stringify(docPayment.user),
@@ -102,11 +101,6 @@ exports.PaymentCallback = function (req, res) {
                     //console.log(doc.creditPlan);
                     User.findOne({_id: docPayment.user_id}, function (err, doc) {
                       //console.log(doc.creditPlan);
-                      OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
-                        $concat: {
-                          state : stat
-                        }
-                      }, function (err, doc) {});
                       res.render('modules/core/server/views/index', {
                         response: JSON.stringify(response),
                         user: JSON.stringify(doc),
@@ -137,11 +131,7 @@ exports.PaymentCallback = function (req, res) {
                     // console.log(doc.gcodePlan);
                     User.findOne({_id: docPayment.user_id}, function (err, doc) {
                       // console.log(doc.gcodePlan);
-                      OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
-                        $concat: {
-                          state : stat
-                        }
-                      }, function (err, doc) {});
+
                       res.render('modules/core/server/views/index', {
                         response: JSON.stringify(response),
                         user: JSON.stringify(doc),
@@ -162,11 +152,6 @@ exports.PaymentCallback = function (req, res) {
                   else{
                     console.log(doc.credit);
                     User.findOne({_id: docPayment.user_id}, function (err, doc) {
-                      OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
-                        $concat: {
-                          state : stat
-                        }
-                      }, function (err, doc) {});
                       res.render('modules/core/server/views/index', {
                         response: JSON.stringify(response),
                         user: JSON.stringify(doc),
@@ -180,12 +165,8 @@ exports.PaymentCallback = function (req, res) {
             })
           }
         }
-        // OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
-        //   $concat: {
-        //     state : stat
-        //   }
-        // }, function (err, doc) {});
-      }).catch(function (err) {
+        });
+        }).catch(function (err) {
         stat += 'exception: '+err;
         OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
           $concat: {
