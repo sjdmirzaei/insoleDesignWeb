@@ -153,7 +153,7 @@ exports.paymentList = function (req, res) {
  * List of transactions
  */
 exports.transactionList = function (req, res) {
-  OnlinePaymentRecords.find({}).exec(function (err, trans) {
+  Transaction.find({}).populate('user').exec(function (err, trans) {
     //console.log("MNR Test");
     //console.log(users);
     console.log(chalk.red('======='));
@@ -162,74 +162,75 @@ exports.transactionList = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      User.find({}).exec(function (err, users) {
-        if (err) {
-          return res.status(422).send({
-            message: errorHandler.getErrorMessage(err)
-          });
-        } else {
-          var userDict = {};
-          var list = [];
-          var userCounter = [];
-          for (let i = 0; i < users.length; i++) {
-            userDict[users[i]._doc._id.toString()] = {
-              _id: users[i]._doc._id,
-              name: users[i]._doc.firstName + " " + users[i]._doc.lastName,
-              gcode: 0,
-              transaction: 0,
-              payment: 0
-            };
-          }
-          console.log(chalk.yellow('size is: ' + trans.length));
-          for (let j = 0; j < trans.length; j++) {
-            var user = userDict[trans[j].user.toString()];
-            if(user) {
-              if (trans[j].type == "ORDER") {
-                user.transaction++;
-              }
-              else if (trans[j].type == "GCODE") {
-                user.gcode++;
-              }else if (trans[j].type == "PAYMENT") {
-                user.payment++;
-              }
-            }
-          }
-          for (let i = 0; i < Object.keys(userDict).length; i++) {
-            var val = userDict[Object.keys(userDict)[i]];
-            if (val.gcode != 0 || val.transaction != 0) {
-              let toPush = {
-                userId: val._id,
-                userName: val.name,
-                transactionCount: val.transaction,
-                gcodeCount: val.gcode,
-                paymentCount: val.payment
-              };
-              userCounter.push(toPush);
-            }
-          }
-          // var seperator = [];
-          // seperator.push( {
-          //   userId: 'seperator',
-          //   userName: 'xxxxx',
-          //   transactionCount: 'xxxxx',
-          //   gcodeCount: 'xxxxx'
-          // });
-          // var result = userCounter.concat(seperator);
-          res.json(userCounter);//result.concat(list));
-        }
-      });
+      res.json(trans);
+      // User.find({}).exec(function (err, users) {
+      //   if (err) {
+      //     return res.status(422).send({
+      //       message: errorHandler.getErrorMessage(err)
+      //     });
+      //   } else {
+      //     var userDict = {};
+      //     var list = [];
+      //     var userCounter = [];
+      //     for (let i = 0; i < users.length; i++) {
+      //       userDict[users[i]._doc._id.toString()] = {
+      //         _id: users[i]._doc._id,
+      //         name: users[i]._doc.firstName + " " + users[i]._doc.lastName,
+      //         gcode: 0,
+      //         transaction: 0,
+      //         payment: 0
+      //       };
+      //     }
+      //     console.log(chalk.yellow('size is: ' + trans.length));
+      //     for (let j = 0; j < trans.length; j++) {
+      //       var user = userDict[trans[j].user.toString()];
+      //       if(user) {
+      //         if (trans[j].type == "ORDER") {
+      //           user.transaction++;
+      //         }
+      //         else if (trans[j].type == "GCODE") {
+      //           user.gcode++;
+      //         }else if (trans[j].type == "PAYMENT") {
+      //           user.payment++;
+      //         }
+      //       }
+      //     }
+      //     for (let i = 0; i < Object.keys(userDict).length; i++) {
+      //       var val = userDict[Object.keys(userDict)[i]];
+      //       if (val.gcode != 0 || val.transaction != 0) {
+      //         let toPush = {
+      //           userId: val._id,
+      //           userName: val.name,
+      //           transactionCount: val.transaction,
+      //           gcodeCount: val.gcode,
+      //           paymentCount: val.payment
+      //         };
+      //         userCounter.push(toPush);
+      //       }
+      //     }
+      //     // var seperator = [];
+      //     // seperator.push( {
+      //     //   userId: 'seperator',
+      //     //   userName: 'xxxxx',
+      //     //   transactionCount: 'xxxxx',
+      //     //   gcodeCount: 'xxxxx'
+      //     // });
+      //     // var result = userCounter.concat(seperator);
+      //     res.json(userCounter);//result.concat(list));
+      //   }
+      // });
 
     }
   });
 
-  function getUserName(users, userId) {
-    for (let i = 0; i < users.length; i++) {
-      if (users[i]._id.toString() == userId.toString()) {
-        return users[i]._doc;
-      }
-    }
-
-  }
+  // function getUserName(users, userId) {
+  //   for (let i = 0; i < users.length; i++) {
+  //     if (users[i]._id.toString() == userId.toString()) {
+  //       return users[i]._doc;
+  //     }
+  //   }
+  //
+  // }
 };
 /**
  * List of folders

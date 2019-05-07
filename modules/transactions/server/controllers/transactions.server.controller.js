@@ -45,6 +45,7 @@ exports.PaymentCallback = function (req, res) {
       }).then(function (response) {
         console.log('zarinpal.PaymentVerification', response);
         stat += 'PaymentVerification '+response.RefID+' '+response.status+ '// ';
+
         if (response.status == 101) {
           console.log(chalk.blue("101 callback"));
           //var tid = docPayment.transactionId;
@@ -60,6 +61,11 @@ exports.PaymentCallback = function (req, res) {
           }, function (err, doc) {
             //stat += 'in Transaction findOneAndUpdate';
             console.log("Verified! Ref ID: " + response.RefID);
+            OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
+              $concat: {
+                state : stat
+              }
+            }, function (err, doc) {});
             res.render('modules/core/server/views/index', {
               response: JSON.stringify(response),
               user: JSON.stringify(docPayment.user),
@@ -96,6 +102,11 @@ exports.PaymentCallback = function (req, res) {
                     //console.log(doc.creditPlan);
                     User.findOne({_id: docPayment.user_id}, function (err, doc) {
                       //console.log(doc.creditPlan);
+                      OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
+                        $concat: {
+                          state : stat
+                        }
+                      }, function (err, doc) {});
                       res.render('modules/core/server/views/index', {
                         response: JSON.stringify(response),
                         user: JSON.stringify(doc),
@@ -126,6 +137,11 @@ exports.PaymentCallback = function (req, res) {
                     // console.log(doc.gcodePlan);
                     User.findOne({_id: docPayment.user_id}, function (err, doc) {
                       // console.log(doc.gcodePlan);
+                      OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
+                        $concat: {
+                          state : stat
+                        }
+                      }, function (err, doc) {});
                       res.render('modules/core/server/views/index', {
                         response: JSON.stringify(response),
                         user: JSON.stringify(doc),
@@ -146,6 +162,11 @@ exports.PaymentCallback = function (req, res) {
                   else{
                     console.log(doc.credit);
                     User.findOne({_id: docPayment.user_id}, function (err, doc) {
+                      OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
+                        $concat: {
+                          state : stat
+                        }
+                      }, function (err, doc) {});
                       res.render('modules/core/server/views/index', {
                         response: JSON.stringify(response),
                         user: JSON.stringify(doc),
@@ -159,15 +180,15 @@ exports.PaymentCallback = function (req, res) {
             })
           }
         }
-        OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
-          $push: {
-            state : stat
-          }
-        }, function (err, doc) {});
+        // OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
+        //   $concat: {
+        //     state : stat
+        //   }
+        // }, function (err, doc) {});
       }).catch(function (err) {
         stat += 'exception: '+err;
         OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
-          $push: {
+          $concat: {
             state : stat
           }
         }, function (err, doc) {});
@@ -203,7 +224,7 @@ exports.PaymentRequest = function (req, res) {
     Mobile: '09120000000'
   }).then(function (response) {
     onlinePaymentRecords.authority = response.authority;
-    console.log(chalk.red(response));
+    // console.log(chalk.red(response));
     onlinePaymentRecords.state +='zarinpal.PaymentRequest '+response.authority+' '+response.status+'// ';
     if (response.status == 100) {
       //onlinePaymentRecords.state='in PaymentRequest 100';
@@ -303,14 +324,14 @@ exports.PaymentVerification = function (req, res) {
       res.json(response);
     }
     OnlinePaymentRecords.findOneAndUpdate({authority: req.params.authority}, {
-      $push: {
+      $concat: {
         state : stat
       }
     }, function (err, doc) {});
   }).catch(function (err) {
     stat += 'exception: '+err;
     OnlinePaymentRecords.findOneAndUpdate({authority: req.params.authority}, {
-      $push: {
+      $concat: {
         state : stat
       }
     }, function (err, doc) {});
