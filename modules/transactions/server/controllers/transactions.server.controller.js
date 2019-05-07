@@ -45,11 +45,7 @@ exports.PaymentCallback = function (req, res) {
       }).then(function (response) {
         console.log('zarinpal.PaymentVerification', response);
         stat += 'PaymentVerification '+response.RefID+' '+response.status+ '// ';
-        OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
-          $concat: {
-            state : stat
-          }
-        }, function (err, doc) {
+
         if (response.status == 101) {
           console.log(chalk.blue("101 callback"));
           //var tid = docPayment.transactionId;
@@ -165,14 +161,25 @@ exports.PaymentCallback = function (req, res) {
             })
           }
         }
+        OnlinePaymentRecords.findOne({authority: docPayment.authority}, function(errr, docc){
+          OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
+            $set: {
+              state : docc.status + stat
+            }
+          }, function (err, doc) {
+            console.log(chalk.red(err, doc));
+        });
         });
         }).catch(function (err) {
         stat += 'exception: '+err;
-        OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
-          $concat: {
-            state : stat
-          }
-        }, function (err, doc) {});
+        OnlinePaymentRecords.findOne({authority: docPayment.authority}, function(errr, docc) {
+          OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
+            $set: {
+              state: docc.status +stat
+            }
+          }, function (err, doc) {
+          });
+        });
         console.log(err);
       });
     }
@@ -304,18 +311,24 @@ exports.PaymentVerification = function (req, res) {
       console.log(response);
       res.json(response);
     }
-    OnlinePaymentRecords.findOneAndUpdate({authority: req.params.authority}, {
-      $concat: {
-        state : stat
-      }
-    }, function (err, doc) {});
+    OnlinePaymentRecords.findOne({authority: docPayment.authority}, function(errr, docc) {
+      OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
+        $set: {
+          state: docc.status +stat
+        }
+      }, function (err, doc) {
+      });
+    });
   }).catch(function (err) {
     stat += 'exception: '+err;
-    OnlinePaymentRecords.findOneAndUpdate({authority: req.params.authority}, {
-      $concat: {
-        state : stat
-      }
-    }, function (err, doc) {});
+    OnlinePaymentRecords.findOne({authority: docPayment.authority}, function(errr, docc) {
+      OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
+        $set: {
+          state: docc.status +stat
+        }
+      }, function (err, doc) {
+      });
+    });
     console.log(err);
   });
 };
