@@ -164,7 +164,7 @@ exports.PaymentCallback = function (req, res) {
         OnlinePaymentRecords.findOne({authority: docPayment.authority}, function(errr, docc){
           OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
             $set: {
-              state : docc.status + stat
+              state : docc.state + stat
             }
           }, function (err, doc) {
             console.log(chalk.red(err, doc));
@@ -175,7 +175,7 @@ exports.PaymentCallback = function (req, res) {
         OnlinePaymentRecords.findOne({authority: docPayment.authority}, function(errr, docc) {
           OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
             $set: {
-              state: docc.status +stat
+              state: docc.state +stat
             }
           }, function (err, doc) {
           });
@@ -314,7 +314,7 @@ exports.PaymentVerification = function (req, res) {
     OnlinePaymentRecords.findOne({authority: docPayment.authority}, function(errr, docc) {
       OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
         $set: {
-          state: docc.status +stat
+          state: docc.state +stat
         }
       }, function (err, doc) {
       });
@@ -324,7 +324,7 @@ exports.PaymentVerification = function (req, res) {
     OnlinePaymentRecords.findOne({authority: docPayment.authority}, function(errr, docc) {
       OnlinePaymentRecords.findOneAndUpdate({authority: docPayment.authority}, {
         $set: {
-          state: docc.status +stat
+          state: docc.state +stat
         }
       }, function (err, doc) {
       });
