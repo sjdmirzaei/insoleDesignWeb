@@ -30,7 +30,7 @@
       vm.usage={usage:0,percentage:0,max:1024};
 
       vm.c2labels = [];
-      vm.c2series = ['پرداخت شده', 'پرداخت نشده'];
+      vm.c2series = ['Paid', 'Not Paid'];
 
       vm.c2data = [
           []
@@ -70,7 +70,7 @@
           })
       });
 
-      vm.series = ['ارسال سفارش', 'دریافت سفارش'];
+      vm.series = ['Set Order', 'Get Order'];
 
       vm.onClick = function (points, evt) {
           console.log(points, evt);

@@ -1,8 +1,8 @@
 <section id="page-title">
   <div class="row">
     <div class="col-sm-8">
-      <h1 class="mainTitle">ارسال سفارش</h1>
-      <span class="mainDescription">جهت ارسال سفارش به طراح در این صفحه نام بیمار و طراح و نوع طراحی را انتخاب و ثبت نمایید</span>
+      <h1 class="mainTitle">Register Order</h1>
+      <span class="mainDescription">To send the order to the designer, select the patient name and the designer and the type of design</span>
     </div>
   </div>
 </section>
@@ -15,15 +15,15 @@
             novalidate>
         <fieldset>
           <legend>
-فرم درخواست Gcode جدید
+              New GCode Request Form
           </legend>
           <div class="form-group" >
-            <label class="control-label" for="desc">توضیحات</label>
-            <textarea name="name" type="text" ng-model="vm.gcode.desc" id="desc" class="form-control" placeholder="توضیحات" />
+            <label class="control-label" for="desc">Description</label>
+            <textarea name="name" type="text" ng-model="vm.gcode.desc" id="desc" class="form-control" placeholder="Description" />
           </div>
 
           <div class="form-group">
-            <button type="submit" class="btn btn-default">{{vm.order._id ? 'بروزرسانی' : 'ارسال سفارش'}}
+            <button type="submit" class="btn btn-default">{{vm.order._id ? 'Update' : 'Send Order'}}
             </button>
           </div>
           <div ng-show="vm.error" class="text-danger">

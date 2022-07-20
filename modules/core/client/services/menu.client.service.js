@@ -101,6 +101,13 @@
       // Validate that the menu exists
       service.validateMenuExistence(menuId);
 
+      service.menus[menuId].items = service.menus[menuId].items.filter((value, index, self) =>
+      index === self.findIndex((t) => (
+        t.title === value.title && t.state === value.state
+      ))
+      )
+
+
       // Return the menu object
       return service.menus[menuId];
     }

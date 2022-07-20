@@ -3,7 +3,7 @@
   <section id="page-title">
     <div class="row">
       <div class="col-sm-8">
-        <h1 class="mainTitle">Ordered Gcodes</h1>
+        <h1 class="mainTitle">GCODE Purchased List</h1>
 
       </div>
 
@@ -12,24 +12,22 @@
   <div class="container-fluid container-fullw bg-white">
     <div class="row">
       <div class="col-md-12">
-        <table class="table table-bordered table-hover" id="sample-table-2">
+        <table class="table table-bordered table-hover" style="direction: ltr;" id="sample-table-2">
           <thead>
           <tr>
-            <th>No.</th>
-            <th>Cost</th>
-            <td>Patient First Name</td>
-            <td>Patient Last Name</td>
-            <td>Design Name</td>
+            <th>Index</th>
+            <td>Patient Name</td>
+            <td>Patient Last name</td>
+            <td>Design name</td>
             <td>Description</td>
-            <th>Created</th>
-            <th>Paid</th>
+            <th>Creation Date</th>
+            <th>Payment status</th>
             <th>Download</th>
           </tr>
           </thead>
           <tbody>
           <tr ng-repeat="gcode in vm.pagedItems track by $index" >
             <td>{{$index+(vm.page*10)}}</td>
-            <td>{{gcode.orderPrice |  currency: "" : 0}}</td>
             <td>{{gcode.PatientFirstName}}</td>
             <td>{{gcode.PatientLastName}}</td>
             <td>{{gcode.InsoleTitle}}</td>
@@ -39,7 +37,7 @@
               {{gcode.desc}}
             </td>
             <td>
-              <span ng-bind="gcode.created "></span>
+              <span ng-bind="gcode.created"></span>
             </td>
             <td>
               <button class="btn btn-sm btn-blue" ui-sref="gcodes.view({gcodeId:gcode._id})" ng-show="gcode.status=='NOTPAYED'"><span >Not Paid</span></button>
@@ -60,7 +58,7 @@
           <li>
             <a href="#" ng-click="vm.nextPage(-1)">
               <i class="ti-arrow-right"></i>
-              Previous
+              previous
             </a>
           </li>
           <li ng-repeat="item in [].constructor(vm.pages) track by $index" ng-click="vm.pageChange($index)">
@@ -70,7 +68,7 @@
           </li>
           <li>
             <a href="#" ng-click="vm.nextPage(1)">
-              Next
+              next
               <i class="ti-arrow-left"></i>
             </a>
           </li>

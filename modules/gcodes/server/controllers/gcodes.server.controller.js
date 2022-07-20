@@ -80,13 +80,13 @@ exports.pay = function (req, res) {
                     else {
                       return res.status(200).send({
                         msgtype: "error",
-                        message: "بسته gcode به پایان رسیده است"
+                        message: "GCode Plan Ended"
                       });
                     }
                   }else{
                     return res.status(200).send({
                       msgtype: "error",
-                      message: "بسته gcode وجود ندارد"
+                      message: "No GCode Plan"
                     });
                   }
                 }
@@ -97,7 +97,7 @@ exports.pay = function (req, res) {
                   else{
                     return res.status(200).send({
                       msgtype: "error",
-                      message: "اعتبار کافی برای انجام این سفارش وجود ندارد"
+                      message: "Need More Credit"
                     });
                   }
                 }
@@ -173,7 +173,7 @@ exports.pay = function (req, res) {
           newcredit: newCredit,
           newGcodePlan: newGcodePlan,
           msgtype: "success",
-          message: "ُسفارش شما با موفقیت انجام شد"
+          message: "ُSuccessfully Done"
         });
       }
     });

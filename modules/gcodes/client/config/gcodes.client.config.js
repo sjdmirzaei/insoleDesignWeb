@@ -11,7 +11,7 @@
         // Set top bar menu items
         menuService.addMenuItem('topbar', {
             icon:'ti-package',
-            title: 'Gcode ها',
+            title: 'Gcodes',
             state: 'gcodes',
             type: 'dropdown',
             roles: ['cnc', 'doctor']
@@ -19,7 +19,7 @@
 
         // Add the dropdown list item
         menuService.addSubMenuItem('topbar', 'gcodes', {
-            title: 'لیست Gcode ها',
+            title: 'List',
             state: 'gcodes.list'
         });
 

@@ -1,4 +1,4 @@
-<div class="container-fluid container-fullw bg-white">
+<div class="container-fluid container-fullw bg-white" style="direction:ltr !important;">
   <div class="row">
     <div class="col-md-12">
       <div class="invoice">
@@ -8,7 +8,7 @@
           </div>
           <div class="col-sm-6">
             <p class="text-dark">
-             Payement <small class="text-light"></small>
+             Receipt <small class="text-light"></small>
             </p>
           </div>
         </div>
@@ -73,18 +73,14 @@
               <tr>
                 <th> # </th>
                 <th class="hidden-480"> Order Type </th>
-                <th class="hidden-480"> Cost </th>
                 <th class="hidden-480"> Description </th>
-                <th> Total </th>
               </tr>
               </thead>
               <tbody>
               <tr>
                 <td> 1 </td>
-                <td> Get Gcode</td>
-                <td> {{vm.gcode.orderPrice |  currency: "" : 0}} </td>
+                <td> Request Gcode </td>
                 <td> {{vm.gcode.desc}} </td>
-                <td> {{vm.gcode.orderPrice |  currency: "" : 0}} </td>
               </tr>
 
               </tbody>
@@ -93,9 +89,9 @@
         </div>
         <div class="row">
           <div class="col-sm-12 invoice-block">
-            <ul class="list-unstyled amounts text-small">
+            <!-- <ul class="list-unstyled amounts text-small">
               <li>
-                <strong>Total Price:</strong> {{vm.gcode.orderPrice |  currency: "" : 0}}
+                <strong>Total:</strong> {{vm.gcode.orderPrice |  currency: "$" : 0}}
               </li>
               <li>
                 <strong>Discount:</strong> 0%
@@ -104,19 +100,19 @@
                 <strong>Tax:</strong> 0%
               </li>
               <li class="text-extra-large text-dark margin-top-15">
-                <strong >Price: </strong> {{vm.gcode.orderPrice |  currency: "" : 0}}
+                <strong >Amount:</strong> {{vm.gcode.orderPrice |  currency: "$" : 0}}
               </li>
-            </ul>
+            </ul> -->
             <br>
             <a onclick="javascript:window.print();" class="btn btn-lg btn-primary hidden-print">
               Print <i class="fa fa-print"></i>
             </a>
             <button ng-disabled="vm.gcode.status=='PAYED'" class="btn btn-lg btn-primary btn-o hidden-print" ng-click="vm.payGcode({gcodeId:vm.gcode._id, payFromPlan:false})">
-              Pay By Cash <i class="fa fa-check"></i>
+              Buy <i class="fa fa-check"></i>
             </button>
-            <button ng-disabled="vm.gcode.status=='PAYED'" class="btn btn-lg btn-primary btn-o hidden-print" ng-click="vm.payGcode({gcodeId:vm.gcode._id, payFromPlan:true})">
-              Pay By Credit <i class="fa fa-check"></i>
-            </button>
+            <!-- <button ng-disabled="vm.gcode.status=='PAYED'" class="btn btn-lg btn-primary btn-o hidden-print" ng-click="vm.payGcode({gcodeId:vm.gcode._id, payFromPlan:true})">
+              Buy Now<i class="fa fa-check"></i>
+            </button> -->
           </div>
         </div>
       </div>

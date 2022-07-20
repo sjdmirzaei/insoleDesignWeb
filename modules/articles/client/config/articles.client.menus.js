@@ -10,7 +10,7 @@
   function menuConfig(menuService) {
     menuService.addMenuItem('topbar', {
       icon:'ti-info-alt',
-      title: 'اطلاعیه ها',
+      title: 'Articles',
       state: 'articles',
       type: 'dropdown',
       roles: ['*']
@@ -18,7 +18,7 @@
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'articles', {
-      title: 'لیست اطلاعیه ها',
+      title: 'List',
       state: 'articles.list',
       roles: ['*']
     });

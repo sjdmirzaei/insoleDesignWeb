@@ -9,7 +9,7 @@
 
   function menuConfig(menuService) {
     menuService.addMenuItem('topbar', {
-      title: 'مدیریت',
+      title: 'Management',
         icon:'ti-user',
       state: 'admin',
       type: 'dropdown',

@@ -34,7 +34,7 @@
                   Notification.error({message: vm.error});
                   $state.go('gcodes.list');
               } else {
-                  Notification.success({message: "پرداخت با موفقیت انجام شد"});
+                  Notification.success({message: "Successfully Paid!"});
                   Authentication.user.credit = data.newcredit;
                   if(data.newGcodePlan)
                   Authentication.user.gcodePlan = data.newGcodePlan;

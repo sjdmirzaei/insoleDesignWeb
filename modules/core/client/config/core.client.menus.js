@@ -20,17 +20,17 @@
     });
 
     menuService.addSubMenuItem('account', 'settings', {
-      title: 'ویرایش حساب',
+      title: 'Edit',
       state: 'settings.profile'
     });
 
     menuService.addSubMenuItem('account', 'settings', {
-      title: 'ویرایش تصویر پروفایل',
+      title: 'Change Profile Picture',
       state: 'settings.picture'
     });
 
     menuService.addSubMenuItem('account', 'settings', {
-      title: 'تغییر رمز عبور',
+      title: 'Change Password',
       state: 'settings.password'
     });
 

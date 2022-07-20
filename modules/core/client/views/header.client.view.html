@@ -1,6 +1,6 @@
 <ul class="nav navbar-right" ng-controller="HeaderController as vm">
   <!-- start: MESSAGES DROPDOWN -->
-  <li ng-hide="!vm.authentication.user">
+  <!-- <li ng-hide="!vm.authentication.user">
     <a href class="dropdown-toggle" data-toggle="dropdown">
       <i class="ti-credit-card"></i>
       Credit
@@ -8,7 +8,7 @@
 
     </a>
 
-  </li>
+  </li> -->
   <!--<li>-->
     <!--<a href class="dropdown-toggle" data-toggle="dropdown">-->
       <!--<i class="ti-credit-card"></i>-->
@@ -169,7 +169,7 @@
   <!--&lt;!&ndash; start: USER OPTIONS DROPDOWN &ndash;&gt;-->
   <li class="dropdown " ng-hide="vm.authentication.user">
     <a href class="dropdown-toggle" data-toggle="dropdown">
-      <i class="ti-user"></i> Login
+      <i class="ti-user"></i> Log In
     </a>
     <ul role="menu" class="dropdown-menu dropdown-dark" >
 
@@ -178,7 +178,7 @@
     </li>
     <li class="divider-vertical"></li>
     <li ui-sref-active="active">
-      <a ui-sref="authentication.signin">Login</a>
+      <a ui-sref="authentication.signin">Log In</a>
     </li>
   </ul>
   </li>

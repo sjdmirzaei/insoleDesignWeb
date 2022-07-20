@@ -10,7 +10,7 @@
 
   function menuConfig(Menus) {
     Menus.addSubMenuItem('topbar', 'admin', {
-      title: 'مدیریت اطلاعیه ها',
+      title: 'Article Management',
       state: 'admin.articles.list'
     });
   }
