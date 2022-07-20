@@ -186,7 +186,7 @@ var downloadGcode = function (gcodeId,cb) {
 
     if (!fs.existsSync("./attaches/gcodes")) fs.mkdirSync("./attaches/gcodes");
 
-    var SW = fs.createWriteStream(config.uploads.gcode.file.dest + gcodeId + ".paya",{encoding:"utf8"});
+    var SW = fs.createWriteStream(config.uploads.gcode.file.dest + gcodeId + ".txt",{encoding:"utf8"});
 
     Gcode.findOne({_id: gcodeId}, function (err, gcode) {
 
