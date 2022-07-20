@@ -8,8 +8,8 @@
           </div>
           <div class="col-sm-6">
             <p class="text-dark">
-              شماره سفارش:  {{vm.order.sid}}
-              <br/>{{vm.order.created | jDate}} <small class="text-light"> اطلاعات سفارش </small>
+              Order code:  {{vm.order.sid}}
+              <br/>{{vm.order.created}} <small class="text-light">Order information</small>
             </p>
           </div>
         </div>
@@ -73,14 +73,14 @@
               <thead>
               <tr>
                 <th> # </th>
-                <th class="hidden-480">  بیمار </th>
-                <th class="hidden-480">  پزشک </th>
-                <th class="hidden-480">  طراح </th>
-                <th class="hidden-480"> کد پرونده بیمار </th>
-                <th class="hidden-480"> نوع سفارش </th>
-                <th class="hidden-480"> با طراحی/ بدون طراحی </th>
-                <th class="hidden-480"> هزینه سفارش </th>
-                <th> جمع کل </th>
+                <th class="hidden-480">  Patient </th>
+                <th class="hidden-480">  Doctor </th>
+                <th class="hidden-480">  Designer </th>
+                <th class="hidden-480"> Patient case code </th>
+                <th class="hidden-480"> Order type </th>
+                <th class="hidden-480"> With/Without design </th>
+                <th class="hidden-480"> Order cost </th>
+                <th> Total </th>
               </tr>
               </thead>
               <tbody>
@@ -92,8 +92,8 @@
                 <td class="hidden-480"> {{vm.order.patient.PatientCode}} </td>
                 <td class="hidden-480"> {{vm.order.pricePlan.name}} </td>
                 <td >
-                  <span ng-show="vm.order.doDesign" class="label label-success pull-right">نیاز به طراحی دارد</span>
-                  <span ng-show="!vm.order.doDesign" class="label label-primary pull-right">بدون طراحی</span>
+                  <span ng-show="vm.order.doDesign" class="label label-success pull-right">Needs design</span>
+                  <span ng-show="!vm.order.doDesign" class="label label-primary pull-right">Without design</span>
                 </td>
                 <td class="hidden-480"> {{vm.order.orderPrice}} </td>
                 <td> {{vm.order.orderPrice}} </td>
@@ -107,26 +107,26 @@
           <div class="col-sm-12 invoice-block">
             <ul class="list-unstyled amounts text-small">
               <li>
-                <strong>جمع کل:</strong> {{vm.order.orderPrice}}
+                <strong>Total:</strong> {{vm.order.orderPrice}}
               </li>
               <li>
-                <strong>تخفیف:</strong> 0%
+                <strong>Discount:</strong> 0%
               </li>
               <li>
-                <strong>مالیات:</strong> 0%
+                <strong>Tax:</strong> 0%
               </li>
 
               <li class="text-extra-large text-dark margin-top-15" >
-                <strong >مبلغ پرداختی:</strong> {{vm.order.orderPrice}}
+                <strong >Amount:</strong> {{vm.order.orderPrice}}
               </li>
 
             </ul>
             <br>
             <a onclick="javascript:window.print();" class="btn btn-lg btn-primary hidden-print">
-              چاپ <i class="fa fa-print"></i>
+              Print <i class="fa fa-print"></i>
             </a>
             <button ng-disabled="vm.order.status=='PAYED'" class="btn btn-lg btn-primary btn-o hidden-print" ng-click="vm.pay({orderId:vm.order._id})">
-              پرداخت و کسر از اعتبار <i class="fa fa-check"></i>
+              Buy Now! <i class="fa fa-check"></i>
             </button>
           </div>
         </div>

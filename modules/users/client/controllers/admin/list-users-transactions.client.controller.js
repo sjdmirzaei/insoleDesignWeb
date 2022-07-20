@@ -38,7 +38,7 @@
           refreshData();
           $state.go('admin.usersTransactions');
         }).catch(function(err){
-          Notification.error({message: 'خطا در پردازش'});
+          Notification.error({message: 'Error'});
           refreshData();
           $state.go('admin.usersTransactions');
         });
@@ -59,7 +59,7 @@
         refreshData();
         $state.go('admin.usersTransactions');
       }).catch(function(err){
-        Notification.error({message: 'خطا در پردازش'});
+        Notification.error({message: 'Error'});
         refreshData();
         $state.go('admin.usersTransactions');
       });

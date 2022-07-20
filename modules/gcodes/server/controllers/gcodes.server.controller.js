@@ -49,7 +49,7 @@ exports.download = function (req, res) {
 
             downloadGcode(gcodeId,function (data) {
                 res.setHeader("Content-type","application/octet-stream");
-                res.sendFile(data,{ root: config.uploads.gcode.file.dest})
+                res.sendFile(data,{ root: config.uploads.gcode.file.dest, headers: {'Content-Type': 'text/plain', 'Content-Disposition': 'attachment'}})
             });
         }
     })
@@ -272,7 +272,7 @@ var downloadGcode = function (gcodeId,cb) {
         SW.end();
         SW.on('finish',function () {
 
-            cb(gcodeId + ".paya")
+            cb(gcodeId + ".txt")
 
         });
 

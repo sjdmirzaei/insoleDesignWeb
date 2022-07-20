@@ -36,7 +36,7 @@
           refreshData();
           $state.go('admin.usersFiles');
         }).catch(function(err){
-          Notification.error({message: 'خطا در پردازش'});
+          Notification.error({message: 'Error'});
           refreshData();
           $state.go('admin.usersFiles');
         });
@@ -57,7 +57,7 @@
         refreshData();
         $state.go('admin.usersFiles');
       }).catch(function(err){
-        Notification.error({message: 'خطا در پردازش'});
+        Notification.error({message: 'Error'});
         refreshData();
         $state.go('admin.usersFiles');
       });

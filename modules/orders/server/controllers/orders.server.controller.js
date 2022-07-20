@@ -47,7 +47,7 @@ exports.create = function (req, res) {
             } else if (order) {
                 if (!doc.price) {
                     return res.status(400).send({
-                        message: errorHandler.getErrorMessage("پلن خرید انتخاب نشده است")
+                        message: errorHandler.getErrorMessage("No Price Plan Selected")
                     });
                 }
                 if (order.doDesign)
@@ -102,10 +102,10 @@ exports.pay = function (req, res) {
     var total = docArray.length;
     function createMemo(obj) {
         if (obj.doDesign==true) {
-            obj.doDesign = "همراه با طراحی";
+            obj.doDesign = "With Design";
         }
         if (obj.doDesign==false) {
-            obj.doDesign = "بدون طراحی";
+            obj.doDesign = "Without Design";
         }
         return ""+
             obj.ordererConame +"" +
@@ -120,12 +120,12 @@ exports.pay = function (req, res) {
             obj.doDesign+"-"+obj.pricePlan+"" +
             ""
         +
-            "توضیحات بیمار:"
+            "Patient Description:"
         +
             obj.apMemo+"" +
             ""
         +
-            "توضیحات سفارش:"
+            "Order Description:"
         +
             obj.desc+"" +
             ""
@@ -334,7 +334,7 @@ exports.pay = function (req, res) {
                                                             else {
                                                                 var newPatientId = saved._id;
                                                                 var transaction = new Transaction();
-                                                                transaction.detail = "پرداخت هزینه سفارش";
+                                                                transaction.detail = "Paying Order";
                                                                 transaction.order = orderId;
                                                                 transaction.user = req.user._id;
                                                                 transaction.orderPrice = order.orderPrice;
@@ -398,7 +398,8 @@ exports.pay = function (req, res) {
                                                                                           console.log(err);
                                                                                           return res.status(200).send({
                                                                                             msgtype: "error",
-                                                                                            message: "ُخطا در کسر وجه"
+                                                                                            message: "ُError"
+                                                                                            // message: "ُخطا در کسر وجه"
                                                                                           });
                                                                                         }
                                                                                       });
@@ -409,7 +410,8 @@ exports.pay = function (req, res) {
                                                                                           console.log(err);
                                                                                           return res.status(200).send({
                                                                                             msgtype: "error",
-                                                                                            message: "ُخطا در انتقال وجه"
+                                                                                            message: "ُError"
+                                                                                            // message: "ُخطا در انتقال وجه"
                                                                                           });
                                                                                         }
                                                                                         // console.log(doc.credit);
@@ -421,7 +423,8 @@ exports.pay = function (req, res) {
                                                                                           console.log(err);
                                                                                           return res.status(200).send({
                                                                                             msgtype: "error",
-                                                                                            message: "ُخطا در تغییر وضعیت سفارش"
+                                                                                            message: "ُError"
+                                                                                            // message: "ُخطا در تغییر وضعیت سفارش"
                                                                                           });
                                                                                           }
                                                                                       });
@@ -439,7 +442,7 @@ exports.pay = function (req, res) {
                                                                                             newcreditPlan: doc.creditPlan,
                                                                                             newcredit: usercredit - order.orderPrice,
                                                                                             msgtype: "success",
-                                                                                            message: "ُسفارش شما با موفقیت انجام شد"
+                                                                                            message: "ُSuccessfully Done!"
                                                                                         });
                                                                                     });
                                                                                 });
@@ -458,7 +461,7 @@ exports.pay = function (req, res) {
                         } else {
                             res.status(200).send({
                                 msgtype: "error",
-                                message: "اعتبار کافی برای انجام این سفارش وجود ندارد"
+                                message: "Not Enough Credit"
                             });
                         }
                     }
@@ -467,7 +470,7 @@ exports.pay = function (req, res) {
             } else {
                 res.jsonp({
                     msgtype: "error",
-                    message: "امکان پرداخت سفارش شخص دیگر وجود ندارد، یا خطایی رخ داده است"
+                    message: "Something went wrong"
                 });
             }
         }
@@ -581,7 +584,7 @@ exports.copy = function (req, res) {
                                 saveAll(function () {
                                     res.status(200).send({
                                         msgtype: "success",
-                                        message: "ارسال با موفقیت انجام شد"
+                                        message: "Successfully Send"
                                     });
                                 });
                             }
@@ -597,7 +600,8 @@ exports.copy = function (req, res) {
     } else {
         return res.status(200).send({
             msgtype: "error",
-            message: "خطا در انتقال"
+            message: "Error"
+            // message: "خطا در انتقال"
         });
     }
 };

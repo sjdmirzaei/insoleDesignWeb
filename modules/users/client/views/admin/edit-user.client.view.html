@@ -6,28 +6,28 @@
     <form name="vm.userForm" ng-submit="vm.update(vm.userForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
-          <label for="firstName">نام</label>
+          <label for="firstName">First Name</label>
           <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="First Name" required autofocus />
           <div ng-messages="vm.userForm.firstName.$error" role="alert">
             <p class="help-block error-text" ng-message="required">First name is required.</p>
           </div>
         </div>
         <div class="form-group" show-errors>
-          <label for="lastName">نام خانوادگی</label>
+          <label for="lastName">Last Name</label>
           <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="Last Name" required />
           <div ng-messages="vm.userForm.lastName.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Last name is required.</p>
           </div>
         </div>
         <div class="form-group" show-errors>
-          <label for="coName">نام شرکت</label>
-          <input type="text" id="coName" name="lastName" class="form-control" ng-model="vm.user.coName" placeholder="Last Name" required />
+          <label for="coName">Company</label>
+          <input type="text" id="coName" name="company" class="form-control" ng-model="vm.user.coName" placeholder="company" required />
           <div ng-messages="vm.userForm.coName.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Last name is required.</p>
+            <p class="help-block error-text" ng-message="required">Company is required.</p>
           </div>
         </div>
         <div class="form-group" show-errors>
-          <label class="control-label" for="roles">دسترسی ها</label>
+          <label class="control-label" for="roles">Roles</label>
           <div class="controls">
             <input class="form-control" type="text" name="roles" ng-model="vm.user.roles" id="roles" ng-list required />
             <div ng-messages="vm.userForm.roles.$error" role="alert">
@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="form-group" show-errors>
-          <label for="coName">اعتبار</label>
+          <label for="coName">Credit</label>
           <input type="text" id="credit" name="credit" class="form-control" ng-model="vm.user.credit" placeholder="credit"  />
           <div ng-messages="vm.userForm.credit.$error" role="alert">
             <p class="help-block error-text" ng-message="required">credit is required.</p>
@@ -44,7 +44,7 @@
         </div>
 
         <div class="form-group" show-errors>
-          <label for="creditPlan.totalorder">تعداد طراحی باقیمانده</label>
+          <label for="creditPlan.totalorder">Remained Credit</label>
           <input type="text" id="creditPlan.totalorder" name="creditPlan.totalorder" class="form-control" ng-model="vm.user.creditPlan.totalorder" placeholder="creditPlan.totalorder"  />
           <div ng-messages="vm.userForm.creditPlan.totalorder.$error" role="alert">
             <p class="help-block error-text" ng-message="required">creditPlan Count is required.</p>
@@ -52,28 +52,28 @@
         </div>
 
         <div class="form-group" show-errors>
-          <label for="expireCreditDate">تاریخ پایان بسته طراحی</label>
+          <label for="expireCreditDate">Package End Date</label>
           <input type="text" id="expireCreditDate" name="expireCreditDate" class="form-control" ng-model="vm.user.expireCreditDate" placeholder="expireCreditDate"  />
           <div ng-messages="vm.userForm.expireCreditDate.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">expireCreditDate is required.</p>
+            <p class="help-block error-text" ng-message="required">End Date is required.</p>
           </div>
         </div>
 
         <div class="form-group" show-errors>
-          <label for="gcodePlan.totalorder">تعداد جیکد باقیمانده</label>
+          <label for="gcodePlan.totalorder">Remained GCodes</label>
           <input type="text" id="gcodePlan.totalorder" name="gcodePlan.totalorder" class="form-control" ng-model="vm.user.gcodePlan.totalorder" placeholder="gcodePlan.totalorder"  />
           <div ng-messages="vm.userForm.gcodePlan.totalorder.$error" role="alert">
             <p class="help-block error-text" ng-message="required">gcode total order is required.</p>
           </div>
         </div>
 
-<div class="form-group" show-errors>
-<label for="password">گذرواژه</label>
-<input type="password" id="password" name="password" class="form-control" ng-model="vm.user.password" placeholder="password" />
-<div ng-messages="vm.userForm.password.$error" role="alert">
-<p class="help-block error-text" ng-message="required"> password is required. </p>
-</div>
-</div>
+        <div class="form-group" show-errors>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" class="form-control" ng-model="vm.user.password" placeholder="password" />
+          <div ng-messages="vm.userForm.password.$error" role="alert">
+            <p class="help-block error-text" ng-message="required"> password is required. </p>
+          </div>
+        </div>
 
 
         <div class="form-group">

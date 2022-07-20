@@ -14,15 +14,15 @@
         <div class="col-md-5 col-sm-12 col-xs-12">
             <div class="panel panel-white">
                 <div class="panel-heading border-light">
-                    <h4 class="panel-title" ng-if="vm.patient._id">ویرایش بیمار</h4>
-                    <h4 class="panel-title" ng-if="!vm.patient._id">افزودن بیمار</h4>
+                    <h4 class="panel-title" ng-if="vm.patient._id">Edit Patient</h4>
+                    <h4 class="panel-title" ng-if="!vm.patient._id">New Patient</h4>
                     <ul class="panel-heading-tabs border-light">
 
                         <li>
                             <div class="pull-right">
                                 <div class="btn-group" dropdown="">
                                     <button ng-click="vm.remove()" type="button"  class="btn btn-danger dropdown-toggle" >
-                                        حذف بیمار <span class="fa fa-trash-o"></span>
+                                        Remove Patient <span class="fa fa-trash-o"></span>
                                     </button>
 
                                 </div>
@@ -33,13 +33,13 @@
                 </div>
                 <div class="panel-body">
                     <p class="text-small margin-bottom-20">
-                        مشخصات بیمار را به درستی درج نمایید
+                        Insert the patient's profile correctly
                     </p>
 
 
                     <form role="form" data-parsley-validate class="form-horizontal" name="vm.form.patientForm" ng-submit="vm.save(vm.form.patientForm.$valid)" novalidate>
                         <div class="form-group" show-errors>
-                            <label class="col-sm-2 control-label" for="FirstName">نام
+                            <label class="col-sm-2 control-label" for="FirstName">Name
                                  <span class="required">*</span>
                             </label>
                             <div class="col-sm-10 col-xs-12">
@@ -51,8 +51,7 @@
                             </div>
                         </div>
                         <div class="form-group" show-errors>
-                            <label class="col-sm-2 control-label" for="LastName">نام
-                                خانوادگی <span class="required">*</span>
+                            <label class="col-sm-2 control-label" for="LastName">Last Name<span class="required">*</span>
                             </label>
                             <div class="col-sm-10 col-xs-12">
                                 <input type="text" ng-model="vm.patient.LastName" id="LastName" name="LastName" required
@@ -64,7 +63,7 @@
                         </div>
                         <div class="form-group" show-errors>
                             <label for="PatientCode" class="col-sm-2 control-label">
-                                شماره پرونده
+                                File Number
                             </label>
                             <div class="col-sm-10 col-xs-12">
                                 <input ng-model="vm.patient.PatientCode" id="PatientCode" required class="form-control" type="text"
@@ -76,7 +75,7 @@
                         </div>
                         <div class="form-group" show-errors>
                             <label for="NationalCode" class="col-sm-2 control-label">
-                                کد ملی
+                                National Code
                             </label>
                             <div class="col-sm-10">
                                 <input ng-model="vm.patient.NationalCode" id="NationalCode"  class="form-control" type="text"
@@ -86,7 +85,7 @@
                         </div>
                         <div class="form-group" show-errors>
                             <label for="Age" class="col-sm-2 control-label">
-                                سن بیمار
+                                Age
                             </label>
                             <div class="col-sm-10 col-xs-12">
                                 <input ng-model="vm.patient.Age" id="Age" class="form-control" type="text"
@@ -96,7 +95,7 @@
 
                         <div class="form-group" show-errors>
                             <label for="ShoeSize" class="col-sm-2 control-label">
-                                سایز کفش
+                                Shoe Size
                             </label>
                             <div class="col-md-10 ">
                                 <input ng-model="vm.patient.ShoeSize" id="ShoeSize"  class="form-control" type="text"
@@ -105,7 +104,7 @@
                         </div>
                         <div class="form-group" show-errors>
                             <label for="Weight" class="col-sm-2 control-label">
-                                وزن
+                                Weight
                             </label>
                             <div class="col-sm-10">
                                 <input ng-model="vm.patient.Weight" id="Weight"  class="form-control" type="text"
@@ -115,7 +114,7 @@
                         </div>
                         <div class="form-group" show-errors>
                             <label for="Height" class="col-sm-2 control-label">
-                                قد
+                                Height
                             </label>
                             <div class="col-sm-10">
                                 <input ng-model="vm.patient.Height" id="Height"  class="form-control" type="text"
@@ -125,7 +124,7 @@
                         </div>
                         <div class="form-group" show-errors>
                             <label for="Phone" class="col-sm-2 control-label">
-                                شماره تلفن
+                                Phone .No
                             </label>
                             <div class="col-sm-10">
                                 <input ng-model="vm.patient.Phone" id="Phone" class="form-control" type="text"
@@ -135,7 +134,7 @@
 
                         <div class="form-group" show-errors>
                             <label for="Email" class="col-sm-2 control-label">
-                                ای میل
+                                Email
                             </label>
                             <div class="col-sm-10">
                                 <input ng-model="vm.patient.Email" id="Email"  class="form-control" type="text"
@@ -146,7 +145,7 @@
 
                         <div class="form-group" show-errors>
                             <label for="City" class="col-sm-2 control-label">
-                                شهر
+                                City
                             </label>
                             <div class="col-sm-10">
                                 <input ng-model="vm.patient.City" id="City"  class="form-control" type="text"
@@ -157,7 +156,7 @@
 
                         <div class="form-group" show-errors>
                             <label for="PostalCode" class="col-sm-2 control-label">
-                                کد پستی
+                                Postal Code
                             </label>
                             <div class="col-sm-10">
                                 <input ng-model="vm.patient.PostalCode" id="PostalCode"  class="form-control" type="text"
@@ -168,7 +167,7 @@
 
                         <div class="form-group" show-errors>
                             <label for="Address" class="col-sm-2 control-label">
-                                آدرس
+                                Address
                             </label>
                             <div class="col-sm-10">
                                 <input ng-model="vm.patient.Address" id="Address"  class="form-control" type="text"
@@ -179,7 +178,7 @@
 
                         <div class="form-group" show-errors>
                             <label for="Memo" class="col-sm-2 control-label">
-                                توضیحات
+                                Description
                             </label>
                             <div class="col-sm-10">
                                 <textarea ng-model="vm.patient.Memo" id="Memo" class="form-control" type="text"
@@ -191,20 +190,20 @@
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label">
-                                <small class="text-navy">جنسیت</small>
+                                <small class="text-navy">Sex</small>
                             </label>
 
                             <div class="col-sm-10">
                                 <div class="radio">
                                     <label>
                                         <input ng-checked="vm.form.patientForm.Gender=='Male'" type="radio" id="optionsRadios1" value="Female" ng-model="vm.form.patientForm.Gender"
-                                               name="optionsRadios">زن
+                                               name="optionsRadios">Female
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label>
                                         <input ng-checked="vm.form.patientForm.Gender=='Female'" type="radio" value="Male" id="optionsRadios2" ng-model="vm.form.patientForm.Gender"
-                                               name="optionsRadios"> مرد
+                                               name="optionsRadios"> Male
                                     </label>
                                 </div>
                             </div>
@@ -213,7 +212,7 @@
                         <div class="ln_solid"></div>
                         <div class="form-group margin-bottom-0">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success">{{vm.patient._id ? 'ویرایش' : 'ایجاد'}}</button>
+                                <button type="submit" class="btn btn-success">{{vm.patient._id ? 'Edit' : 'Add'}}</button>
                             </div>
                         </div>
 
@@ -228,7 +227,7 @@
         <div class="col-md-7">
             <div class="panel panel-white" >
                 <div class="panel-heading border-light">
-                    <h4 class="panel-title">لیست آزمایشهای بیمار</h4>
+                    <h4 class="panel-title">Patient's Exams List</h4>
                     <ul class="panel-heading-tabs border-light">
                         <li>
                             <form >
@@ -271,10 +270,10 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>نام تست</th>
-                            <th>اصلی/آپدیت</th>
-                            <th>تاریخ</th>
-                            <th>عملیات</th>
+                            <th>Exam Name</th>
+                            <th>Main/Update</th>
+                            <th>Date</th>
+                            <th>Operations</th>
                         </tr>
                         </thead>
                         <tbody>

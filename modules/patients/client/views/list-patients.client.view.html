@@ -4,8 +4,8 @@
     <section id="page-title">
       <div class="row">
         <div class="col-sm-8">
-          <h1 class="mainTitle">لیست بیماران</h1>
-          <span class="mainDescription">              لیست تمام بیماران ثبت شده در سیستم توسط کاربری شما
+          <h1 class="mainTitle">Patients List</h1>
+          <span class="mainDescription">List all patients registered in the system by your user
 </span>
         </div>
 
@@ -21,15 +21,15 @@
             <table class="table table-bordered table-hover" id="sample-table-2">
               <thead>
               <tr>
-                <th>ردیف</th>
-                <th class="center">تصویر</th>
-                <th>نام بیمار</th>
-                <th>از بیمار</th>
-                <th class="hidden-xs">کد بیمار</th>
-                <th class="hidden-xs">نرم افزار ثبت شده</th>
-                <th class="hidden-xs">ایمیل</th>
-                <th class="hidden-xs">تلفن</th>
-                <th>عملیات</th>
+                <th>NO.</th>
+                <th class="center">Image</th>
+                <th>Patient Name</th>
+                <th>From Patient</th>
+                <th class="hidden-xs">Patient Code</th>
+                <th class="hidden-xs">Registered application</th>
+                <th class="hidden-xs">Email</th>
+                <th class="hidden-xs">Phone</th>
+                <th>Operations</th>
               </tr>
               </thead>
               <tbody>
@@ -53,7 +53,7 @@
                   <div class="visible-md visible-lg hidden-sm hidden-xs">
 
                     <button class="btn btn-sm btn-default" ui-sref="patients.edit({ patientId: patient._id })"><i class="fa fa-edit"></i></button>
-                    <button class="btn btn-sm btn-dark-green" ui-sref="orders.create({patientId:patient._id})"><i class="fa fa-cart-plus"></i>سفارش</button>
+                    <button class="btn btn-sm btn-dark-green" ui-sref="orders.create({patientId:patient._id})"><i class="fa fa-cart-plus"></i>Order</button>
                     <!--<a href="#" class="btn btn-transparent btn-sm tooltips" tooltip-placement="top" tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>-->
                   </div>
                   <div class="visible-xs visible-sm hidden-md hidden-lg">
@@ -64,12 +64,12 @@
                       <ul class="dropdown-menu pull-right dropdown-light" role="menu">
                         <li>
                           <a href="#">
-                            ویرایش
+                            Edit
                           </a>
                         </li>
                         <li>
                           <a ui-sref="orders.create({patientId:patient._id})">
-                            سفارش
+                            Order
                           </a>
                         </li>
                         <!--<li>-->
@@ -88,7 +88,7 @@
               <li>
                 <a href="#" ng-click="vm.nextPage(-1)">
                   <i class="ti-arrow-right"></i>
-                  صفجه قبل
+                  previous
                 </a>
               </li>
               <li ng-repeat="item in [].constructor(vm.pages) track by $index" ng-click="vm.pageChange($index)">
@@ -98,7 +98,7 @@
               </li>
               <li>
                 <a href="#" ng-click="vm.nextPage(1)">
-                  صفحه بعد
+                  next
                   <i class="ti-arrow-left"></i>
                 </a>
               </li>

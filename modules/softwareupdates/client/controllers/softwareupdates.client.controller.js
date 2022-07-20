@@ -76,7 +76,7 @@
       // Called after the user has successfully uploaded a new picture
       function onSuccessItem(response) {
           // Show success message
-          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i>با موفقیت ارسال شد' });
+          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Successfully Done!' });
 
           // Populate user object
           //vm.user = Authentication.user = response;
@@ -92,7 +92,7 @@
           vm.progress = 0;
 
           // Show error message
-          Notification.error({ message: response.message, title: '<i class="glyphicon glyphicon-remove"></i> خطا در ارسال فایل' });
+          Notification.error({ message: response.message, title: '<i class="glyphicon glyphicon-remove"></i> Error in Sending File!' });
       }
   }
 }());

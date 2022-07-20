@@ -91,7 +91,7 @@ patientRecords(function () {
         // Called after the user has successfully uploaded a new picture
         function onSuccessItem(response) {
             // Show success message
-            Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>با موفقیت ارسال شد'});
+            Notification.success({message: '<i class="glyphicon glyphicon-ok"></i>Successfully Done!'});
 
             // Populate user object
             //vm.user = Authentication.user = response;
@@ -109,7 +109,7 @@ patientRecords(function () {
             // Show error message
             Notification.error({
                 message: response.message,
-                title: '<i class="glyphicon glyphicon-remove"></i> خطا در ارسال فایل'
+                title: '<i class="glyphicon glyphicon-remove"></i> Error While Sending File!'
             });
         }
     }

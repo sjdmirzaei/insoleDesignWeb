@@ -1,9 +1,9 @@
 (function () {
   'use strict';
 
-  angular
-    .module('priceplans')
-    .run(menuConfig);
+  // angular
+  //   .module('priceplans')
+  //   .run(menuConfig);
 
   menuConfig.$inject = ['menuService'];
 

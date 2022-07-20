@@ -73,10 +73,10 @@
           console.log('1')
             if(vm.order.cncUser=="-1"){
 
-                Notification.error({message: "طراح را انتخاب کنید"});
+                Notification.error({message: "Select Designer"});
             }
             else if (vm.order.cncUser == vm.authentication.user._id){
-            Notification.error({message: "امکان انتخاب خودتان وجود ندارد"});
+            Notification.error({message: "You Dont Have Access"});
             vm.order.cncUser=-1;
             return false;
           }
@@ -117,17 +117,17 @@
 
             vm.order.patient=$stateParams.patientId;
             if ((!vm.order.sendTome || vm.order.sendTome==false) && !vm.order.cncUser){
-                Notification.error({message: "هیچ طراحی انتخاب نشده است"});
+                Notification.error({message: "No Designer Selected"});
                 return false;
             }
           if (vm.order.orderer._id==vm.order.cncUser._id){
 
-            Notification.error({message: "خودتو برندار"});
+            Notification.error({message: "Cant Select Yourself"});
             return false;
           }
             if (vm.order.records.length==0){
 
-                Notification.error({message: "هیچ آزمایشی انتخاب نشده است"});
+                Notification.error({message: "No Design Selected"});
                 return false;
             }
             if (!isValid) {

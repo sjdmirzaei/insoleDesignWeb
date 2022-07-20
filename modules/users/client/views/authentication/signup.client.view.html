@@ -37,27 +37,27 @@
           <input type="text" id="username" name="username" class="form-control" ng-model="vm.credentials.username" ng-pattern="vm.usernameRegex" placeholder="Username" lowercase required>
           <div ng-messages="vm.userForm.username.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Required!</p>
-            <p class="help-block error-text" ng-message="pattern">لطفا نام کاربری معتبر وارد کنید ، نامی که شامل کاراکترهای عدد و حروف انگلیسی باشد.</p>
+            <p class="help-block error-text" ng-message="pattern">Only Numbers and Characters are Valid!</p>
           </div>
         </div>
         <div class="form-group" show-errors>
           <label for="password">Password</label>
             <input type="password" id="password" name="password" class="form-control" ng-model="vm.credentials.password" placeholder="Password" uib-popover="{{vm.getPopoverMsg()}}" popover-trigger="outsideClick" password-validator required>
           <div ng-messages="vm.userForm.password.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">وارد کردن رمز عبور الزامیست.</p>
+            <p class="help-block error-text" ng-message="required">Required!</p>
             <div ng-repeat="passwordError in passwordErrors">
               <p class="help-block error-text" ng-show="vm.userForm.password.$error.requirements">{{passwordError}}</p>
             </div>
           </div>
         </div>
         <div class="form-group" ng-show="!vm.userForm.password.$error.required">
-          <label>وارد کردن رمز عبور الزامیست</label>
+          <label>Required!</label>
           <uib-progressbar value="requirementsProgress" type="{{requirementsColor}}"><span style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></uib-progressbar>
         </div>
         <div class="text-center form-group">
-          <button type="submit" class="btn btn-primary">ثبت نام</button>
-          &nbsp; یا&nbsp;
-          <a ui-sref="authentication.signin" class="show-signup">ورود</a>
+          <button type="submit" class="btn btn-primary">Sign Up</button>
+          &nbsp; or&nbsp;
+          <a ui-sref="authentication.signin" class="show-signup">Sign In</a>
         </div>
       </fieldset>
     </form>

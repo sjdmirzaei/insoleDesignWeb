@@ -11,7 +11,7 @@
         // Set top bar menu items
         menuService.addMenuItem('topbar', {
             icon:'ti-shopping-cart',
-            title: 'سفارشات',
+            title: 'Orders',
             state: 'orders',
             type: 'dropdown',
             roles: ['cnc', 'doctor']
@@ -19,7 +19,7 @@
 
         // Add the dropdown list item
         menuService.addSubMenuItem('topbar', 'orders', {
-            title: 'لیست سفارشات',
+            title: 'List',
             state: 'orders.list',
             roles: ['cnc', 'doctor']
         });

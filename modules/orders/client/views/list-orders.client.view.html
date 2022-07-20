@@ -3,8 +3,8 @@
   <section id="page-title">
     <div class="row">
       <div class="col-sm-8">
-        <h1 class="mainTitle">لیست سفارشات</h1>
-        <span class="mainDescription">              لیست سفارشاتی که برای شما ثبت شده
+        <h1 class="mainTitle">Orders list</h1>
+        <span class="mainDescription">Order list that has been registered for you
 </span>
       </div>
 
@@ -16,23 +16,23 @@
       <div class="col-lg-12 col-md-12">
         <div class="panel panel-white">
           <div class="panel-heading">
-            <h5 class="panel-title">جستجو کنید</h5>
+            <h5 class="panel-title">Search</h5>
           </div>
           <div class="panel-body">
 
             <form role="form" class="form-inline">
               <div class="form-group">
                 <label>
-                  کد سفارش
+                  Order code
                 </label>
                 <span class="input-icon">
-                                <input type="text" ng-model="vm.filter.sid" placeholder="کد سفارش"
+                                <input type="text" ng-model="vm.filter.sid" placeholder="Order code"
                                        class="form-control">
                               <i class="ti-shopping-cart"></i> </span>
               </div>
               <div class="form-group">
                 <label>
-                  از تاریح
+                  From date
                 </label>
                 <span class="input-icon">
                                 <input id="fromDatePlayed" name="fromDate"
@@ -44,7 +44,7 @@
               </div>
               <div class="form-group">
                 <label>
-                  تا تاریح
+                  To date
                 </label>
                 <span class="input-icon">
                                 <input id="toDatePlayed" name="toDate" class="form-control" type="text"
@@ -57,7 +57,7 @@
 
               <button class="btn btn-primary btn-squared" type="submit"
                       ng-click="vm.pageChange(vm.filter.page)">
-                جستجو
+                Search
                 <span class="fa fa-search"></span>
               </button>
             </form>
@@ -68,14 +68,14 @@
         <table class="table table-bordered table-hover" id="sample-table-2">
           <thead>
           <tr>
-            <th>ردیف</th>
-            <th>کد سفارش</th>
-            <th>کد بیمار</th>
-            <th>ارسالی/دریافتی</th>
-            <th>تاریخ سفارش</th>
-            <th>نام بیمار</th>
-            <th>طراح</th>
-            <th>هزینه پرداختی</th>
+            <th>Index</th>
+            <th>Order code</th>
+            <th>Patient coed</th>
+            <th>Submissions / Received</th>
+            <th>Order date</th>
+            <th>Patient name</th>
+            <th>Designer</th>
+            <th>Cost of payment</th>
 
             <!--<th class="hidden-xs">ایمیل</th>
             <th class="hidden-xs">تلفن</th>
@@ -83,7 +83,7 @@
             <th class="hidden-xs">سن</th>
             <th class="hidden-xs">شماره پا</th> -->
 
-            <th>وضعیت پرداخت</th>
+            <th>Payment status</th>
           </tr>
           </thead>
           <tbody>
@@ -93,13 +93,13 @@
               <button class="btn-link" ui-sref="orders.view({orderId:order._id})">{{order.sid}}</button>
             </td>
             <td>{{order.patient.PatientCode}}</td>
-            <td ng-show="order.cncUser.username!=vm.authentication.user.username">سفارش ارسالی</td>
-            <td ng-show="order.cncUser.username==vm.authentication.user.username">سفارش دریافتی</td>
-            <td>{{order.created | jDate}}</td>
+            <td ng-show="order.cncUser.username!=vm.authentication.user.username">Order sent</td>
+            <td ng-show="order.cncUser.username==vm.authentication.user.username">Order received</td>
+            <td>{{order.created}}</td>
             <td><a href="#" ui-sref="patients.view({patientId:order.patient._id})">
               {{order.patient.FirstName}} {{order.patient.LastName}}</a></td>
             <td>{{order.cncUser.displayName}}</td>
-            <td>{{order.orderPrice | currency: "تومان" : 0}}</td>
+            <td>{{order.orderPrice}}</td>
 
             <!--<td class="hidden-xs">
                 <a href="#" rel="nofollow" target="_blank">
@@ -114,8 +114,8 @@
             <td>
               <button class="btn btn-sm btn-blue" ui-sref="orders.view({orderId:order._id})"
                       ng-show="order.status=='NOTPAYED' && order.orderer.username==vm.authentication.user.username">
-                <span>پرداخت نشده</span></button>
-              <span class="label-success label" ng-show="order.status=='PAYED'">پرداخت شده</span>
+                <span>Payment failed</span></button>
+              <span class="label-success label" ng-show="order.status=='PAYED'">Paid</span>
             </td>
             <!--<td class="center">-->
             <!--&lt;!&ndash;<div class="visible-md visible-lg hidden-sm hidden-xs">-->
@@ -154,7 +154,7 @@
           <li>
             <a href="#" ng-click="vm.nextPage(-1)">
               <i class="ti-arrow-right"></i>
-              صفجه قبل
+              previous
             </a>
           </li>
           <li ng-repeat="item in [].constructor(vm.pages) track by $index" ng-click="vm.pageChange($index)">
@@ -164,7 +164,7 @@
           </li>
           <li>
             <a href="#" ng-click="vm.nextPage(1)">
-              صفحه بعد
+              next
               <i class="ti-arrow-left"></i>
             </a>
           </li>

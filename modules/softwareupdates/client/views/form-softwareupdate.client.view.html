@@ -1,9 +1,9 @@
 <section id="page-title">
     <div class="row">
         <div class="col-sm-8">
-            <h1 class="mainTitle">مدیریت آپدیت نرم افزار</h1>
+            <h1 class="mainTitle">Software Updates</h1>
             <span class="mainDescription">
-مدیریت فایل های نسخه های نرم افزار
+                Version Management
                 </small></span>
         </div>
 
@@ -15,16 +15,16 @@
         <div class="col-md-5 col-sm-12 col-xs-12">
             <div class="panel panel-white">
                 <div class="panel-heading border-light">
-                    <h4 class="panel-title">افزودن نسخه جدید</h4>
+                    <h4 class="panel-title">Add New</h4>
                 </div>
                 <div class="panel-body">
                     <p class="text-small margin-bottom-20">
-اطلاعات نسخه ی جدید را وارد کنید
+                        Description
                     </p>
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label for="name" class="control-label col-sm-2">
-                                نام آپدیت
+                                Name
                             </label>
                             <div class="col-sm-10">
                                 <input ng-model="vm.form.name" id="name" class="form-control" type="text"
@@ -33,7 +33,7 @@
                         </div>
                         <div class="form-group">
                             <label for="version" class="control-label col-sm-2">
-                                ورژن
+                                Version
                             </label>
                             <div class="col-sm-10">
                                 <input ng-model="vm.form.version" id="version" class="form-control" type="text"
@@ -45,7 +45,7 @@
                         <div ng-show="!vm.fileSelected" class="text-right form-group">
                             <button class="btn btn-default btn-file"
                                     ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="patientFile"
-                                    ngf-before-model-change="vm.loading = true">انتخاب فایل آپدیت
+                                    ngf-before-model-change="vm.loading = true">Select File
                             </button>
                         </div>
 
@@ -61,8 +61,7 @@
                           <input id='fileid' type='file' name='filename' value="F:\Payatek\PT-SCANSUIT\update version\1.3.1.2.zip"/>
                           <p>Selected file: {{filename}}</p>
                           <!--<button type="submit" class="btn btn-green" ng-click="filename = patientFile">ثبت فایل-->
-                            <button type="submit" class="btn btn-green" ng-click="vm.upload(patientFile)">ثبت فایل
-                                آپدیت
+                            <button type="submit" class="btn btn-green" ng-click="vm.upload(patientFile)"> Upload
                             </button>
                         </div>
 

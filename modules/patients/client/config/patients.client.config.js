@@ -10,7 +10,7 @@
   function menuConfig(menuService) {
     // Set top bar menu items
     menuService.addMenuItem('topbar', {
-      title: 'بیماران',
+      title: 'Patients',
         icon:'ti-id-badge',
       state: 'patients',
       type: 'dropdown',
@@ -19,14 +19,14 @@
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'patients', {
-      title: 'لیست بیماران',
+      title: 'List',
       state: 'patients.list',
         roles: ['user','doctor']
     });
 
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'patients', {
-      title: 'ایجاد پرونده بیمار',
+      title: 'Create',
       state: 'patients.create',
         roles: ['user','doctor']
     });

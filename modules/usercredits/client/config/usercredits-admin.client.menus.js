@@ -1,9 +1,9 @@
 (function () {
   'use strict';
 
-  angular
-    .module('usercredits.admin')
-    .run(menuConfig);
+  // angular
+  //   .module('usercredits.admin')
+  //   .run(menuConfig);
 
   menuConfig.$inject = ['menuService'];
 
