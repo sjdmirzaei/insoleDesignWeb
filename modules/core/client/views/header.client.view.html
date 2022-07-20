@@ -3,9 +3,9 @@
   <li ng-hide="!vm.authentication.user">
     <a href class="dropdown-toggle" data-toggle="dropdown">
       <i class="ti-credit-card"></i>
-      اعتبار
+      Credit
       {{vm.authentication.user.credit | currency: '' : 0}}
-تومان
+
     </a>
 
   </li>
@@ -22,7 +22,7 @@
     <!--//temporary disable creditPlan-->
     <a href ng-show="false" >
       <i class="ti-calendar"></i>
-      روز
+      Day
       <!--{{vm.remainingDate|number:6}}-->
       <!--{{vm.authentication.user.creditPlan.expire }}-->
       {{isNaN(Math.ceil(vm.authentication.user.remainingDate))?0:Math.ceil(vm.authentication.user.remainingDate)}}
@@ -35,7 +35,7 @@
   <li ng-hide="!vm.authentication.user">
     <a href ng-show="false" >
       <i class="ti-shopping-cart"></i>
-      سفارش
+      Order
       {{isNaN(vm.authentication.user.creditPlan.totalorder)?0:vm.authentication.user.creditPlan.totalorder}}
     </a>
 
@@ -169,16 +169,16 @@
   <!--&lt;!&ndash; start: USER OPTIONS DROPDOWN &ndash;&gt;-->
   <li class="dropdown " ng-hide="vm.authentication.user">
     <a href class="dropdown-toggle" data-toggle="dropdown">
-      <i class="ti-user"></i> ورود
+      <i class="ti-user"></i> Login
     </a>
     <ul role="menu" class="dropdown-menu dropdown-dark" >
 
     <li ui-sref-active="active">
-      <a ui-sref="authentication.signup">ثبت نام</a>
+      <a ui-sref="authentication.signup">Sign up</a>
     </li>
     <li class="divider-vertical"></li>
     <li ui-sref-active="active">
-      <a ui-sref="authentication.signin">ورود</a>
+      <a ui-sref="authentication.signin">Login</a>
     </li>
   </ul>
   </li>
@@ -193,7 +193,7 @@
         <a ui-sref="{{item.state}}" ng-bind="item.title"></a>
       </li>
       <li>
-        <a href="/api/auth/signout" target="_self">خروج<i class="fa fa-sign-out pull-right"></i></a>
+        <a href="/api/auth/signout" target="_self">Log out<i class="fa fa-sign-out pull-right"></i></a>
       </li>
     </ul>
   </li>

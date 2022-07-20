@@ -1,0 +1,130 @@
+<section id="page-title">
+  <div class="row">
+    <div class="col-sm-8">
+      <h1 class="mainTitle">{{vm.usercredit._id ? 'Edit bank receipt' : 'Register bank receipt'}}</h1>
+      <span class="mainDescription">Register bank receipt to increase PT-Credit</span>
+    </div>
+  </div>
+</section>
+<div class="container-fluid container-fullw bg-white">
+  <!--<div class="row">-->
+    <!--<div class="col-md-12" >-->
+      <!--<h5 class="over-title margin-bottom-15">انتخاب  <span class="text-bold">بسته</span></h5>-->
+      <!--<p>-->
+
+      <!--</p>-->
+      <!--<div class="pricing-table pricing-blue" ng-repeat="plan in vm.creditplans" >-->
+        <!--<div class="col-lg-3 col-md-3 col-xs-6">-->
+          <!--<ul class="plan plan1" ng-class="plan.featured?'featured':''">-->
+            <!--<li class="plan-name">-->
+              <!--{{plan.name}}-->
+            <!--</li>-->
+            <!--<li class="plan-price">-->
+              <!--<h3> {{plan.price}} تومان </h3>-->
+            <!--</li>-->
+            <!--<li>فضای اطلاعات-->
+              <!--<strong>{{plan.host}}GB</strong>-->
+            <!--</li>-->
+            <!--<li>تعداد سفارش-->
+              <!--<strong>{{plan.totalorder}}</strong>-->
+            <!--</li>-->
+            <!--<li>مدت اعتبار-->
+              <!--<strong>{{plan.expire}} ماه</strong>-->
+            <!--</li>-->
+            <!--<li class="plan-action">-->
+              <!--<a href="#" class="btn btn-blue btn-lg" ng-click="vm.PaymentRequest(plan)">-->
+                <!--خرید بسته-->
+                <!--<span class="fa fa-cart"></span>-->
+              <!--</a>-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</div>-->
+
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+  <!--<button ng-click="vm.addCredit()" class="btn">-->
+
+  <div class="container-fluid container-fullw bg-white">
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-6">
+
+      <!--ng-submit="vm.save(vm.form.usercreditForm.$valid)" novalidate-->
+      <form name="vm.form.usercreditForm" class="form-horizontal" >
+        <fieldset>
+          <legend>
+            Online payment
+          </legend>
+
+          <div class="form-group" show-errors>
+            <label class="control-label" for="fishPrice">Amount</label>
+            <div class="input-group">
+              <input name="price" type="number" ng-model="vm.usercredit.fishPrice" id="fishPrice" class="form-control" placeholder="Amount" required>
+              <span class="input-group-addon">Toman</span>
+            </div>
+
+            <div ng-messages="vm.form.usercreditForm.fishPrice.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Required amount.</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-success" ng-click="vm.PaymentRequest({'price':vm.usercredit.fishPrice})">Pay</button>
+
+            <!--<button class="btn btn-success" ng-click="vm.PaymentRequest({"price":123}) /button>-->
+            <!--<a href="#" class="btn btn-green btn-lg" ng-click="vm.PaymentRequest({"price":123})">-->
+              <!--پرداخت-->
+              <!--<span class="fa fa-cart"></span>-->
+            <!--</a>-->
+            <!--<button type="submit" class="btn btn-success">{{vm.usercredit._id ? 'ویرایش' : 'پرداخت'}}</button>-->
+          </div>
+
+        </fieldset>
+      </form>
+
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+
+      <!--ng-submit="vm.save(vm.form.usercreditForm.$valid)" novalidate-->
+      <form name="vm.form.usercreditForm" class="form-horizontal" ng-submit="vm.save(vm.form.usercreditForm.$valid)" novalidate >
+        <fieldset>
+          <legend>
+            Register bank receipt
+          </legend>
+          <div class="form-group" show-errors>
+            <label class="control-label" for="fishNumber">Receipt .NO</label>
+            <input name="name" type="text" ng-model="vm.usercredit.fishNumber" id="fishNumber" class="form-control" placeholder="Receipt .NO" required>
+            <div ng-messages="vm.form.usercreditForm.fishNumber.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Required receipt .NO</p>
+            </div>
+          </div>
+
+          <div class="form-group" show-errors>
+            <label class="control-label" for="fishPrice">Amount</label>
+            <div class="input-group">
+              <input name="fishPrice" type="text" ng-model="vm.usercredit.fishPrice" id="fishPrice" class="form-control" placeholder="Amount" required>
+              <span class="input-group-addon">Toman</span>
+            </div>
+
+            <div ng-messages="vm.form.usercreditForm.fishPrice.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Required amount.</p>
+            </div>
+          </div>
+          <div class="form-group" show-errors>
+            <label class="control-label" for="desc">Description</label>
+            <textarea name="desc" type="text" ng-model="vm.usercredit.desc" id="desc" class="form-control" placeholder="Description" required/>
+            <div ng-messages="vm.form.usercreditForm.fishNumber.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Required receipt .NO</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">{{vm.usercredit._id ? 'Edit' : 'Register'}}</button>
+          </div>
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+        </fieldset>
+      </form>
+
+    </div>
+  </div>
+</div>

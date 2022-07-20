@@ -1,0 +1,50 @@
+<div class="wrap-content container" id="container">
+  <!-- start: PAGE TITLE -->
+  <section id="page-title">
+    <div class="row">
+      <div class="col-sm-8">
+        <h1 class="mainTitle">Credits list</h1>
+        <span class="mainDescription">Registered receipt need to be confirmed.
+</span>
+      </div>
+    </div>
+  </section>
+  <div class="container-fluid container-fullw bg-white">
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered table-hover" id="sample-table-2">
+          <thead>
+          <tr>
+            <th>Image</th>
+            <th>User</th>
+            <th>Date</th>
+            <th class="hidden-xs">Receipt .NO</th>
+            <th class="hidden-xs">Amount</th>
+            <th>Confirmation status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="usercredit in vm.usercredits">
+            <td class="center">
+              <img ng-show="usercredit.user.profilePicUrl" src="{{usercredit.user.profilePicUrl}}" class="img-rounded" onerror="this.src='/modules/users/client/img/profile/default.png';"/>
+              <img ng-show="!usercredit.user.profilePicUrl" class="img-circle" style="width: 32px" ng-src="/modules/users/client/img/profile/default.png" src="/modules/users/client/img/profile/default.png">
+            </td>
+            <td>{{usercredit.user.displayName}}</td>
+            <td class="hidden-xs"><span ng-bind="usercredit.created | jDate"></span></td>
+            <td class="hidden-xs">{{usercredit.fishNumber}}</td>
+            <td class="hidden-xs">{{usercredit.fishPrice | currency: 'Toman' : 0}}</td>
+
+            <td><span class="label-danger label" ng-show="usercredit.status==false">Pending</span>
+              <span class="label-success label" ng-show="usercredit.status==true">Confirmed</span>
+            </td>
+
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  </section>
+</div>
+

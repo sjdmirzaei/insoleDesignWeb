@@ -8,7 +8,7 @@
           </div>
           <div class="col-sm-6">
             <p class="text-dark">
-             فاکتور <small class="text-light"></small>
+             Payement <small class="text-light"></small>
             </p>
           </div>
         </div>
@@ -72,19 +72,19 @@
               <thead>
               <tr>
                 <th> # </th>
-                <th class="hidden-480"> نوع سفارش </th>
-                <th class="hidden-480"> هزینه سفارش </th>
-                <th class="hidden-480"> توضیحات </th>
-                <th> جمع کل </th>
+                <th class="hidden-480"> Order Type </th>
+                <th class="hidden-480"> Cost </th>
+                <th class="hidden-480"> Description </th>
+                <th> Total </th>
               </tr>
               </thead>
               <tbody>
               <tr>
                 <td> 1 </td>
-                <td>درخواست Gcode</td>
-                <td> {{vm.gcode.orderPrice |  currency: "تومان" : 0}} </td>
+                <td> Get Gcode</td>
+                <td> {{vm.gcode.orderPrice |  currency: "" : 0}} </td>
                 <td> {{vm.gcode.desc}} </td>
-                <td> {{vm.gcode.orderPrice |  currency: "تومان" : 0}} </td>
+                <td> {{vm.gcode.orderPrice |  currency: "" : 0}} </td>
               </tr>
 
               </tbody>
@@ -95,27 +95,27 @@
           <div class="col-sm-12 invoice-block">
             <ul class="list-unstyled amounts text-small">
               <li>
-                <strong>جمع کل:</strong> {{vm.gcode.orderPrice |  currency: "تومان" : 0}}
+                <strong>Total Price:</strong> {{vm.gcode.orderPrice |  currency: "" : 0}}
               </li>
               <li>
-                <strong>تخفیف:</strong> 0%
+                <strong>Discount:</strong> 0%
               </li>
               <li>
-                <strong>مالیات:</strong> 0%
+                <strong>Tax:</strong> 0%
               </li>
               <li class="text-extra-large text-dark margin-top-15">
-                <strong >مبلغ پرداختی:</strong> {{vm.gcode.orderPrice |  currency: "تومان" : 0}}
+                <strong >Price: </strong> {{vm.gcode.orderPrice |  currency: "" : 0}}
               </li>
             </ul>
             <br>
             <a onclick="javascript:window.print();" class="btn btn-lg btn-primary hidden-print">
-              چاپ <i class="fa fa-print"></i>
+              Print <i class="fa fa-print"></i>
             </a>
             <button ng-disabled="vm.gcode.status=='PAYED'" class="btn btn-lg btn-primary btn-o hidden-print" ng-click="vm.payGcode({gcodeId:vm.gcode._id, payFromPlan:false})">
-              پرداخت و کسر از اعتبار <i class="fa fa-check"></i>
+              Pay By Cash <i class="fa fa-check"></i>
             </button>
             <button ng-disabled="vm.gcode.status=='PAYED'" class="btn btn-lg btn-primary btn-o hidden-print" ng-click="vm.payGcode({gcodeId:vm.gcode._id, payFromPlan:true})">
-              پرداخت و کسر از بسته gcode <i class="fa fa-check"></i>
+              Pay By Credit <i class="fa fa-check"></i>
             </button>
           </div>
         </div>

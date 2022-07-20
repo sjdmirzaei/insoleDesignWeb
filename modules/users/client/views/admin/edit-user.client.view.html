@@ -67,6 +67,15 @@
           </div>
         </div>
 
+<div class="form-group" show-errors>
+<label for="password">گذرواژه</label>
+<input type="password" id="password" name="password" class="form-control" ng-model="vm.user.password" placeholder="password" />
+<div ng-messages="vm.userForm.password.$error" role="alert">
+<p class="help-block error-text" ng-message="required"> password is required. </p>
+</div>
+</div>
+
+
         <div class="form-group">
           <input type="submit" value="Update" class="btn btn-default">
         </div>

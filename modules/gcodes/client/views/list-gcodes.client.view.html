@@ -3,7 +3,7 @@
   <section id="page-title">
     <div class="row">
       <div class="col-sm-8">
-        <h1 class="mainTitle">لیست GCODE های خریداری شده</h1>
+        <h1 class="mainTitle">Ordered Gcodes</h1>
 
       </div>
 
@@ -15,21 +15,21 @@
         <table class="table table-bordered table-hover" id="sample-table-2">
           <thead>
           <tr>
-            <th>ردیف</th>
-            <th>هزینه پرداختی</th>
-            <td>نام بیمار</td>
-            <td>نام خانوادگی</td>
-            <td>نام طراحی</td>
-            <td>توضیحات</td>
-            <th>تاریخ ایجاد</th>
-            <th>وضعیت پرداخت</th>
-            <th>دانلود</th>
+            <th>No.</th>
+            <th>Cost</th>
+            <td>Patient First Name</td>
+            <td>Patient Last Name</td>
+            <td>Design Name</td>
+            <td>Description</td>
+            <th>Created</th>
+            <th>Paid</th>
+            <th>Download</th>
           </tr>
           </thead>
           <tbody>
           <tr ng-repeat="gcode in vm.pagedItems track by $index" >
             <td>{{$index+(vm.page*10)}}</td>
-            <td>{{gcode.orderPrice |  currency: "تومان" : 0}}</td>
+            <td>{{gcode.orderPrice |  currency: "" : 0}}</td>
             <td>{{gcode.PatientFirstName}}</td>
             <td>{{gcode.PatientLastName}}</td>
             <td>{{gcode.InsoleTitle}}</td>
@@ -39,11 +39,11 @@
               {{gcode.desc}}
             </td>
             <td>
-              <span ng-bind="gcode.created | jDate"></span>
+              <span ng-bind="gcode.created "></span>
             </td>
             <td>
-              <button class="btn btn-sm btn-blue" ui-sref="gcodes.view({gcodeId:gcode._id})" ng-show="gcode.status=='NOTPAYED'"><span >پرداخت نشده</span></button>
-              <span class="label-success label" ng-show="gcode.status=='PAYED'">پرداخت شده</span>
+              <button class="btn btn-sm btn-blue" ui-sref="gcodes.view({gcodeId:gcode._id})" ng-show="gcode.status=='NOTPAYED'"><span >Not Paid</span></button>
+              <span class="label-success label" ng-show="gcode.status=='PAYED'">Paid</span>
             </td>
             <td>
               <a class="btn btn-sm btn-dark-yellow" href="gcodes/download/{{gcode._id}}" target="_blank" ng-show="gcode.status=='PAYED'">
@@ -60,7 +60,7 @@
           <li>
             <a href="#" ng-click="vm.nextPage(-1)">
               <i class="ti-arrow-right"></i>
-              صفجه قبل
+              Previous
             </a>
           </li>
           <li ng-repeat="item in [].constructor(vm.pages) track by $index" ng-click="vm.pageChange($index)">
@@ -70,7 +70,7 @@
           </li>
           <li>
             <a href="#" ng-click="vm.nextPage(1)">
-              صفحه بعد
+              Next
               <i class="ti-arrow-left"></i>
             </a>
           </li>

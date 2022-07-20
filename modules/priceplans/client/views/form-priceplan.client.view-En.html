@@ -1,0 +1,72 @@
+
+<div class="wrap-content container" id="container">
+  <!-- start: PAGE TITLE -->
+  <section id="page-title">
+    <div class="row">
+      <div class="col-sm-8">
+
+        <h1 class="mainTitle">{{vm.priceplan._id ? 'Edit tariff' : 'Create new tariff'}}</h1>
+        <span class="mainDescription">
+          Registration and change of service tariffs
+</span>
+      </div>
+
+    </div>
+  </section>
+  <div class="container-fluid container-fullw bg-white">
+    <div class="row">
+      <div class="col-md-12">
+
+        <form name="vm.form.priceplanForm" class="form-horizontal" ng-submit="vm.save(vm.form.priceplanForm.$valid)" novalidate>
+          <fieldset>
+            <div class="form-group" show-errors>
+              <label class="control-label" for="name">Tariff name</label>
+              <input name="name" type="text" ng-model="vm.priceplan.name" id="name" class="form-control" placeholder="Name" required>
+              <div ng-messages="vm.form.priceplanForm.name.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Priceplan name is required.</p>
+              </div>
+            </div>
+            <div class="form-group" show-errors>
+              <label class="control-label" for="name">Price (with design)</label>
+              <div class="input-group">
+                <input name="name" type="text" ng-model="vm.priceplan.price" id="price" class="form-control" placeholder="price" required>
+                <span class="input-group-addon">Toman</span>
+              </div>
+
+              <div ng-messages="vm.form.priceplanForm.price.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Priceplan price is required.</p>
+              </div>
+            </div>
+            <div class="form-group" show-errors>
+              <label class="control-label" for="name">Price (without design)</label>
+              <div class="input-group">
+                <input name="name" type="text" ng-model="vm.priceplan.purePrice" id="purePrice" class="form-control" placeholder="price" required>
+                <span class="input-group-addon">Toman</span>
+              </div>
+
+              <div ng-messages="vm.form.priceplanForm.purePrice.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Priceplan purePrice is required.</p>
+              </div>
+            </div>
+            <div class="form-group" show-errors>
+              <label class="control-label" for="desc">Description</label>
+              <textarea name="name" type="text" ng-model="vm.priceplan.desc" id="desc" class="form-control" placeholder="توضیحات" required/>
+              <div ng-messages="vm.form.priceplanForm.name.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Priceplan name is required.</p>
+              </div>
+            </div>
+            <div class="form-group">
+
+              <button type="submit" class="btn btn-primary">{{vm.priceplan._id ? 'Edit' : 'Creation'}}</button>
+            </div>
+            <div ng-show="vm.error" class="text-danger">
+              <strong ng-bind="vm.error"></strong>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+  </section>
+</div>
+

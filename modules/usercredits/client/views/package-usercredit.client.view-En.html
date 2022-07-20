@@ -1,0 +1,113 @@
+<section id="page-title">
+  <div class="row">
+    <div class="col-sm-8">
+      <!--temporary disable creditPlan-->
+      <h1 class="mainTitle">Buy <a href="#design" ng-show="false">Design package &</a><a href="#gcode">Gcode package</a></h1>
+      <span class="mainDescription">Choose package</span>
+    </div>
+  </div>
+</section>
+<div class="container-fluid container-fullw bg-white">
+  <div class="row">
+    <a name="design" ng-show="false">
+    <div class="col-md-12 col-sm-6 col-xs-6"  ng-show="false" >
+      <h5 class="over-title margin-bottom-15">Choose  <span class="text-bold">Design package</span></h5>
+      <p>
+      </p>
+      <div class="pricing-table pricing-blue" ng-repeat="plan in vm.creditplans" >
+        <div class="col-lg-3 col-md-3 col-xs-6">
+          <ul class="plan plan1" ng-class="plan.featured?'featured':''">
+            <li class="plan-name">
+              {{plan.name}}
+            </li>
+            <li class="plan-price">
+              <h3> {{plan.price | currency:"":0}} Toman </h3>
+              <p>(Price per unit {{(plan.price /plan.totalorder)| currency:"":0}} Toman)</p>
+            </li>
+            <li>Order count
+              <strong>{{plan.totalorder}}</strong>
+            </li>
+            <li>Validity duration
+              <strong>{{plan.expire}} Date</strong>
+            </li>
+            <li class="plan-action">
+              <a href="#" class="btn btn-blue btn-lg" ng-click="vm.PaymentRequest(plan)">
+                Buy package
+                <span class="fa fa-cart"></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    </a>
+    <a name="gcode">
+      <div class="col-md-12 col-sm-6 col-xs-6" >
+      <h5 class="over-title margin-bottom-15">Choose  <span class="text-bold">Gcode package</span></h5>
+      <p>
+      </p>
+      <div class="pricing-table pricing-green" ng-repeat="plan in vm.gcodeplans" >
+        <div class="col-lg-3 col-md-3 col-xs-6">
+          <ul class="plan plan1" ng-class="plan.featured?'featured':''">
+            <li class="plan-name">
+              {{plan.name}}
+            </li>
+            <li class="plan-price">
+              <h3> {{plan.price | currency:"":0}} Toman </h3>
+              <p>(Price per unit {{(plan.price /plan.totalorder)| currency:"":0}} Toman)</p>
+            </li>
+            <!--<li>فضای اطلاعات-->
+              <!--<strong>{{plan.host}}GB</strong>-->
+            <!--</li>-->
+            <li>Gcode count
+              <strong>{{plan.totalorder}}</strong>
+            </li>
+            <!--<li>مدت اعتبار-->
+              <!--<strong>{{plan.expire}} ماه</strong>-->
+            <!--</li>-->
+            <li class="plan-action">
+              <a href="#" class="btn btn-green btn-lg" ng-click="vm.PaymentRequest(plan)">
+                Buy package
+                <span class="fa fa-cart"></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+    </a>
+      <!--<div class="col-md-12 col-sm-6 col-xs-6" >-->
+      <!--<h5 class="over-title margin-bottom-15">انتخاب  <span class="text-bold">بسته gcode</span></h5>-->
+      <!--<p>-->
+
+      <!--</p>-->
+      <!--<div class="pricing-table pricing-green" ng-repeat="plan in vm.gcodeplans" >-->
+        <!--<div class="col-lg-3 col-md-3 col-xs-6">-->
+          <!--<ul class="plan plan1" ng-class="plan.featured?'featured':''">-->
+            <!--<li class="plan-name">-->
+              <!--{{plan.name}}-->
+            <!--</li>-->
+            <!--<li class="plan-price">-->
+              <!--<h3> {{plan.price}} تومان </h3>-->
+            <!--</li>-->
+
+            <!--<li>تعداد gcode-->
+              <!--<strong>{{plan.totalorder}}</strong>-->
+            <!--</li>-->
+
+            <!--<li class="plan-action">-->
+              <!--<a href="#" class="btn btn-green btn-lg" ng-click="vm.PaymentRequest(plan)">-->
+
+                <!--خرید بسته-->
+                <!--<span class="fa fa-cart"></span>-->
+              <!--</a>-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</div>-->
+
+      <!--</div>-->
+    <!--</div>-->
+
+  </div>
+</div>

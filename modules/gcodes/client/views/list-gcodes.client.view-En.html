@@ -1,0 +1,82 @@
+<div class="wrap-content container" id="container">
+  <!-- start: PAGE TITLE -->
+  <section id="page-title">
+    <div class="row">
+      <div class="col-sm-8">
+        <h1 class="mainTitle">GCODE Purchased List</h1>
+
+      </div>
+
+    </div>
+  </section>
+  <div class="container-fluid container-fullw bg-white">
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered table-hover" id="sample-table-2">
+          <thead>
+          <tr>
+            <th>Index</th>
+            <th>Price</th>
+            <td>Patient Name</td>
+            <td>Patient Last name</td>
+            <td>Design name</td>
+            <td>Description</td>
+            <th>Creation Date</th>
+            <th>Payment status</th>
+            <th>Download</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="gcode in vm.pagedItems track by $index" >
+            <td>{{$index+(vm.page*10)}}</td>
+            <td>{{gcode.orderPrice |  currency: "Toman" : 0}}</td>
+            <td>{{gcode.PatientFirstName}}</td>
+            <td>{{gcode.PatientLastName}}</td>
+            <td>{{gcode.InsoleTitle}}</td>
+            <td>
+              {{gcode.InsoleMemo}}
+            -
+              {{gcode.desc}}
+            </td>
+            <td>
+              <span ng-bind="gcode.created | jDate"></span>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-blue" ui-sref="gcodes.view({gcodeId:gcode._id})" ng-show="gcode.status=='NOTPAYED'"><span >Not Payed</span></button>
+              <span class="label-success label" ng-show="gcode.status=='PAYED'">Payed</span>
+            </td>
+            <td>
+              <a class="btn btn-sm btn-dark-yellow" href="gcodes/download/{{gcode._id}}" target="_blank" ng-show="gcode.status=='PAYED'">
+
+                <span ><i class="fa fa-download"></i></span>
+              </a>
+            </td>
+
+          </tr>
+
+          </tbody>
+        </table>
+        <ul class="pagination margin-bottom-10">
+          <li>
+            <a href="#" ng-click="vm.nextPage(-1)">
+              <i class="ti-arrow-right"></i>
+              previous page
+            </a>
+          </li>
+          <li ng-repeat="item in [].constructor(vm.pages) track by $index" ng-click="vm.pageChange($index)">
+            <a href="#">
+              {{$index+1}}
+            </a>
+          </li>
+          <li>
+            <a href="#" ng-click="vm.nextPage(1)">
+              next page
+              <i class="ti-arrow-left"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </section>
+</div>

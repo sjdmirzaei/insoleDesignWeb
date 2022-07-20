@@ -119,8 +119,10 @@ exports.read = function(req, res) {
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   softwareupdate.isCurrentUserOwner = req.user && softwareupdate.user && softwareupdate.user._id.toString() === req.user._id.toString();
+console.log("WHAT THE HELL!!!");
+	res.sendFile(process.cwd() + '/' + softwareupdate.filePath);
 
-  res.sendFile('/home/admin/mnr/payatek-insole/'+softwareupdate.filePath);
+  //res.sendFile('/home/admin/mnr/payatek-insole/'+softwareupdate.filePath);
   //res.jsonp(softwareupdate);
 };
 

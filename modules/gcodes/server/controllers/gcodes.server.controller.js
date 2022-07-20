@@ -351,13 +351,14 @@ exports.list = function (req, res) {
         query = {};
     }
 
-    Gcode.find(query, 'user _id status desc created orderPrice PatientFirstName PatientLastName InsoleTitle InsoleMemo').sort('-created')
+    Gcode.find(query, {user:1, _id:1, status:1, desc:1, created:1, orderPrice:1, PatientFirstName:1, PatientLastName:1, InsoleTitle:1, InsoleMemo:1}).sort('-created')
         .skip(perPage * page).limit(perPage).populate('user', 'displayName').exec(function (err, gcodes) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
+console.log("Data Completed!!!");
             Gcode.count(query).exec(function (err, data) {
                 res.jsonp([gcodes, data, perPage]);
             })

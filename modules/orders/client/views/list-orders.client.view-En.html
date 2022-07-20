@@ -1,0 +1,176 @@
+<div class="wrap-content container" id="container">
+  <!-- start: PAGE TITLE -->
+  <section id="page-title">
+    <div class="row">
+      <div class="col-sm-8">
+        <h1 class="mainTitle">Orders list</h1>
+        <span class="mainDescription">Order list that has been registered for you
+</span>
+      </div>
+
+    </div>
+  </section>
+  <div class="container-fluid container-fullw bg-white">
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="panel panel-white">
+          <div class="panel-heading">
+            <h5 class="panel-title">Search</h5>
+          </div>
+          <div class="panel-body">
+
+            <form role="form" class="form-inline">
+              <div class="form-group">
+                <label>
+                  Order code
+                </label>
+                <span class="input-icon">
+                                <input type="text" ng-model="vm.filter.sid" placeholder="Order code"
+                                       class="form-control">
+                              <i class="ti-shopping-cart"></i> </span>
+              </div>
+              <div class="form-group">
+                <label>
+                  From date
+                </label>
+                <span class="input-icon">
+                                <input id="fromDatePlayed" name="fromDate"
+                                       class="form-control" type="text"
+                                       datepicker-config="vm.datepickerConfig"
+                                       ng-model="vm.filter.fromDate"
+                                       ng-jalaali-flat-datepicker>
+                                <i class="ti-calendar"></i> </span>
+              </div>
+              <div class="form-group">
+                <label>
+                  To date
+                </label>
+                <span class="input-icon">
+                                <input id="toDatePlayed" name="toDate" class="form-control" type="text"
+                                       datepicker-config="vm.datepickerConfig"
+                                       ng-model="vm.filter.toDate" ng-jalaali-flat-datepicker>
+                                <i class="ti-calendar"></i> </span>
+              </div>
+
+
+
+              <button class="btn btn-primary btn-squared" type="submit"
+                      ng-click="vm.pageChange(vm.filter.page)">
+                Search
+                <span class="fa fa-search"></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <table class="table table-bordered table-hover" id="sample-table-2">
+          <thead>
+          <tr>
+            <th>Index</th>
+            <th>Order code</th>
+            <th>Patient coed</th>
+            <th>Submissions / Received</th>
+            <th>Order date</th>
+            <th>Patient name</th>
+            <th>Designer</th>
+            <th>Cost of payment</th>
+
+            <!--<th class="hidden-xs">ایمیل</th>
+            <th class="hidden-xs">تلفن</th>
+            <th class="hidden-xs">شهر</th>
+            <th class="hidden-xs">سن</th>
+            <th class="hidden-xs">شماره پا</th> -->
+
+            <th>Payment status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="order in vm.pagedItems track by $index">
+            <td>{{$index+(vm.filter.page*10)}}</td>
+            <td>
+              <button class="btn-link" ui-sref="orders.view({orderId:order._id})">{{order.sid}}</button>
+            </td>
+            <td>{{order.patient.PatientCode}}</td>
+            <td ng-show="order.cncUser.username!=vm.authentication.user.username">Order sent</td>
+            <td ng-show="order.cncUser.username==vm.authentication.user.username">Order received</td>
+            <td>{{order.created | jDate}}</td>
+            <td><a href="#" ui-sref="patients.view({patientId:order.patient._id})">
+              {{order.patient.FirstName}} {{order.patient.LastName}}</a></td>
+            <td>{{order.cncUser.displayName}}</td>
+            <td>{{order.orderPrice | currency: "Toman" : 0}}</td>
+
+            <!--<td class="hidden-xs">
+                <a href="#" rel="nofollow" target="_blank">
+                    {{order.patient.Email}}
+                </a></td>
+            <td class="hidden-xs">{{order.patient.Phone}}</td>
+            <td class="hidden-xs">{{order.patient.City}}</td>
+
+            <td class="hidden-xs">{{order.patient.Age}}</td>
+            <td class="hidden-xs">{{order.patient.ShoeSize}}</td>
+            -->
+            <td>
+              <button class="btn btn-sm btn-blue" ui-sref="orders.view({orderId:order._id})"
+                      ng-show="order.status=='NOTPAYED' && order.orderer.username==vm.authentication.user.username">
+                <span>Payment failed</span></button>
+              <span class="label-success label" ng-show="order.status=='PAYED'">Paid</span>
+            </td>
+            <!--<td class="center">-->
+            <!--&lt;!&ndash;<div class="visible-md visible-lg hidden-sm hidden-xs">-->
+            <!--<a href="#" class="btn btn-transparent btn-sm" tooltip-placement="top" tooltip="Edit"-->
+            <!--ui-sref="patients.edit({ patientId: patient._id })"><i class="fa fa-pencil"></i></a>-->
+            <!--<a href="#" class="btn btn-transparent btn-sm tooltips" tooltip-placement="top" tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>-->
+            <!--<a href="#" class="btn btn-transparent btn-sm" tooltip-placement="top" tooltip="Edit"-->
+            <!--ui-sref=""><i class="fa fa-download"></i></a>-->
+            <!--</div>-->
+            <!--<div class="visible-xs visible-sm hidden-md hidden-lg">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="btn-group" dropdown>&ndash;&gt;-->
+            <!--&lt;!&ndash;<button type="button" class="btn btn-primary btn-sm dropdown-toggle"&ndash;&gt;-->
+            <!--&lt;!&ndash;dropdown-toggle>&ndash;&gt;-->
+            <!--&lt;!&ndash;<i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>&ndash;&gt;-->
+            <!--&lt;!&ndash;</button>&ndash;&gt;-->
+            <!--&lt;!&ndash;<ul class="dropdown-menu pull-right dropdown-light" role="menu">&ndash;&gt;-->
+            <!--&lt;!&ndash;<li>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a href="#">&ndash;&gt;-->
+            <!--&lt;!&ndash;ویرایش&ndash;&gt;-->
+            <!--&lt;!&ndash;</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</li>&ndash;&gt;-->
+            <!--&lt;!&ndash;<li>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a href="#">&ndash;&gt;-->
+            <!--&lt;!&ndash;حذف&ndash;&gt;-->
+            <!--&lt;!&ndash;</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</li>&ndash;&gt;-->
+            <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</td>-->
+          </tr>
+
+          </tbody>
+        </table>
+        <ul class="pagination margin-bottom-10">
+          <li>
+            <a href="#" ng-click="vm.nextPage(-1)">
+              <i class="ti-arrow-right"></i>
+              previous page
+            </a>
+          </li>
+          <li ng-repeat="item in [].constructor(vm.pages) track by $index" ng-click="vm.pageChange($index)">
+            <a href="#">
+              {{$index+1}}
+            </a>
+          </li>
+          <li>
+            <a href="#" ng-click="vm.nextPage(1)">
+              next page
+              <i class="ti-arrow-left"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </section>
+</div>

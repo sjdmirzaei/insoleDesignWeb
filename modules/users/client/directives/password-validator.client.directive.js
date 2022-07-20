@@ -41,16 +41,24 @@
             progress: '100'
           }];
 
-          if (result.errors.length < requirementsMeter.length) {
-            requirementsIdx = requirementsMeter.length - result.errors.length - 1;
+          //if (result.errors.length < requirementsMeter.length) {
+//requirementsIdx = requirementsMeter.length - result.errors.length - 1;
+if(result.requiredTestErrors.length < requirementsMeter.length){
+
+            requirementsIdx = requirementsMeter.length - result.requiredTestErrors.length - 1;
           }
 
           scope.requirementsColor = requirementsMeter[requirementsIdx].color;
           scope.requirementsProgress = requirementsMeter[requirementsIdx].progress;
 
-          if (result.errors.length) {
+          //if (result.errors.length) {
+//scope.passwordErrors = result.errors;
+
+if (result.requiredTestErrors.length) {
+scope.passwordErrors = result.requiredTestErrors;
+
             scope.getPopoverMsg = PasswordValidator.getPopoverMsg();
-            scope.passwordErrors = result.errors;
+            scope.passwordErrors = result.requiredTestErrors;
             status = false;
           } else {
             scope.getPopoverMsg = '';

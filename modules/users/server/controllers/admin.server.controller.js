@@ -41,6 +41,13 @@ exports.update = function (req, res) {
   user.gcodePlan = req.body.gcodePlan;
   user.expireCreditDate = req.body.expireCreditDate;
 
+  console.log(req.body.password);
+
+  if(req.body.password != '' && req.body.password != undefined ){
+    user.password = req.body.password;
+console.log("CHaNGED");
+}
+
   user.save(function (err) {
     if (err) {
       return res.status(422).send({
