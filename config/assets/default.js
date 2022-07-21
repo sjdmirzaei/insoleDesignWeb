@@ -20,7 +20,7 @@ module.exports = {
                 //   // endbower
 
                 "public/RTL/vendor/bootstrap/css/bootstrap.min.css",
-                "public/RTL/vendor/bootstrap/css/bootstrap-rtl.min.css",
+                // "public/RTL/vendor/bootstrap/css/bootstrap-rtl.min.css",
                 "public/RTL/vendor/fontawesome/css/font-awesome.min.css",
                 "public/RTL/vendor/themify-icons/themify-icons.min.css",
                 "public/RTL/vendor/animate.css/animate.min.css",
@@ -31,7 +31,7 @@ module.exports = {
                 "public/RTL/assets/css/styles.css",
                 "public/RTL/assets/css/plugins.css",
                 "public/RTL/assets/css/themes/theme-6.css",
-                "public/RTL/assets/css/rtl.css",
+                // "public/RTL/assets/css/rtl.css",
                 'public/lib/ng-jalaali-flat-datepicker/dist/ng-jalaali-flat-datepicker.css',
             ],
             js: [
