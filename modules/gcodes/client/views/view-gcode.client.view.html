@@ -107,12 +107,12 @@
             <a onclick="javascript:window.print();" class="btn btn-lg btn-primary hidden-print">
               Print <i class="fa fa-print"></i>
             </a>
-            <button ng-disabled="vm.gcode.status=='PAYED'" class="btn btn-lg btn-primary btn-o hidden-print" ng-click="vm.payGcode({gcodeId:vm.gcode._id, payFromPlan:false})">
+            <!-- <button ng-disabled="vm.gcode.status=='PAYED'" class="btn btn-lg btn-primary btn-o hidden-print" ng-click="vm.payGcode({gcodeId:vm.gcode._id, payFromPlan:false})">
               Buy <i class="fa fa-check"></i>
-            </button>
-            <!-- <button ng-disabled="vm.gcode.status=='PAYED'" class="btn btn-lg btn-primary btn-o hidden-print" ng-click="vm.payGcode({gcodeId:vm.gcode._id, payFromPlan:true})">
-              Buy Now<i class="fa fa-check"></i>
             </button> -->
+            <button ng-disabled="vm.gcode.status=='PAYED'" class="btn btn-lg btn-primary btn-o hidden-print" ng-click="vm.payGcode({gcodeId:vm.gcode._id, payFromPlan:true})">
+              Buy<i class="fa fa-check"></i>
+            </button>
           </div>
         </div>
       </div>
