@@ -37,7 +37,7 @@
               {{gcode.desc}}
             </td>
             <td>
-              <span ng-bind="gcode.created"></span>
+              <span ng-bind="gcode.created | date:'yyyy-MM-dd"></span>
             </td>
             <td>
               <button class="btn btn-sm btn-blue" ui-sref="gcodes.view({gcodeId:gcode._id})" ng-show="gcode.status=='NOTPAYED'"><span >Not Paid</span></button>

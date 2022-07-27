@@ -4,10 +4,7 @@
     <div class="row">
       <div class="col-sm-8">
         <h1 class="mainTitle">Orders list</h1>
-        <span class="mainDescription">Order list that has been registered for you
-</span>
       </div>
-
     </div>
   </section>
   <div class="container-fluid container-fullw bg-white">
@@ -38,7 +35,7 @@
                                 <input id="fromDatePlayed" name="fromDate"
                                        class="form-control" type="text"
                                        datepicker-config="vm.datepickerConfig"
-                                       ng-model="vm.filter.fromDate"
+                                       ng-model="vm.filter.fromDate  | date:'yyyy-MMM-dd"
                                        ng-jalaali-flat-datepicker>
                                 <i class="ti-calendar"></i> </span>
               </div>
@@ -49,7 +46,7 @@
                 <span class="input-icon">
                                 <input id="toDatePlayed" name="toDate" class="form-control" type="text"
                                        datepicker-config="vm.datepickerConfig"
-                                       ng-model="vm.filter.toDate" ng-jalaali-flat-datepicker>
+                                       ng-model="vm.filter.toDate | date:'yyyy-MMM-dd" ng-jalaali-flat-datepicker>
                                 <i class="ti-calendar"></i> </span>
               </div>
 
@@ -70,7 +67,7 @@
           <tr>
             <th>Index</th>
             <th>Order code</th>
-            <th>Patient coed</th>
+            <th>Patient code</th>
             <th>Submissions / Received</th>
             <th>Order date</th>
             <th>Patient name</th>
