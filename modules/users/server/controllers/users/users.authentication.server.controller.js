@@ -74,6 +74,53 @@ exports.signin = function (req, res, next) {
 };
 
 /**
+ * Signin with license
+ */
+exports.lsignin = function (req, res, next) {
+  passport.authenticate('local', function (err, user, info) {
+    if (err || !user) {
+        return  res.status(422).send(info);
+    } else {
+      if(user.hardwareCode == '111111')
+      {        
+        var date = new Date();
+        date.setFullYear(date.getFullYear()+1);
+        user.expireCreditDate = date;
+  
+        user.hardwareCode = req.body.hardwareCode;
+
+        user.save(user);        
+      }
+      else if(user.hardwareCode != req.body.hardwareCode)
+      {
+        return res.status(422).send({
+          message: 'The user is not valid!'
+        });
+      }
+
+      req.login(user, function (err) {
+        if (err) {
+          res.status(400).send(err);
+        } else {
+
+          // Remove sensitive data before login
+          //user.password = undefined;
+          //user.salt = undefined;
+          
+          var resUser = {
+            username: user.username,
+            expirationDate: user.expireCreditDate,
+            success: true
+          }
+          console.log(resUser);
+          res.json(resUser);
+        }
+      });
+    }
+  })(req, res, next);
+};
+
+/**
  * Signout
  */
 exports.signout = function (req, res) {

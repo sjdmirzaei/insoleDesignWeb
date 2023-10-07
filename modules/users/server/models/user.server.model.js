@@ -113,9 +113,15 @@ var UserSchema = new Schema({
   },
   credit: {type: Number, default: 0},
   creditPlan: {type: Schema.Types.Mixed},
-gcodePlan: {type: Schema.Types.Mixed},
-
-  expireCreditDate: {type: Date},
+  gcodePlan: {type: Schema.Types.Mixed},
+  hardwareCode: {
+    type: String,
+    default: '111111'
+  },
+  expireCreditDate: {
+    type: Date,
+    default: Date.now()
+  },
   providerData: {},
   additionalProvidersData: {},
   roles: {

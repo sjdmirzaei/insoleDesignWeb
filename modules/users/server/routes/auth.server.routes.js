@@ -16,6 +16,14 @@ module.exports = function (app) {
 
   // Setting up the users authentication api
   app.route('/api/auth/signup').post(users.signup);
+  app.route('/api/auth/licensesignin').post(function (req,res,next) {   
+      if (req.body.software){
+          req.session.software=req.body.software;
+      }else{
+          req.session.software="PT-InsoleDesign";
+      }
+      next();
+  },users.lsignin);
   app.route('/api/auth/signin').post(function (req,res,next) {
     // if (req.body.software){
     //   req.session.softwareVersion=req.body.softwareVersion;

@@ -40,6 +40,7 @@ exports.update = function (req, res) {
   user.creditPlan = req.body.creditPlan;
   user.gcodePlan = req.body.gcodePlan;
   user.expireCreditDate = req.body.expireCreditDate;
+  user.hardwareCode = req.body.hardwareCode;
 
   console.log(req.body.password);
 
