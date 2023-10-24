@@ -52,7 +52,7 @@
         </div>
 
         <div class="form-group" show-errors>
-          <label for="expireCreditDate">Package End Date</label>
+          <label for="expireCreditDate">License End Date</label>
           <input type="text" id="expireCreditDate" name="expireCreditDate" class="form-control" ng-model="vm.user.expireCreditDate" placeholder="expireCreditDate"  />
           <div ng-messages="vm.userForm.expireCreditDate.$error" role="alert">
             <p class="help-block error-text" ng-message="required">End Date is required.</p>
@@ -78,6 +78,11 @@
         <div class="form-group" show-errors>
           <label for="hardwareCode">Hardware Code</label>
           <input type="text" id="hardwareCode" name="hardwareCode" class="form-control" ng-model="vm.user.hardwareCode" placeholder="Hardware Code" />
+        </div>
+
+        <div class="form-group">
+          <label for="valid">Valid</label>
+          <input type="text" id="valid" name="valid" class="form-control" ng-model="vm.user.valid" placeholder="Valid" />
         </div>
 
         <div class="form-group">

@@ -25416,3 +25416,21 @@ Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the cli
 
 2023-10-07T09:41:47.616Z - info: [0mGET /api/users/5a6ef78159047838f7ff3b72 [32m200 [0m7.822 ms - 739[0m
 
+2023-10-07T10:27:36.124Z - info: [0mGET /api/users/5a6ef78159047838f7ff3b72 [36m304 [0m25.392 ms - -[0m
+
+2023-10-07T10:29:22.013Z - info: [0mPUT /api/users/5a6ef78159047838f7ff3b72 [32m200 [0m101405.534 ms - 740[0m
+
+2023-10-07T10:29:22.037Z - info: [0mGET /api/users/5a6ef78159047838f7ff3b72 [32m200 [0m19.800 ms - 740[0m
+
+2023-10-07T10:30:39.622Z - info: [0mGET /modules/users/client/views/admin/list-users.client.view.html [36m304 [0m2.520 ms - -[0m
+
+2023-10-07T10:30:39.707Z - info: [0mGET /api/users [32m200 [0m64.335 ms - -[0m
+
+2023-10-07T10:30:39.747Z - info: [0mGET /admin/%7B%7Buser.profileImageURL%7D%7D [36m304 [0m37.374 ms - -[0m
+
+2023-10-07T10:30:39.767Z - info: [0mGET /modules/users/client/img/profile/uploads/9aa664236b1ac873bfa44d21419775d3 [33m404 [0m17.511 ms - -[0m
+
+2023-10-07T10:30:39.788Z - info: [0mGET /modules/users/client/img/profile/uploads/329e8ce031200a0a6cc006c0c0f6ac5d [33m404 [0m17.451 ms - -[0m
+
+2023-10-07T10:30:39.790Z - info: [0mGET /modules/users/client/img/profile/uploads/6d910847baad58443ad1ec0af06777b6 [36m304 [0m0.821 ms - -[0m
+

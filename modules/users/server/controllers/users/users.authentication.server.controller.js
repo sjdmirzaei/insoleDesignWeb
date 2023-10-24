@@ -81,7 +81,7 @@ exports.lsignin = function (req, res, next) {
     if (err || !user) {
         return  res.status(422).send(info);
     } else {
-      if(user.hardwareCode == '111111')
+      if(user.hardwareCode == '111111' && user.valid)
       {        
         var date = new Date();
         date.setFullYear(date.getFullYear()+1);
