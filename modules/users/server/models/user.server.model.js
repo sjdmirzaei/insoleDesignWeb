@@ -147,7 +147,7 @@ var UserSchema = new Schema({
     type: Date
   },
   valid: {
-    type: bool
+    type: Boolean
   }
 });
 
