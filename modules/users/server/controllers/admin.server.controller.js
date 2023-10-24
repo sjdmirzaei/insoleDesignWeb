@@ -41,6 +41,7 @@ exports.update = function (req, res) {
   user.gcodePlan = req.body.gcodePlan;
   user.expireCreditDate = req.body.expireCreditDate;
   user.hardwareCode = req.body.hardwareCode;
+  user.valid = req.body.valid;
 
   console.log(req.body.password);
 
