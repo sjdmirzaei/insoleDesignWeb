@@ -85,7 +85,7 @@ exports.lsignin = function (req, res, next) {
       {        
         var date = new Date();
         date.setFullYear(date.getFullYear()+1);
-        user.expireCreditDate = date;
+        //user.expireCreditDate = date;
   
         user.hardwareCode = req.body.hardwareCode;
 
