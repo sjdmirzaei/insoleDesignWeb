@@ -19,7 +19,7 @@
             <td>Patient Name</td>
             <td>Patient Last name</td>
             <td>Design name</td>
-            <td>Description</td>
+            <td>User</td>
             <th>Creation Date</th>
             <th>Payment status</th>
             <th>Download</th>
@@ -32,12 +32,10 @@
             <td>{{gcode.PatientLastName}}</td>
             <td>{{gcode.InsoleTitle}}</td>
             <td>
-              {{gcode.InsoleMemo}}
-            -
-              {{gcode.desc}}
+              {{gcode.user.displayName}}
             </td>
             <td>
-              <span ng-bind="gcode.created | date:'yyyy-MM-dd"></span>
+              <span ng-bind="gcode.created | date:'yyyy-MM-dd'"></span>
             </td>
             <td>
               <button class="btn btn-sm btn-blue" ui-sref="gcodes.view({gcodeId:gcode._id})" ng-show="gcode.status=='NOTPAYED'"><span >Not Paid</span></button>
