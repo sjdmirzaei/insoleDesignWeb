@@ -17,6 +17,9 @@ module.exports = function (app) {
     app.route('/gcodes/download/:gcodeId').all(gcodesPolicy.isAllowed)
         .get(gcodes.download);
 
+    app.route('/gcodes/downloadSTL/:gcodeId').all(gcodesPolicy.isAllowed)
+        .get(gcodes.downloadFile);
+
     app.route('/api/gcodes/:gcodeId').all(gcodesPolicy.isAllowed)
         .get(gcodes.read)
         .put(gcodes.update)
