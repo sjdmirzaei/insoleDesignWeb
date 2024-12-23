@@ -82,7 +82,9 @@
 
         <div class="form-group">
           <label for="valid">Valid</label>
-          <input type="text" id="valid" name="valid" class="form-control" ng-model="vm.user.valid" placeholder="Valid" />
+          <select type="text" id="valid" name="valid" class="form-control" ng-model="vm.user.valid" placeholder="Valid"
+ng-options="o.v as o.n for o in [{ n: 'false', v: false }, { n: 'true', v: true }]">
+	</select>
         </div>
 
         <div class="form-group">
