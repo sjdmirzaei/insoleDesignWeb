@@ -118,6 +118,65 @@ exports.getGcode = function (req, res) {
     })
 
 }
+
+
+exports.getSTL = function (req, res) {
+    var fs = require('fs');
+    // var CryptoJS = require("crypto");
+
+    var crypto = require("crypto");
+
+
+    var baseUploadPath = './certs/' + req.user._id + "/";
+    var kystring = fs.readFileSync(baseUploadPath + '/' + req.user._id + '_privatekey.pem').toString();
+    //console.log(kystring);
+    var pvKey = new NodeRSA(kystring);
+
+    var buffer = new Buffer(req.body.IV, "utf8");
+    var IV = pvKey.decrypt(req.body.IV);
+
+    var buffer = new Buffer(req.body.Key, "utf8");
+    var Key = pvKey.decrypt(req.body.Key);
+
+
+    var decipher = crypto.createDecipheriv('aes-256-cbc', Key, IV);
+    var decrypted = "";
+
+    //  var encryptdata = new Buffer(req.body.encryptedData, "binary");
+    var encryptdata = new Buffer(req.body.encryptedData, 'base64').toString('binary');
+
+    decrypted = decipher.update(encryptdata, 'binary', 'utf8');
+    decrypted += decipher.final('utf8');
+
+    var orderPrice = 10000;  //For test only
+    var gcode = new Gcode();
+    gcode.orderPrice=orderPrice;
+    gcode.user=req.user._id;
+    gcode.data=decrypted;
+    gcode.desc=Date.now();
+    var gcodeData=JSON.parse(decrypted);
+
+    gcode.PatientFirstName=gcodeData.PatientFirstName;
+    gcode.PatientLastName=gcodeData.PatientLastName;
+    gcode.InsoleTitle=gcodeData.InsoleTitle;
+    gcode.InsoleMemo=gcodeData.InsoleMemo;
+    console.log(gcode.InsoleMemo);
+    console.log(gcode.InsoleTitle);
+    gcode.save(function (err) {
+        if (err) {
+            return res.status(422).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp({
+                payUrl: "/gcodes/"+gcode._id
+            });
+        }
+
+    })
+
+
+
 /**
  * Update user details
  */

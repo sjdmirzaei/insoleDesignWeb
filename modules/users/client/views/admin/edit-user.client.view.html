@@ -82,7 +82,10 @@
 
         <div class="form-group">
           <label for="valid">Valid</label>
-          <input type="text" id="valid" name="valid" class="form-control" ng-model="vm.user.valid" placeholder="Valid" />
+          <select type="text" id="valid" name="valid" class="form-control" ng-model="vm.user.valid" placeholder="Valid">
+            <option value=true>true</option>
+            <option value=false>false</option>
+          </select>
         </div>
 
         <div class="form-group">

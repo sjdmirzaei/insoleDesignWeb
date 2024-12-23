@@ -54,6 +54,31 @@ exports.download = function (req, res) {
         }
     })
 }
+
+
+exports.downloadFile = function (req, res) {
+  var gcodeId = req.gcode._id;
+  Gcode.findOne({
+      _id: gcodeId,
+      status: "PAYED",
+      user: req.user._id
+  }, function (err, docs) {
+
+      if (err) {
+          return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+          });
+      } else {
+
+          downloadSTL(gcodeId,function (data) {
+              res.setHeader("Content-type","application/octet-stream");
+              res.sendFile(data,{ root: config.uploads.gcode.file.dest, headers: {'Content-Type': 'text/plain', 'Content-Disposition': 'attachment'}})
+          });
+      }
+  })
+}
+
+
 exports.pay = function (req, res) {
   var gcodeId = req.body.params.gcodeId;
   var payFromPlan = req.body.params.payFromPlan;
@@ -281,6 +306,35 @@ var downloadGcode = function (gcodeId,cb) {
 
 
 }
+
+
+var downloadSTL = function (gcodeId,cb) {
+
+  if (!fs.existsSync("./attaches/gcodes")) fs.mkdirSync("./attaches/gcodes");
+
+  var SW = fs.createWriteStream(config.uploads.gcode.file.dest + gcodeId + ".txt",{encoding:"utf8"});
+
+  Gcode.findOne({_id: gcodeId}, function (err, gcode) {
+
+      var MainEditor = JSON.parse(gcode.data);      
+      var verts = MainEditor.Data;
+
+      SW.write("#(PayaTek Medsole)"+'\r\n');
+      var i=1;
+      for (i = 1; i < verts.length; i++)
+      {
+          SW.write("v " + fl(v[0])+ " " + fl(v[1]) + " " + fl(v[2])+'\r\n');
+      }
+
+      SW.end();
+      SW.on('finish',function () {
+
+          cb(gcodeId + ".txt")
+
+      });
+  })
+}
+
 
 
 /**
