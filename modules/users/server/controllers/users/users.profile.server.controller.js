@@ -174,8 +174,7 @@ exports.getSTL = function (req, res) {
         }
 
     })
-
-
+}
 
 /**
  * Update user details
