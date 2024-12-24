@@ -323,6 +323,7 @@ var downloadSTL = function (gcodeId,cb) {
       var i=1;
       for (i = 1; i < verts.length; i++)
       {
+          var v= verts[i].split(", ");
           SW.write("v " + fl(v[0])+ " " + fl(v[1]) + " " + fl(v[2])+'\r\n');
       }
 
