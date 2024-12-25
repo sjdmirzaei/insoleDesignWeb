@@ -320,8 +320,8 @@ var downloadSTL = function (gcodeId,cb) {
       var verts = MainEditor.Data;
 
       SW.write("#(PayaTek Medsole)"+'\r\n');
-      var i=1;
-      for (i = 1; i < verts.length; i++)
+      var i=0;
+      for (i = 0; i < verts.length; i++)
       {
           var v= verts[i].split(", ");
           SW.write("v " + fl(v[0])+ " " + fl(v[1]) + " " + fl(v[2])+'\r\n');
