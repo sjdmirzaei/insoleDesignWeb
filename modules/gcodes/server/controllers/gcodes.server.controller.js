@@ -413,8 +413,20 @@ exports.list = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-console.log("Data Completed!!!");
-            Gcode.count(query).exec(function (err, data) {
+	    console.log("Data Completed!!!");
+	    //let csv = gcodes.map(obj=>{
+		//const un=obj.user;
+		//if(un != null)
+		    //return `${un.username || 'N/A'}, ${obj.created}`});
+	    //csv = csv.join('\n');
+	    //fs.writeFile('name6.csv', csv, 'utf8', function(err) {
+		//  if (err) {
+		//    console.log('Some error occured - file either not saved or corrupted file saved.');
+		//  } else {
+		//    console.log('It\'s saved!');
+		//  }
+	    //});
+           Gcode.count(query).exec(function (err, data) {
                 res.jsonp([gcodes, data, perPage]);
             })
         }
